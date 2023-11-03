@@ -8,10 +8,12 @@ import { Link } from "react-router-dom";
 import Navbar from './Components/Navbar/Navbar.js'
 import MyAccount from './Components/MyAccount/MyAccount.js'
 import {  Route, Routes,  BrowserRouter } from 'react-router-dom';
+import LoginSignup from './Components/LoginSignup/Signup.js';
 
 function HomePage(){
   return (
     <>
+     <Navbar/>
       <h1>
          <p><Link to="/Signup" className="Signup">Signup here</Link></p>
          <p><Link to="/MyAccount" className="MyAccount">My account</Link></p> 
