@@ -42,7 +42,7 @@ const Home = () => {
 <nav className="navbar">
       <div className="navbar-container">
         <div className="logo">
-          {/* <img src="logo.png" alt="Logo" /> */}
+          <img src="logo.png" alt="Logo" />
           {/* <img src={Logo} alt="" /> */}
         </div>
         <ul className="navbar-menu">
@@ -65,16 +65,6 @@ const Home = () => {
     </section>
     </>
 
-
-      // <div className="home_page">
-      //   <h4>
-      //     {" "}
-      //     Welcome <span>{username}</span>
-      //   </h4>
-      //   <button onClick={Logout}>LOGOUT</button>
-      // </div>
-     // <ToastContainer />
-   // </>
   );
 };
 

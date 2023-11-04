@@ -65,49 +65,7 @@ const Signup = () => {
     };
   
     return (
-    //   <div className="container">
-    //   {/* for header */}
-    //   <div className="header">
-    //     <div className="text">SignUp</div>
-    //     <div className="underline"></div>
-    //   </div>
-
-    // {/* for inputs like name, mail, pass */}
-    // <form action="">
-    //   <div className="inputs">
-    //     <div className="input">
-    //         <img src={user_icon} alt=""/>
-    //         <input type="text" placeholder="Name"/>
-    //    </div>
-        
-    //     <div className="input">
-    //       <img src={email_icon} alt=""/>
-    //       <input type="email" placeholder="Email"/>
-    //     </div>
-    //     <div className="input">
-    //       <img src={password_icon} alt="" />
-    //       <input type="password" placeholder="Password"/>
-    //     </div>
-    //   </div>
-       
-    //   <div className="forgot-password">Lost Password? <span>click here!</span></div>
-
-    //   <div className="submit-container">
-    //     <button className="submit" type='submit' >SignUp </button>
-    //       <button className="submit gray" ><Link to ="/login">login </Link>  </button>
-    //   </div>
-    //   </form>
-    //  </div>
-     
-
-
-
-
-
-
-
       <div className="container">
-        {/* <h2>Signup Account</h2> */}
         {/* for header */}
       <div className="header">
         <div className="text">SignUp</div>
@@ -119,7 +77,6 @@ const Signup = () => {
         <div className="inputs">
         <div className="input">
         <img src={user_icon} alt=""/>
-          {/* <label htmlFor="name">Username</label> */}
           <input
             type="text"
             name="username"
@@ -130,7 +87,7 @@ const Signup = () => {
         </div>
           <div className="input">
           <img src={email_icon} alt=""/>
-            {/* <label htmlFor="email">Email</label> */}
+          
             <input
             type="email"
             name="email"
@@ -144,7 +101,7 @@ const Signup = () => {
        
         <div className="input">
         <img src={password_icon} alt="" />
-          {/* <label htmlFor="password">Password</label> */}
+       
           <input
             type="password"
             name="password"
@@ -163,7 +120,7 @@ const Signup = () => {
        
         <span>
          <button className="submit gray" ><Link to ="/login">login </Link>  </button>
-          {/* Already have an account? <Link to={"/login"}>Login</Link> */}
+    
         </span>
         </div>
         
