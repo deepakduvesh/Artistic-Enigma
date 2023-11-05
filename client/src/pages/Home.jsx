@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
 import axios from "axios";
 import "./Home.css";
 import {toast } from "react-toastify";
 import Cookies from "js-cookie";
+
 const Home = () => {
   const navigate = useNavigate();
   const deleteCookie = ()=>{
-    Cookies.remove('token')
+    if(token) Cookies.remove('token')
     navigate("/")
   }
   const token = Cookies.get('token')
@@ -28,13 +28,23 @@ const Home = () => {
           <li><a href="#services">Services</a></li>
         </ul>
         {
-          token?(<button onClick={deleteCookie}>Logout</button>):(<div className="auth-buttons">
-          <Link to="/signup"> sign up</Link>
+          token?
+          (<div className="auth-buttons">
+          <Link onClick={deleteCookie} to="/" > logout</Link>
+            
+            <Link to="/profile"> profile</Link>
+          </div>
+          ) 
+          :(<div className="auth-buttons">
+          <Link to="/signup" > sign up</Link>
             
             <Link to="/login"> sign in</Link>
           </div>)
         } 
         
+
+        
+
       </div>
     </nav>
     <section className="intro">
@@ -43,6 +53,9 @@ const Home = () => {
             {/* <button onClick={Logout}>LOGOUT</button> */}
            
     </section>
+
+      
+
     </>
 
   );

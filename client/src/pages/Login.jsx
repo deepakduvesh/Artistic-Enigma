@@ -51,10 +51,13 @@ const Login = () => {
         }
       );
       console.log(data);
-      const { success, message, token } = data;
+      const { success, message, token, } = data;
+
       if (success) {
         handleSuccess(message);
+        
         Cookies.set('token',token,{expires: 10/(24*60)})
+
         setTimeout(() => {
           navigate("/");
         }, 1000);
