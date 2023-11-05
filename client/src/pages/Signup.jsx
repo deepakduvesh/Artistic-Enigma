@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-
 import './LoginSignup.css'
-
 import user_icon from './Assets/profile.png'
 import email_icon from './Assets/email.png'
 import password_icon from './Assets/password.png'
@@ -15,8 +13,9 @@ const Signup = () => {
     email: "",
     password: "",
     username: "",
+    cPassword:"",
   });
-  const { email, password, username } = inputValue;
+  const { email, password, username, cPassword } = inputValue;
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -37,13 +36,17 @@ const Signup = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const { data } = await axios.post(
-          "http://localhost:4000/signup",
-          {
-            ...inputValue,
-          },
-          { withCredentials: true }
-        );
+        if(username.length<4 || password.length<4){
+          toast.error("username and password length must be greater than 4",{position:"bottom-right"})
+          // return ;
+        }
+        if(password!==cPassword){
+          toast.error("password and confirm password not matched",{position:"bottom-right"})
+          // return ;
+        }
+
+        const { data } = await axios.post("http://localhost:4000/signup",{...inputValue,});
+
         const { success, message } = data;
         if (success) {
           handleSuccess(message);
@@ -61,6 +64,7 @@ const Signup = () => {
         email: "",
         password: "",
         username: "",
+        cPassword:"",
       });
     };
   
@@ -107,6 +111,18 @@ const Signup = () => {
             name="password"
             value={password}
             placeholder="Password"
+            onChange={handleOnChange}
+          />
+        </div>
+
+        <div className="input">
+        <img src={password_icon} alt="" />
+       
+          <input
+            type="cPassword"
+            name="cPassword"
+            value={cPassword}
+            placeholder="confirmPassword"
             onChange={handleOnChange}
           />
         </div>
