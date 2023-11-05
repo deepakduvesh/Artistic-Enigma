@@ -38,7 +38,7 @@ const Home = () => {
       </div>
     </nav>
     <section className="intro">
-            <center><p>Welcome to Artistic Enigma <span>{"username"}</span></p></center>
+            <center><p>Welcome to Artistic Enigma <span>{"Champ"}</span></p></center>
             <center><h1>Showcase your Intelligence</h1></center>
             {/* <button onClick={Logout}>LOGOUT</button> */}
            

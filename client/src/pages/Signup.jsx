@@ -38,11 +38,11 @@ const Signup = () => {
       try {
         if(username.length<4 || password.length<4){
           toast.error("username and password length must be greater than 4",{position:"bottom-right"})
-          // return ;
+          return ;
         }
         if(password!==cPassword){
           toast.error("password and confirm password not matched",{position:"bottom-right"})
-          // return ;
+          return ;
         }
 
         const { data } = await axios.post("http://localhost:4000/signup",{...inputValue,});
@@ -135,7 +135,7 @@ const Signup = () => {
         <button className="submit" type="submit">SignUp</button>
        
         <span>
-         <button className="submit gray" ><Link to ="/login">login </Link>  </button>
+         <Link to ="/login"><button className="submit gray" >login   </button></Link>
     
         </span>
         </div>

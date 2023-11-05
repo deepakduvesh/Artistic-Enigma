@@ -38,7 +38,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if(email==="" || password.length===""){
+      if(email==="" || password===""){
         toast.error("All fields are required",{
           position:"bottom-left"
         })
@@ -116,7 +116,7 @@ const Login = () => {
           </div>
 
         <div className="submit-container">
-        <button className="submit gray" ><Link to ="/Signup">SignUp</Link></button>
+        <Link to ="/Signup"><button className="submit gray" >SignUp</button></Link>
           <button className="submit" type='submit'>Login</button>
       </div>
 
