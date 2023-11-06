@@ -1,10 +1,13 @@
 /* MyAccount Styles */
 .my-account-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    /* background: #f5f5f5; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 358px;
+  background: #f5f5f5;
+  width: 275px;
+  border-radius: 18px;
+  box-shadow: 10px 10px 35px black;
   }
   
   .user-profile {

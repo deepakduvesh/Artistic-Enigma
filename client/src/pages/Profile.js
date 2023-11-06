@@ -2,7 +2,7 @@ import React from 'react';
 import './Profile.css'; 
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
-
+import user_icon from './Assets/profile.png'
  const Profile = () => {
   const navigate = useNavigate();
   const token = Cookies.get('token') 
@@ -31,7 +31,7 @@ import { Link, useNavigate } from "react-router-dom";
         hello
       </h1> */}
       <div className="user-profile">
-        {/* <img src={userPhoto} alt="User" /> */}
+        <img src={user_icon} alt="User" />
         <h2>{user.name}</h2>
         <button onClick={handleEditProfile}>Edit Profile</button>
         <button onClick={handleLogout}>Logout</button>
