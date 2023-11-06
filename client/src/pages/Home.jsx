@@ -6,11 +6,16 @@ import {toast } from "react-toastify";
 import Cookies from "js-cookie";
 
 const Home = () => {
+  const ldata = sessionStorage.getItem("loginData")
+  const loginData = JSON.parse(ldata)
+  console.log(ldata)
+  console.log(loginData)
   const navigate = useNavigate();
   const deleteCookie = ()=>{
     if(token) Cookies.remove('token')
     navigate("/")
   }
+
   const token = Cookies.get('token')
   return (
     <>
