@@ -15,7 +15,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Your password is required"],
   },
-  createdAt: {
+  image: {
+    type: String,
+    required:[true,"image is required"]
+  },
+  createdAt: { 
     type: Date,
     default: new Date(),
   },

@@ -9,11 +9,18 @@ import password_icon from './Assets/password.png'
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [photo, setPhoto] = useState(null)
+
+  const handleFileChange = (event)=>{
+    setPhoto(event.target.files[0]);
+  }
+
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
     username: "",
     cPassword:"",
+    photo:""
   });
   const { email, password, username, cPassword } = inputValue;
   const handleOnChange = (e) => {
@@ -36,6 +43,10 @@ const Signup = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
+        if(!photo){
+          toast.error("please upload photo",{position:"bottom-right"})
+          return ;
+        }
         if(username.length<4 || password.length<4){
           toast.error("username and password length must be greater than 4",{position:"bottom-right"})
           return ;
@@ -44,8 +55,12 @@ const Signup = () => {
           toast.error("password and confirm password not matched",{position:"bottom-right"})
           return ;
         }
-
-        const { data } = await axios.post("http://localhost:4000/signup",{...inputValue,});
+    const formData = new FormData();
+    formData.append('photo', photo);
+      formData.append('username', username); // Add other form fields to FormData
+      formData.append('email', email);
+      formData.append('password', password);
+        const { data } = await axios.post("http://localhost:4000/signup",formData);
 
         const { success, message } = data;
         if (success) {
@@ -65,6 +80,7 @@ const Signup = () => {
         password: "",
         username: "",
         cPassword:"",
+        
       });
     };
   
@@ -107,7 +123,7 @@ const Signup = () => {
         <img src={password_icon} alt="" />
        
           <input
-            type="password"
+            // type="password"
             name="password"
             value={password}
             placeholder="Password"
@@ -119,11 +135,21 @@ const Signup = () => {
         <img src={password_icon} alt="" />
        
           <input
-            type="cPassword"
+            // type="cPassword"
             name="cPassword"
             value={cPassword}
             placeholder="confirmPassword"
             onChange={handleOnChange}
+          />
+        </div>
+        
+        <div className="input">
+       
+          <input
+            type="file"
+            name="file"
+            placeholder="upload your photo"
+            onChange={handleFileChange}
           />
         </div>
 
