@@ -51,16 +51,21 @@ const Login = () => {
         }
       );
       console.log(data);
-      const { success, message, token, } = data;
+      const { success, message, token,username,email_id } = data;
 
       if (success) {
         handleSuccess(message);
-        
+        const loginData = {
+          username:username,
+          email:email_id,
+        }
+        sessionStorage.setItem("loginData",JSON.stringify(loginData))
         Cookies.set('token',token,{expires: 10/(24*60)})
 
-        setTimeout(() => {
+        // setTimeout(() => {
           navigate("/");
-        }, 1000);
+        // }, 1000);
+        // console.log(data);
       } else {
         handleError(message);
       }

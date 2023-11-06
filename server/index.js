@@ -1,4 +1,3 @@
-
 const express = require("express");
 
 const PORT = 4000;
@@ -11,6 +10,7 @@ const cookieParser = require("cookie-parser");
 const authRoute = require("./Routes/AuthRoute");
 
 const { MONGO_URL} = process.env;
+
 
 mongoose.connect(MONGO_URL, {
     useNewUrlParser: true,
@@ -29,6 +29,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use('/uploads', express.static( './uploads'));
 
 app.use(cookieParser());
 
