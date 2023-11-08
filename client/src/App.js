@@ -6,6 +6,7 @@ import Profile from "./pages/Profile";
 import  About from "./pages/About";
 import  Contact from "./pages/Contact";
 import  Services from "./pages/Services";
+import Play from "./pages/Play";
  
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/Services" element={<Services />} />
         <Route path="/Contact" element={<Contact />} />
+
+        <Route path="/Play" element={<Play />} />
       </Routes>
     </div>
   );

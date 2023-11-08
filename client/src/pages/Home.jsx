@@ -55,6 +55,7 @@ const Home = () => {
     <section className="intro">
             <center><p>Welcome to Artistic Enigma <span>{"Champ"}</span></p></center>
             <center><h1>Showcase your Intelligence</h1></center>
+            <Link to="/Play">Play</Link>
             {/* <button onClick={Logout}>LOGOUT</button> */}
            
     </section>
