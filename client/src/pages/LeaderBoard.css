@@ -1,0 +1,11 @@
+/* leader-board styles  */
+.leaderboard {
+    border: 2px solid black;
+    height: 550px;
+    width: 300px;
+    position: absolute;
+    left: 155px;
+    transform: translateX(-50%);
+    margin-top: 8px;
+    border-radius: 8px;
+  }
