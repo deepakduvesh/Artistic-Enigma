@@ -1,0 +1,11 @@
+/* white board styles  */
+.white-board{
+    border: 2px solid black;
+    height: 550px;
+    width: 900px;
+    position: absolute;
+    left: 770px;
+    transform: translateX(-50%);
+    margin-top: 8px;
+    border-radius: 8px;
+  }
