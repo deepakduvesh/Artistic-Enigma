@@ -7,7 +7,8 @@ import Chat from '../Components/Chat';
  const Play = () => {
   const ldata = sessionStorage.getItem("loginData")
   const loginData = JSON.parse(ldata)
-  const username = loginData.username
+  const [username,setusername] = useState("user")
+  if(loginData) setusername(loginData.username)
   // const [username,setUsername] = useState("")
   // if(ldata){
   //   setUsername(username)
