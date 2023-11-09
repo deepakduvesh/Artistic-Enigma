@@ -1,5 +1,5 @@
 import React from 'react'
-import './WhiteBoard.css';
+import '../Styles/WhiteBoard.css';
 
  const WhiteBoard = () => {
   return (

@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react';
-import './Profile.css'; 
+import '../Styles/Profile.css'; 
 import axios from 'axios';
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
-import user_icon from './Assets/profile.png'
+import user_icon from '../Assets/profile.png'
 
 
 

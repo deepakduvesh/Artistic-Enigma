@@ -17,7 +17,7 @@
   }
   
   .chat-box{
-    background-image: url('./Assets/chat.jpg');
+    background-image: url('../Assets/chat.jpg');
     background-size: cover;
     background-position: center;
     width: 100%;

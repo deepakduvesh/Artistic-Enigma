@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Chat.css';
+import '../Styles/Chat.css';
 import {Link} from "react-router-dom";
 import {socket} from '../App.js';
 function Chat({username}) {

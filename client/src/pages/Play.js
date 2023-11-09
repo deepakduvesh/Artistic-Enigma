@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import './Play.css';
-import LeaderBoard from './LeaderBoard';
-import WhiteBoard from './WhiteBoard';
-import Chat from './Chat';
+import '../Styles/Play.css';
+import LeaderBoard from '../Components/LeaderBoard';
+import WhiteBoard from '../Components/WhiteBoard';
+import Chat from '../Components/Chat';
 
  const Play = () => {
   const ldata = sessionStorage.getItem("loginData")
