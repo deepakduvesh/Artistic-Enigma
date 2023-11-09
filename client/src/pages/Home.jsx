@@ -8,15 +8,22 @@ import Cookies from "js-cookie";
 const Home = () => {
   const ldata = sessionStorage.getItem("loginData")
   const loginData = JSON.parse(ldata)
-  console.log(ldata)
+  const t = sessionStorage.getItem('token')
+  console.log("token : ",t);
+  // console.log(ldata)'
   console.log(loginData)
   const navigate = useNavigate();
   const deleteCookie = ()=>{
-    if(token) Cookies.remove('token')
+    // if(token) Cookies.remove('token')
+    // navigate("/")
+    if(t){
+      sessionStorage.removeItem('token')
+      sessionStorage.removeItem('loginData')
+    } 
     navigate("/")
   }
 
-  const token = Cookies.get('token')
+  // const token = Cookies.get('token')
   return (
     <>
 
@@ -33,7 +40,7 @@ const Home = () => {
           <li><Link to="/Services" > Services</Link></li>
         </ul>
         {
-          token?
+          t?
           (<div className="auth-buttons">
           <Link onClick={deleteCookie} to="/" > logout</Link>
             

@@ -60,7 +60,8 @@ const Login = () => {
           email:email_id,
         }
         sessionStorage.setItem("loginData",JSON.stringify(loginData))
-        Cookies.set('token',token,{expires: 10/(24*60)})
+        // Cookies.set('token',token,{expires: 10/(24*60)})
+        sessionStorage.setItem('token',token);
 
         // setTimeout(() => {
           navigate("/");

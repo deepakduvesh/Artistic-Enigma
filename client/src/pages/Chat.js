@@ -1,26 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Chat.css';
 import {Link} from "react-router-dom";
-function Chat() {
+import {socket} from '../App.js';
+function Chat({username}) {
+  // const ldata = sessionStorage.getItem("loginData")
+  // const loginData = JSON.parse(ldata)
+  
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const [username, setUsername] = useState('User');
+    // const [username, setUsername] = useState('User');
+
+    // if(loginData){
+    //   setUsername(loginData.username)
+    // }
   
     const handleInputChange = (event) => {
       setNewMessage(event.target.value);
     };
   
-    const sendMessage = () => {
+    const sendMessage = async() => {
       if (newMessage.trim() !== '') {
         const message = {
           sender: username,
           time: new Date().toLocaleString(),
           text: newMessage,
         };
+        await socket.emit("send_msg",message);
         setMessages([...messages, message]);
         setNewMessage('');
       }
     };
+    useEffect(()=>{
+      socket.on("receive_msg",(data)=>{
+        setMessages([...messages, data]);
+      })
+    })
   return (
     <>
     {/* chat-box */}
