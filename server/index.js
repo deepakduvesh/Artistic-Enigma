@@ -1,39 +1,59 @@
-const express = require("express");
+import  express  from "express";
+import http from "http"
+import cors from "cors"
 
-const PORT = 4000;
-const mongoose = require("mongoose");
-const cors = require("cors");
+import { Server } from "socket.io";
+import  {connectDB}  from "./data/database.js";
+import { config } from "dotenv";
+
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser"
+import authRoute from "./Routes/AuthRoute.js"
+ 
+// const { MONGO_URL} = process.env;
 const app = express();
-require("dotenv").config();
-
-const cookieParser = require("cookie-parser");
-const authRoute = require("./Routes/AuthRoute");
-
-const { MONGO_URL} = process.env;
-
-
-mongoose.connect(MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }).then(() => console.log("MongoDB is  connected successfully"))
-  .catch((err) => console.log("not connected"));
-
-app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
-
-app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
-
-app.use('/uploads', express.static( './uploads'));
-
+config({
+  path:"./data/config.env"
+})
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors())
+authRoute.use(cors())
+app.use(authRoute)
+app.use(express.json());
 app.use(cookieParser());
 
 
-app.use(express.json()); 
-app.use("/", authRoute);
+
+
+
+
+app.use('/uploads', express.static( './uploads'));
+app.get("/",(req,res)=>{
+  res.json("working")
+})
+
+
+
+
+
+
+export const server = http.createServer(app)             
+const io = new Server(server,{   
+  cors:{
+      origin:"http://localhost:3000",
+      methods:["GET","POST"],
+  }
+}) 
+     
+io.on("connection",(socket)=>{
+  console.log(`user connected : ${socket.id}`)
+  
+  socket.on("send_msg",(data)=>{
+    socket.broadcast.emit("receive_msg",data);
+  })
+  
+  socket.on("disconnect",()=>{
+    console.log("user disconnected",socket.id);
+  })
+}) 

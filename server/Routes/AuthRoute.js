@@ -1,8 +1,9 @@
-const { Signup, Login, profile } = require("../Controllers/AuthController");
-const { userVerification } = require("../Middlewares/AuthMiddleware");
-const multer = require('multer');
+import  { Signup, Login, profile } from "../Controllers/AuthController.js";
+import { userVerification } from "../Middlewares/AuthMiddleware.js";
+import multer from 'multer';
+import express from "express"
 
-const router = require("express").Router();
+const router = express.Router();
 //router.post('/',userVerification)
 
 
@@ -20,4 +21,5 @@ router.post("/login", Login);
 
 router.post('/',userVerification)
 router.get("/profile",profile)
-module.exports = router;
+
+export default router

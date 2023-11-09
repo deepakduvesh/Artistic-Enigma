@@ -1,8 +1,8 @@
-const User = require("../Models/UserModel"); 
-const { createSecretToken } = require("../util/SecretToken");
-const bcrypt = require("bcryptjs");
+import User  from "../Models/UserModel.js"; 
+import { createSecretToken }  from "../util/SecretToken.js";
+import bcrypt from "bcryptjs";
  
-module.exports.Signup = async (req, res, next) => {
+export const Signup = async (req, res, next) => {
   try {   
     const { email, password, username, createdAt } = req.body;
     const image = req.file.originalname;
@@ -20,7 +20,8 @@ module.exports.Signup = async (req, res, next) => {
   }
 };
 
-module.exports.Login = async (req, res, next) => {
+export const Login = async (req, res, next) => {
+  console.log("visiting")
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -43,7 +44,7 @@ module.exports.Login = async (req, res, next) => {
 
 
 
-module.exports.profile = async(req,res,next)=>{
+export const profile = async(req,res,next)=>{
   const user = await User.findOne({});
   if(user){
       const params = req.query.param1;
@@ -51,12 +52,12 @@ module.exports.profile = async(req,res,next)=>{
       console.log(params)
       console.log(thisuser)
       if(thisuser){
-          console.log(params)
+          // console.log(params)
           const pic = thisuser.image;
             //console.log("user",thisuser.email)
           //   const p = path.join(__dirname, '../uploads', `${pic}`);
           // const p = `${pic}` 
-          console.log("path",pic)       
+          // console.log("path",pic)       
           return res.json({pic,status:true});
       }
       else{
