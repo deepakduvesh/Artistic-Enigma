@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../Styles/Chat.css';
 import {Link} from "react-router-dom";
 import {socket} from '../App.js';
+// import { socket } from '../pages/Play';
 function Chat({username}) {
   // const ldata = sessionStorage.getItem("loginData")
   // const loginData = JSON.parse(ldata)

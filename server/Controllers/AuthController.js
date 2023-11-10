@@ -20,7 +20,7 @@ export const Signup = async (req, res, next) => {
   }
 };
 
-export const Login = async (req, res, next) => {
+export const Login = async (req, res) => {
   console.log("visiting")
   try {
     const { email, password } = req.body;
@@ -29,14 +29,14 @@ export const Login = async (req, res, next) => {
       return res.json({message:'Incorrect  email' }) 
     }
     const auth = await bcrypt.compare(password,user.password)
-    console.log(auth)
+    // console.log(auth)
     if (!auth) {
       return res.json({message:'Incorrect password or email' }) 
     }
      const token = createSecretToken(user._id);
-     console.log(user)
+    //  console.log(user)
      res.status(201).json({ message: "User logged in successfully", success: true, token:token ,email_id:user.email,username:user.username});
-     next()
+     
   } catch (error) {
     console.error(error);
   }
