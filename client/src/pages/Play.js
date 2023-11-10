@@ -1,24 +1,53 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import '../Styles/Play.css';
 import LeaderBoard from '../Components/LeaderBoard';
 import WhiteBoard from '../Components/WhiteBoard';
 import Chat from '../Components/Chat';
+import Lobby from '../Components/Lobby';
+import {socket} from "../App"
 
  const Play = () => {
   const ldata = sessionStorage.getItem("loginData")
   const loginData = JSON.parse(ldata)
   const [username,setusername] = useState("user")
-  if(loginData) setusername(loginData.username)
-  // const [username,setUsername] = useState("")
-  // if(ldata){
-  //   setUsername(username)
-  // }
+  const [id,setid] = useState("");
+  
+  useEffect(() => {
+    console.log(socket.id)
+    setid(socket.id);
+    socket.emit("join", id);
+  });
+
+  useEffect(() => {
+    if (loginData) setusername(loginData.username);
+  }, [loginData]);
+
+  const [count, setcount] = useState(0);
+  useEffect(() => {
+    socket.emit("count",id)
+    socket.on("playercount", (data) => {
+      setcount(data);
+    });
+  }, []);
+
   return (
-    <div className="main-game">
-        <LeaderBoard/>
-        <WhiteBoard/>
-        <Chat username={username} />
-    </div>
+    <>
+    {
+      count===3?
+      (
+        <div className="main-game">
+          <LeaderBoard username={username}/>
+          <WhiteBoard id = {id}/>
+          <Chat username={username} />
+        </div>
+      ):
+      (
+        <Lobby count={count}/>
+        
+      )
+    }
+    
+    </>
   )
 }
 
