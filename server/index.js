@@ -38,29 +38,31 @@ const io = new Server(server,{
 }) 
      
 const mp = new Map()
-const arr = []
+const arr = new Array()
 const words = [['a','b','c'],['d','e','f'],['g','h','i'],['k','l','m'],['n','o','p'],['q','r','s']]
 const k = 3
-let currentTurn = 0;
+let currentTurn = 0; 
 let turnInterval;
 
 function rotateTurns() {
     console.log("rotate function")
-    if (arr.length <k) {
-      clearInterval(turnInterval);
-      currentTurn = -1;
-      return;
+    const currPlayer = arr[(currentTurn + 1) % arr.length];
+    currentTurn = (currentTurn + 1) % arr.length;
+    console.log("current player",currPlayer)
+    const randomIndex = Math.floor(Math.random() * words.length);
+
+    const data = {
+      currPlayer:currPlayer,
+      words:words[randomIndex],
     }
 
-    const nextPlayer = arr[(currentTurn + 1) % arr.length];
-    currentTurn = (currentTurn + 1) % arr.length;
-    console.log("current player",nextPlayer)
-    io.emit("turn", nextPlayer);
-  
+    io.emit("turn", data);
+    
     setTimeout(() => {
-      io.emit("endTurn", nextPlayer);
-      rotateTurns(); 
+        io.emit("endTurn", currPlayer);
+        rotateTurns(); 
     }, 1000*10);
+     
   }
 
 
@@ -72,10 +74,14 @@ function rotateTurns() {
   })
   
     socket.on("join",(data)=>{
-        if( mp.get(data)===undefined){
-            mp.set(data,1)
+        if( mp.get(data)!=="1"){
+            mp.set(data,"1")
             arr.push(data)
-            console.log(mp.size)
+            const s = arr.size;
+            console.log(arr[s-1])
+            console.log("map size",mp.size)
+            console.log("arr size",arr.length)
+            
         }
     })
 
