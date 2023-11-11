@@ -1,51 +1,51 @@
-import React,{useEffect,useRef,useState} from 'react'
+import React,{useCallback, useEffect,useRef,useState} from 'react'
 import '../Styles/WhiteBoard.css';
 import Tools from "./WhiteBoardTools.js"
 import {socket} from "../App.js"
 
  const WhiteBoard = ({id}) => {
 
-    const canvasRef = useRef(null)
+  	const canvasRef = useRef(null)
+	const wordRef = useRef("")
 	const startTime = Date.now()
 	const [isDrawing, setIsDrawing] = useState(false);
+	const [words, setWords] = useState([]);
 	const [isMouseDown, setIsMouseDown] = useState(false)
-	
+	const [chooseWord, setChooseWord] = useState("")
 	const [turn,setturn] = useState(false)
-	const [start,setstart] = useState(false)
+
 
 
 	const[lineColor, setLineColor] = useState("black");
 	const [width, setWidth] = useState(1)
 
 	useEffect(()=>{
+
 		const canvas = canvasRef.current
 		const ctx = canvas.getContext('2d')
+		wordRef.current = chooseWord;
 		ctx.lineCap =  'round'
 
 		ctx.strokeStyle = lineColor
 		ctx.lineWidth = width
 
 		socket.on("turn",(data)=>{
-			if(data===id){
+			if(data.currPlayer===id){
 				console.log("my turn")
 				clearCanvas()
 				setturn(true);		
+				setWords(data.words)
 			}
 		})
 		
-		socket.on("endTurn",(data)=>{
-			if(data===id){
-				setIsDrawing(false);
-				setturn(false)
-			}
-			clearCanvas()
-		})
-
+	
 		const clearCanvas = () => {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-		  }
+		}
+
+
 		const startDrawing = (event)=>{
-			if(turn){
+			if(turn && chooseWord){
 				ctx.beginPath()
 				const x = event.offsetX;
 				const y = event.offsetY;
@@ -68,7 +68,7 @@ import {socket} from "../App.js"
 		}
 
 		const endDrawing = ()=>{
-			if(turn){
+			if(turn && chooseWord){
 				ctx.closePath()
 				setIsDrawing(false)
 			}	
@@ -88,20 +88,50 @@ import {socket} from "../App.js"
 			ctx.stroke();
 		})
 
+		socket.on("endTurn",(data)=>{
+			if(data===id){
+				setIsDrawing(false);
+				setturn(false)
+				setChooseWord("")
+			}
+			clearCanvas()
+		})
 		
+
 		return () =>{
 			canvas.removeEventListener('mousedown',startDrawing);
 			canvas.removeEventListener('mousemove',draw);
 			canvas.removeEventListener('mouseup',endDrawing);
+			
 		}
 			
-	},[isDrawing,turn])
+	},[isDrawing,turn,chooseWord])
+
+	const handle = (word)=>{
+		
+		setChooseWord(word)
+	}	
 
 
   return (
     <>
 
     <div className="white-board">
+		
+	{
+		words && turn && !chooseWord?
+		(
+		<ul>
+        	{words.map((word, index) => (
+          	<li key={index} onClick={() => handle(word)}>
+            	{word}
+          	</li>
+        	))}
+      	</ul>
+		):""
+
+	}
+	
     <h1> whiteboard.</h1>
 
 

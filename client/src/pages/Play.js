@@ -14,13 +14,16 @@ import {socket} from "../App"
   
   useEffect(() => {
     console.log(socket.id)
-    setid(socket.id);
-    socket.emit("join", id);
+    if(socket.id!==undefined){
+      setid(socket.id);
+      socket.emit("join", id);
+    }
+    
   });
 
   useEffect(() => {
     if (loginData) setusername(loginData.username);
-  }, [loginData]);
+  }, []);
 
   const [count, setcount] = useState(0);
   useEffect(() => {
