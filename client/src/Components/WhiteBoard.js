@@ -1,24 +1,29 @@
 import React,{useEffect,useRef,useState} from 'react'
 import '../Styles/WhiteBoard.css';
+import Tools from "./WhiteBoardTools.js"
 import {socket} from "../App.js"
 
  const WhiteBoard = ({id}) => {
 
-  const canvasRef = useRef(null)
+    const canvasRef = useRef(null)
 	const startTime = Date.now()
 	const [isDrawing, setIsDrawing] = useState(false);
-
 	const [isMouseDown, setIsMouseDown] = useState(false)
 	
 	const [turn,setturn] = useState(false)
 	const [start,setstart] = useState(false)
 
+
+	const[lineColor, setLineColor] = useState("black");
+	const [width, setWidth] = useState(1)
+
 	useEffect(()=>{
 		const canvas = canvasRef.current
 		const ctx = canvas.getContext('2d')
 		ctx.lineCap =  'round'
-		ctx.strokeStyle = "red"
-		ctx.lineWidth = '2'
+
+		ctx.strokeStyle = lineColor
+		ctx.lineWidth = width
 
 		socket.on("turn",(data)=>{
 			if(data===id){
@@ -98,6 +103,17 @@ import {socket} from "../App.js"
 
     <div className="white-board">
     <h1> whiteboard.</h1>
+
+
+
+	<Tools
+                setLineColor={setLineColor}
+				setWidth = {setWidth}
+	/>
+
+
+
+
     <canvas ref={canvasRef}
           width={600}
           height={550}
