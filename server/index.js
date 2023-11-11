@@ -35,11 +35,11 @@ const io = new Server(server,{
 const mp = new Map()
 const arr = new Array()
 const words = [['a','b','c'],['d','e','f'],['g','h','i'],['k','l','m'],['n','o','p'],['q','r','s']]
-const k = 3
+const k = 3 
 mp.clear()
 let currentTurn = 0; 
-let turnInterval;
-
+let turnInterval; 
+ 
 function rotateTurns() {
     console.log("rotate function")
     const currPlayer = arr[(currentTurn + 1) % arr.length];
@@ -65,9 +65,9 @@ function rotateTurns() {
   io.on("connection",(socket)=>{
   console.log(`user connected : ${socket.id}`)
   
-  socket.on("send_msg",(data)=>{
-    socket.broadcast.emit("receive_msg",data);
-  })
+    socket.on("send_msg",(data)=>{
+      socket.broadcast.emit("receive_msg",data);
+    })
   
     socket.on("join",(data)=>{
         if( data !== "" && mp.get(data) !== "1"){
@@ -94,6 +94,10 @@ function rotateTurns() {
     socket.on("sendstart",(data)=>{
         console.log("start")
         socket.broadcast.emit("receivestart",data)
+    })
+
+    socket.on("choosedWord",(data)=>{
+      io.emit("choosenWord",data);
     })
 
     socket.on("senddraw",(data)=>{

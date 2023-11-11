@@ -41,7 +41,7 @@ import {socket} from "../App"
         <div className="main-game">
           <LeaderBoard username={username}/>
           <WhiteBoard id = {id}/>
-          <Chat username={username} />
+          <Chat username={username} id = {id} />
         </div>
       ):
       (
