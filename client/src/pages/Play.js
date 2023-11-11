@@ -31,7 +31,7 @@ import {socket} from "../App"
     socket.on("playercount", (data) => {
       setcount(data);
     });
-  }, []);
+  });
 
   return (
     <>
