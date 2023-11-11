@@ -1,5 +1,6 @@
 import React,{useCallback, useEffect,useRef,useState} from 'react'
 import '../Styles/WhiteBoard.css';
+import Tools from "./WhiteBoardTools.js"
 import {socket} from "../App.js"
 
  const WhiteBoard = ({id}) => {
@@ -14,14 +15,19 @@ import {socket} from "../App.js"
 	const [turn,setturn] = useState(false)
 
 
+
+	const[lineColor, setLineColor] = useState("black");
+	const [width, setWidth] = useState(1)
+
 	useEffect(()=>{
 
 		const canvas = canvasRef.current
 		const ctx = canvas.getContext('2d')
 		wordRef.current = chooseWord;
 		ctx.lineCap =  'round'
-		ctx.strokeStyle = "red"
-		ctx.lineWidth = '2'
+
+		ctx.strokeStyle = lineColor
+		ctx.lineWidth = width
 
 		socket.on("turn",(data)=>{
 			if(data.currPlayer===id){
@@ -127,6 +133,17 @@ import {socket} from "../App.js"
 	}
 	
     <h1> whiteboard.</h1>
+
+
+
+	<Tools
+                setLineColor={setLineColor}
+				setWidth = {setWidth}
+	/>
+
+
+
+
     <canvas ref={canvasRef}
           width={600}
           height={550}
