@@ -1,16 +1,12 @@
 import  express  from "express";
 import http from "http"
 import cors from "cors"
-
 import { Server } from "socket.io";
-import  {connectDB}  from "./data/database.js";
 import { config } from "dotenv";
-
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser"
 import authRoute from "./Routes/AuthRoute.js"
- 
-// const { MONGO_URL} = process.env;
+
 const app = express();
 config({
   path:"./data/config.env"
@@ -22,7 +18,6 @@ authRoute.use(cors())
 app.use(authRoute)
 app.use(express.json());
 app.use(cookieParser());
-
 
 app.use('/uploads', express.static( './uploads'));
 app.get("/",(req,res)=>{
@@ -40,10 +35,11 @@ const io = new Server(server,{
 const mp = new Map()
 const arr = new Array()
 const words = [['a','b','c'],['d','e','f'],['g','h','i'],['k','l','m'],['n','o','p'],['q','r','s']]
-const k = 3
+const k = 3 
+mp.clear()
 let currentTurn = 0; 
-let turnInterval;
-
+let turnInterval; 
+ 
 function rotateTurns() {
     console.log("rotate function")
     const currPlayer = arr[(currentTurn + 1) % arr.length];
@@ -69,16 +65,16 @@ function rotateTurns() {
   io.on("connection",(socket)=>{
   console.log(`user connected : ${socket.id}`)
   
-  socket.on("send_msg",(data)=>{
-    socket.broadcast.emit("receive_msg",data);
-  })
+    socket.on("send_msg",(data)=>{
+      socket.broadcast.emit("receive_msg",data);
+    })
   
     socket.on("join",(data)=>{
-        if( mp.get(data)!=="1"){
+        if( data !== "" && mp.get(data) !== "1"){
             mp.set(data,"1")
             arr.push(data)
             const s = arr.size;
-            console.log(arr[s-1])
+            console.log("user id",data)
             console.log("map size",mp.size)
             console.log("arr size",arr.length)
             
@@ -86,7 +82,7 @@ function rotateTurns() {
     })
 
     socket.on("count",(data)=>{
-      if(mp.get(data)!==undefined) {
+      if(data !== undefined && mp.get(data) !== undefined) {
         io.emit("playercount",arr.length);
       }
       if(arr.length===k){
@@ -98,6 +94,10 @@ function rotateTurns() {
     socket.on("sendstart",(data)=>{
         console.log("start")
         socket.broadcast.emit("receivestart",data)
+    })
+
+    socket.on("choosedWord",(data)=>{
+      io.emit("choosenWord",data);
     })
 
     socket.on("senddraw",(data)=>{

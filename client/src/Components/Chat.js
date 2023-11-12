@@ -2,25 +2,33 @@ import React, { useEffect, useState } from 'react';
 import '../Styles/Chat.css';
 import {Link} from "react-router-dom";
 import {socket} from '../App.js';
-// import { socket } from '../pages/Play';
-function Chat({username}) {
-  // const ldata = sessionStorage.getItem("loginData")
-  // const loginData = JSON.parse(ldata)
+
+function Chat({username, id}) {
+
   
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    // const [username, setUsername] = useState('User');
+    const [word, setWord] = useState('');
+    const [drawid, setDrawid] = useState('')
+    const [guessed, setGuessed] = useState(false)
 
-    // if(loginData){
-    //   setUsername(loginData.username)
-    // }
-  
     const handleInputChange = (event) => {
       setNewMessage(event.target.value);
     };
-  
+    
+
+    useEffect(() => {
+      socket.on("choosenWord",(data)=>{
+        setWord(data.word)
+        setDrawid(data.id)
+      })
+      socket.on("endTurn",(data)=>{
+        setGuessed(false);
+      })
+    })
+
     const sendMessage = async() => {
-      if (newMessage.trim() !== '') {
+      if (newMessage.trim() !== '' && newMessage !== word) {
         const message = {
           sender: username,
           time: new Date().toLocaleString(),
@@ -30,12 +38,24 @@ function Chat({username}) {
         setMessages([...messages, message]);
         setNewMessage('');
       }
+      else if(newMessage === word && id !== drawid){
+        const data = {
+          myid: id,
+          opponentid: drawid,
+          word: word, 
+        }
+        socket.emit("guessed",data);
+        setGuessed(true);
+        
+      }
     };
+
     useEffect(()=>{
       socket.on("receive_msg",(data)=>{
         setMessages([...messages, data]);
       })
     })
+
   return (
     <>
     {/* chat-box */}
@@ -62,6 +82,16 @@ function Chat({username}) {
           </div>
         </div>
       </div>
+    </div>
+    <div>
+      {
+        guessed?(
+          <p>
+            you guessed
+          </p>
+        ):
+        ""
+      }
     </div>
     </>
 
