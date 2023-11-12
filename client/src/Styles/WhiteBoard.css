@@ -9,3 +9,173 @@
     margin-top: 8px;
     border-radius: 8px;
   }
+
+  .tool-1{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    margin: 0 auto;
+    }
+
+  .flex-container{
+    display: flex;
+    background-color: #8472c4;
+  
+}
+
+.flex-tools{
+  background-color: rgb(82, 14, 46);
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 50px;
+  margin-left: 50px;
+
+  padding-top: 10px;
+  padding-right: 3px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  font-size: 10px;
+}
+
+.flex-shapes{
+  background-color: rgb(82, 14, 46);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 50px;
+  margin-left: 50px;
+
+  padding-top: 10px;
+  padding-right: 3px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  font-size: 10px;
+}
+
+
+
+.title{
+  background-color: rgb(172, 29, 55);
+ 
+}
+
+.word{
+  display: flex;
+    text-align: center;
+    align-content: center;
+    margin-left: 500px;
+    margin-right: 0px;
+   
+}
+
+.word-box{
+  background-color:blanchedalmond;
+  margin: 10px;
+  padding: 10px;
+}
+
+.flex-color{
+  background-color: rgb(82, 14, 46);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 50px;
+  margin-left: 50px;
+
+  padding-top: 10px;
+  padding-right: 3px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  font-size: 10px;
+}
+
+
+
+.tool{
+  display: flex;
+  background-color: #780f0f;
+  margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.size{
+  background-color: rgb(115, 172, 29);
+  margin: 6px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  font-size: 10px;
+}
+
+.button {
+  background-color: #260f78;
+  border: none;
+  width: 20px;
+  height: 20px;  
+  padding: 1px 1px;
+  margin: 1px 1px;
+} 
+
+.button1 {
+  background-color: #fafcfc;
+
+}
+.button2 {
+  background-color: #df2424;
+
+}
+.button3 {
+  background-color: #1e7d21;
+
+}
+.button4 {
+  background-color: #1e727d;
+
+}
+.button5 {
+  background-color:#511e7d;
+
+}
+.button6 {
+  background-color: #300e06;
+
+}
+.button7 {
+  background-color:#101212;
+
+}
+.button8 {
+  background-color: #ccb22f;
+
+}
+.button9 {
+  background-color: #1e7d51;
+
+}
+.button10 {
+  background-color: #1e247d;
+
+}
+.button11 {
+  background-color: #7d1e6f;
+
+}
+.button12 {
+  background-color: #3e1545;
+
+}
+.color-box{
+  display: flex;
+}
+
+.button13{
+  
+  padding: 1px 1px;
+  margin: 1px 1px;
+  background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
+  
+}
+
+.p{
+  text-align: center;
+}
