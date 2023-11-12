@@ -33,9 +33,11 @@ const io = new Server(server,{
 }) 
      
 const mp = new Map()
+const score = new Map()
 const arr = new Array()
 const words = [['a','b','c'],['d','e','f'],['g','h','i'],['k','l','m'],['n','o','p'],['q','r','s']]
 const k = 3 
+let tempscore = 0;
 mp.clear()
 let currentTurn = 0; 
 let turnInterval; 
@@ -55,9 +57,17 @@ function rotateTurns() {
     io.emit("turn", data);
     
     setTimeout(() => {
+        // const scoreJson = JSON.stringify(score);
+        let currPlayerScore = score.get(currPlayer);
+        currPlayerScore = currPlayerScore + parseInt(tempscore/2);
+        // console.log(tempscore);
+        score.set(currPlayer,currPlayerScore)
+        io.emit("playerScore", score);
         io.emit("endTurn", currPlayer);
+        console.log(score)
+        tempscore = 0;
         rotateTurns(); 
-    }, 1000*10);
+    }, 1000*20);
      
   }
 
@@ -72,6 +82,7 @@ function rotateTurns() {
     socket.on("join",(data)=>{
         if( data !== "" && mp.get(data) !== "1"){
             mp.set(data,"1")
+            score.set(data,0);
             arr.push(data)
             const s = arr.size;
             console.log("user id",data)
@@ -96,6 +107,14 @@ function rotateTurns() {
         socket.broadcast.emit("receivestart",data)
     })
 
+    socket.on("guessed",(data)=>{
+      let sc = score.get(data.myid);
+      let time = 100-data.time;
+      score.set(data.myid,sc+time);
+      tempscore = tempscore + time;
+      console.log("tempscore", tempscore);
+    })
+    
     socket.on("choosedWord",(data)=>{
       io.emit("choosenWord",data);
     })

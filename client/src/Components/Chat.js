@@ -11,6 +11,7 @@ function Chat({username, id}) {
     const [word, setWord] = useState('');
     const [drawid, setDrawid] = useState('')
     const [guessed, setGuessed] = useState(false)
+    const [seconds, setSeconds] = useState(0);
 
     const handleInputChange = (event) => {
       setNewMessage(event.target.value);
@@ -19,13 +20,22 @@ function Chat({username, id}) {
 
     useEffect(() => {
       socket.on("choosenWord",(data)=>{
+        const interval = setInterval(()=>{
+          setSeconds((prevSeconds)=>prevSeconds+1);
+        },1000)
         setWord(data.word)
         setDrawid(data.id)
+        return () => {
+          clearInterval(interval);
+          setSeconds(0);
+        }
       })
       socket.on("endTurn",(data)=>{
         setGuessed(false);
+        setSeconds(0)
+        setDrawid('')
       })
-    })
+    },[word,guessed])
 
     const sendMessage = async() => {
       if (newMessage.trim() !== '' && newMessage !== word) {
@@ -38,15 +48,16 @@ function Chat({username, id}) {
         setMessages([...messages, message]);
         setNewMessage('');
       }
-      else if(newMessage === word && id !== drawid){
+      else if(newMessage === word && id !== drawid && !guessed){
         const data = {
           myid: id,
           opponentid: drawid,
           word: word, 
+          time: seconds,
         }
         socket.emit("guessed",data);
-        setGuessed(true);
-        
+        setGuessed(true);  
+        setSeconds(0); 
       }
     };
 

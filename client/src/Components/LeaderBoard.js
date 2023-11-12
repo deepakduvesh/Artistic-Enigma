@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../Styles/LeaderBoard.css';
+import {socket} from "../App.js"
  const LeaderBoard = () => {
+  const player = null
+  // const [map,setmap] = useState(Map)
+  // useEffect(() => {
+    socket.on("playerScore",(data)=>{
+      console.log(data);
+    })
+  // })
   return (
+    
     <>
      {/* leaderboard  */}
      <div className="leaderboard">
@@ -15,13 +24,13 @@ import '../Styles/LeaderBoard.css';
           </tr>
         </thead>
         <tbody>
-          {players.map((player) => (
-            <tr key={player.id}>
-              <td>{player.id}</td>
+          {/* {players.map((player) => ( */}
+            {/* <tr key={player.id}> */}
+              {/* <td>{player.id}</td>
               <td>{player.name}</td>
-              <td>{player.score}</td>
-            </tr>
-          ))}
+              <td>{player.score}</td> */}
+            {/* </tr> */}
+          {/* ))} */}
         </tbody>
       </table>
      </div>
