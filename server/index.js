@@ -57,7 +57,7 @@ function rotateTurns() {
     setTimeout(() => {
         io.emit("endTurn", currPlayer);
         rotateTurns(); 
-    }, 1000*10);
+    }, 1000*20);
      
   }
 

@@ -16,7 +16,8 @@ import {socket} from "../App.js"
 
 
 
-	const[lineColor, setLineColor] = useState("black");
+	const[lineColor, setLineColor] = useState("blue");
+	const[lineOpacity, setLineOpacity] = useState(1);
 	const [width, setWidth] = useState(1)
 
 	useEffect(()=>{
@@ -28,6 +29,7 @@ import {socket} from "../App.js"
 
 		ctx.strokeStyle = lineColor
 		ctx.lineWidth = width
+		ctx.globalAlpha = lineOpacity; 
 
 		socket.on("turn",(data)=>{
 			if(data.currPlayer===id){
@@ -38,7 +40,7 @@ import {socket} from "../App.js"
 			}
 		})
 		
-	
+		
 		const clearCanvas = () => {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 		}
@@ -120,42 +122,62 @@ import {socket} from "../App.js"
   return (
     <>
 
-    <div className="white-board">
+		<div>
+
+		<div className='tool-1'>
+
+		<div className="flex-container">
+			<div className="title">
+				<h1>Skribbl</h1>
+			</div>
+			<Tools
+				setLineColor={setLineColor}
+				setWidth = {setWidth}
+				setLineOpacity={setLineOpacity} 
+			/>
+
+			<div className="flex-tools">
+
+				<p>Tools</p>
+					
+			</div>
+					
+			<div className="flex-shapes">
+					<p>Shapes</p>
+			</div>
+
+
+		</div>
+
 		
-	{
+		{
 		words && turn && !chooseWord?
 		(
-		<ul>
+		<ul className='word'>
         	{words.map((word, index) => (
-          	<li key={index} onClick={() => handle(word)}>
+          <div className='word-box'>
+			<li  key={index} onClick={() => handle(word)}>
             	{word}
-          	</li>
+          	</li></div>
         	))}
       	</ul>
 		):""
 
-	}
+		}
 	
-    <h1> whiteboard.</h1>
 
-
-
-	<Tools
-                setLineColor={setLineColor}
-				setWidth = {setWidth}
-	/>
-
-
-
-
+	</div>
     <canvas ref={canvasRef}
-          width={600}
-          height={550}
+          width={900}
+          height={560}
           style={{ border: '1px solid black' }}
 		  >
 		</canvas>
+		<div className='turn'>
 		{turn ? "Your Turn" : "Opponent's Turn"}
+		</div>
     </div>
+	
     </>
   )
 }
