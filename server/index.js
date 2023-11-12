@@ -39,7 +39,7 @@ const words = [['a','b','c'],['d','e','f'],['g','h','i'],['k','l','m'],['n','o',
 const k = 3 
 let tempscore = 0;
 mp.clear()
-let currentTurn = 0; 
+let currentTurn = -1; 
 let turnInterval; 
  
 function rotateTurns() {
@@ -62,8 +62,9 @@ function rotateTurns() {
         currPlayerScore = currPlayerScore + parseInt(tempscore/2);
         // console.log(tempscore);
         score.set(currPlayer,currPlayerScore)
-        io.emit("playerScore", score);
+        
         io.emit("endTurn", currPlayer);
+        io.emit("playerScore", JSON.stringify([...score]));
         console.log(score)
         tempscore = 0;
         rotateTurns(); 
@@ -97,7 +98,8 @@ function rotateTurns() {
         io.emit("playercount",arr.length);
       }
       if(arr.length===k){
-        currentTurn = 0;
+        currentTurn = -1;
+        io.emit("players",arr)
         rotateTurns();
       }
     })

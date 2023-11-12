@@ -106,8 +106,7 @@ import {socket} from "../App.js"
 			canvas.removeEventListener('mouseup',endDrawing);
 			
 		}
-		// ,[isDrawing,turn,chooseWord]
-	})
+	},[isDrawing,turn,chooseWord])
 
 	const handle = (word)=>{
 		setChooseWord(word)

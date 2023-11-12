@@ -5,9 +5,16 @@ import {socket} from "../App.js"
   const player = null
   // const [map,setmap] = useState(Map)
   // useEffect(() => {
-    socket.on("playerScore",(data)=>{
-      console.log(data);
+    // let mp =  new Map()
+    const [mp,setmp] = useState(new Map());
+    useEffect(()=>{
+      socket.on("playerScore",(data)=>{
+        const receivedMap = new Map(JSON.parse(data));
+        console.log('Received Map:', receivedMap);
+        setmp(receivedMap);
+      })
     })
+    
   // })
   return (
     
@@ -19,7 +26,7 @@ import {socket} from "../App.js"
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            {/* <th>Name</th> */}
             <th>Score</th>
           </tr>
         </thead>
@@ -31,6 +38,14 @@ import {socket} from "../App.js"
               <td>{player.score}</td> */}
             {/* </tr> */}
           {/* ))} */}
+          {
+            Array.from(mp.entries()).map(([key,score])=>(
+              <tr key={key}>
+                <td> {key} </td>
+                <td> {score} </td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
      </div>
