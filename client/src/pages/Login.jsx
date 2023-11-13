@@ -81,6 +81,7 @@ const Login = () => {
   };
 
   return (
+    <div className="login-signup-container">
     <div className="container">
        {/* for header */}
        <div className="header">
@@ -125,7 +126,7 @@ const Login = () => {
           </div>
 
         <div className="submit-container">
-        <Link to ="/Signup"><button className="submit gray" >SignUp</button></Link>
+        {/* <Link to ="/Signup"><button className="submit gray" >SignUp</button></Link> */}
           <button className="submit" type='submit'>Login</button>
       </div>
 
@@ -135,6 +136,8 @@ const Login = () => {
         </span> */}
       </form>
       <ToastContainer />
+    </div>
+    
     </div>
   );
 };

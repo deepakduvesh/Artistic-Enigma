@@ -85,30 +85,32 @@ const Signup = () => {
     };
   
     return (
+      <div className="login-signup-container">
       <div className="container">
-        {/* for header */}
+      {/* for header */}
       <div className="header">
         <div className="text">SignUp</div>
         <div className="underline"></div>
       </div>
 
-     
-        <form onSubmit={handleSubmit}>
-        <div className="inputs">
+    {/* for inputs like name, mail, pass */}
+    <form onSubmit={handleSubmit}>
+      <div className="inputs">
         <div className="input">
-        <img src={user_icon} alt=""/>
-          <input
+            <img src={user_icon} alt=""/>
+            <input
             type="text"
             name="username"
             value={username}
             placeholder="Name"
             onChange={handleOnChange}
           />
-        </div>
-          <div className="input">
+       </div>
+        
+
+        <div className="input">
           <img src={email_icon} alt=""/>
-          
-            <input
+          <input
             type="email"
             name="email"
             value={email}
@@ -118,11 +120,9 @@ const Signup = () => {
         </div>
 
 
-       
         <div className="input">
-        <img src={password_icon} alt="" />
-       
-          <input
+          <img src={password_icon} alt="" />
+         <input
             // type="password"
             name="password"
             value={password}
@@ -131,10 +131,10 @@ const Signup = () => {
           />
         </div>
 
+
         <div className="input">
-        <img src={password_icon} alt="" />
-       
-          <input
+          <img src={password_icon} alt="" />
+         <input
             // type="cPassword"
             name="cPassword"
             value={cPassword}
@@ -142,34 +142,29 @@ const Signup = () => {
             onChange={handleOnChange}
           />
         </div>
-        
+
         <div className="input">
-       
-          <input
-            type="file"
-            name="file"
-            placeholder="upload your photo"
-            onChange={handleFileChange}
-          />
-        </div>
-
-        </div>
-
-        <div className="forgot-password">Lost Password? <span>click here!</span></div>
-
-        <div className="submit-container">
-        <button className="submit" type="submit">SignUp</button>
-       
-        <span>
-         <Link to ="/login"><button className="submit gray" >login   </button></Link>
-    
-        </span>
-        </div>
         
+         <input
+           type="file"
+           name="file"
+           placeholder="upload your photo"
+           onChange={handleFileChange}
+         />
+        </div>
 
+      </div>
+       
+      <div className="forgot-password">Lost Password? <span>click here!</span></div>
+
+      <div className="submit-container">
+        <button className="submit" type='submit' >SignUp </button>
+          {/* <button className="submit gray" ><Link to ="/login">login </Link>  </button> */}
+      </div>
       </form>
       <ToastContainer />
-    </div>
+     </div>
+     </div>
   );
 };
 
