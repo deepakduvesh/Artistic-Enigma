@@ -133,7 +133,173 @@ import {socket} from "../App.js"
 		else if(mode === 'clear'){   
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 		}
+		else if(mode ==='line'){
+			
+			const startDrawing = (event)=>{
+				ctx.beginPath()
+				setStartX( event.offsetX);
+				setStartY( event.offsetY);
+				
+				setIsDrawing(true);
+				setIsMouseDown(true)	
+			}
+			const draw = (event)=>{
+				
+				setCursorPosition({ x: event.clientX, y: event.clientY });
+				setCurrentCursor('lines');
+				if(!isDrawing) return;
+				
+					
+					 ctx.moveTo(startX ,startY);	
+					
+			   
+			}
 	
+			const endDrawing = (event)=>{
+				
+				   // ctx.closePath()
+				   const x = event.offsetX;
+				   const y = event.offsetY;	
+				   ctx.lineTo(x,y)
+				   ctx.stroke();
+					setIsDrawing(false)	
+			}
+		
+		  
+	
+			canvas.addEventListener('mousedown',startDrawing);
+			canvas.addEventListener('mousemove',draw);
+			canvas.addEventListener('mouseup',endDrawing)
+			return () =>{
+				canvas.removeEventListener('mousedown',startDrawing);
+				canvas.removeEventListener('mousemove',draw);
+				canvas.removeEventListener('mouseup',endDrawing);
+			   
+			}
+		}
+		else if(mode === 'pen'){   
+		
+			const startDrawing = (event)=>{
+					ctx.beginPath()
+					const x = event.offsetX;
+					const y = event.offsetY;
+					ctx.lineWidth = "1"
+					ctx.globalAlpha = "1"
+					ctx.moveTo(x,y);		
+					setIsDrawing(true);
+					setIsMouseDown(true)	
+	
+					
+			}
+		
+			const draw = (event)=>{
+				setCursorPosition({ x: event.clientX, y: event.clientY });
+				setCurrentCursor('pens');
+				
+				if(!isDrawing) return;
+				
+					const x = event.offsetX;
+					const y = event.offsetY
+					ctx.lineTo(x,y)
+					ctx.stroke()	
+			}
+	
+			const endDrawing = ()=>{
+				
+					ctx.closePath()
+					setIsDrawing(false)	
+			}
+		
+		  
+	
+			canvas.addEventListener('mousedown',startDrawing);
+			canvas.addEventListener('mousemove',draw);
+			canvas.addEventListener('mouseup',endDrawing)
+			return () =>{
+				canvas.removeEventListener('mousedown',startDrawing);
+				canvas.removeEventListener('mousemove',draw);
+				canvas.removeEventListener('mouseup',endDrawing);
+			   
+			}
+		}
+		else if(mode === 'circle'){   
+			const startDrawing = (event)=>{
+					ctx.beginPath()
+					setStartX( event.offsetX);
+					setStartY( event.offsetY);
+						
+					setIsDrawing(true);
+					setIsMouseDown(true)	
+			}
+		
+			const draw = (event)=>{
+				setCursorPosition({ x: event.clientX, y: event.clientY });
+				setCurrentCursor('circles');
+				if(!isDrawing) return;
+					
+					
+			}
+	
+			const endDrawing = (event)=>{
+				const x = event.offsetX;
+					const y = event.offsetY
+					
+					const startAngle =0;
+					const endAngle = 2*Math.PI;
+					ctx.arc(startX, startY,Math.sqrt((x-startX)*( x-startX) + (y - startY)*(y - startY)) , startAngle, endAngle);
+					ctx.stroke()
+					
+					setIsDrawing(false)	
+			}
+		
+		  
+	
+			canvas.addEventListener('mousedown',startDrawing);
+			canvas.addEventListener('mousemove',draw);
+			canvas.addEventListener('mouseup',endDrawing)
+			return () =>{
+				canvas.removeEventListener('mousedown',startDrawing);
+				canvas.removeEventListener('mousemove',draw);
+				canvas.removeEventListener('mouseup',endDrawing);
+			   
+			}
+		}
+
+		if(mode ==='bucket'){
+
+		
+			const startDrawing = (event)=>{
+				ctx.beginPath()	
+				setIsDrawing(true);
+				setIsMouseDown(true)	
+			}
+			const draw = (event)=>{
+				setCursorPosition({ x: event.clientX, y: event.clientY });
+				setCurrentCursor('buckets');
+				if(!isDrawing) return;
+					   
+			}
+	
+			const endDrawing = (event)=>{
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+					setIsDrawing(false)	
+			}
+		
+		  
+	
+			canvas.addEventListener('mousedown',startDrawing);
+			canvas.addEventListener('mousemove',draw);
+			canvas.addEventListener('mouseup',endDrawing)
+			return () =>{
+				canvas.removeEventListener('mousedown',startDrawing);
+				canvas.removeEventListener('mousemove',draw);
+				canvas.removeEventListener('mouseup',endDrawing);
+			   
+			}
+			
+		}
+
+
 		
 
 		socket.on("turn",(data)=>{
@@ -293,6 +459,10 @@ import {socket} from "../App.js"
 		<div>
 
 		<div className='tool-1'>
+		<div style={containerStyle}>
+    
+		<div style={cursorStyle}>{getCursorSVG()}</div>
+
 
 		<div className="flex-container">
 			<div className="title">
@@ -340,7 +510,7 @@ import {socket} from "../App.js"
 					</button>
 					<p>Shapes</p>
 			</div>
-
+			</div>
 
 		</div>
 
