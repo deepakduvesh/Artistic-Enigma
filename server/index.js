@@ -100,6 +100,7 @@ function rotateTurns() {
       if(arr.length===k){
         currentTurn = -1;
         io.emit("players",arr)
+        io.emit("playerScore",JSON.stringify([...score]))
         rotateTurns();
       }
     })
