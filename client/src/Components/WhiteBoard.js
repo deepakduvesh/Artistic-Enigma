@@ -28,6 +28,8 @@ import {socket} from "../App.js"
 	const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 	const [currentCursor, setCurrentCursor] = useState('default');
 
+	
+
 	useEffect(()=>{
 
 		const canvas = canvasRef.current
@@ -41,270 +43,14 @@ import {socket} from "../App.js"
 		ctx.globalAlpha = lineOpacity; 
 		}
 
+		const fill = ()=>{
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+		}
+
 		ctx.fillStyle = lineColor
-
-
-		if(mode ==='rect'){
-			
-            const startDrawing = (event)=>{
-                ctx.beginPath()
-				setStartX( event.offsetX);
-				setStartY( event.offsetY);
-
-		
-                
-                setIsDrawing(true);
-				setIsMouseDown(true)	
-            }
-            const draw = (event)=>{
-				setCursorPosition({ x: event.clientX, y: event.clientY });
-			setCurrentCursor('rects');
-				
-                if(!isDrawing) return;
-
-                   	
-            }
-    
-            const endDrawing = (event)=>{
-				const x = event.offsetX;
-				const y = event.offsetY;
-				//ctx.clearRect(startX,startY, x - startX, y - startY);	
-				ctx.strokeRect(startX,startY, x - startX, y - startY);
-                
-                   // ctx.closePath()
-                    setIsDrawing(false)	
-            }
-        
-          
-    
-            canvas.addEventListener('mousedown',startDrawing);
-            canvas.addEventListener('mousemove',draw);
-            canvas.addEventListener('mouseup',endDrawing)
-            return () =>{
-                canvas.removeEventListener('mousedown',startDrawing);
-                canvas.removeEventListener('mousemove',draw);
-                canvas.removeEventListener('mouseup',endDrawing);
-               
-            }
-        }
-		else if(mode === 'draw'){   
-		
-	
-			const startDrawing = (event)=>{
-					ctx.beginPath()
-					const x = event.offsetX;
-					const y = event.offsetY;
-					ctx.moveTo(x,y);		
-					setIsDrawing(true);
-					setIsMouseDown(true)	
-					
-			}
-		
-			const draw = (event)=>{
-				setCursorPosition({ x: event.clientX, y: event.clientY });
-				setCurrentCursor('draws');
-				
-				if(!isDrawing) return;
-				
-					const x = event.offsetX;
-					const y = event.offsetY
-					ctx.lineTo(x,y)
-					ctx.stroke()	
-			}
-	
-			const endDrawing = ()=>{
-				
-					ctx.closePath()
-					setIsDrawing(false)	
-			}
-		
-		  
-	
-			canvas.addEventListener('mousedown',startDrawing);
-			canvas.addEventListener('mousemove',draw);
-			canvas.addEventListener('mouseup',endDrawing)
-			return () =>{
-				canvas.removeEventListener('mousedown',startDrawing);
-				canvas.removeEventListener('mousemove',draw);
-				canvas.removeEventListener('mouseup',endDrawing);
-			   
-			}
-		}
-		else if(mode === 'clear'){   
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-		}
-		else if(mode ==='line'){
-			
-			const startDrawing = (event)=>{
-				ctx.beginPath()
-				setStartX( event.offsetX);
-				setStartY( event.offsetY);
-				
-				setIsDrawing(true);
-				setIsMouseDown(true)	
-			}
-			const draw = (event)=>{
-				
-				setCursorPosition({ x: event.clientX, y: event.clientY });
-				setCurrentCursor('lines');
-				if(!isDrawing) return;
-				
-					
-					 ctx.moveTo(startX ,startY);	
-					
-			   
-			}
-	
-			const endDrawing = (event)=>{
-				
-				   // ctx.closePath()
-				   const x = event.offsetX;
-				   const y = event.offsetY;	
-				   ctx.lineTo(x,y)
-				   ctx.stroke();
-					setIsDrawing(false)	
-			}
-		
-		  
-	
-			canvas.addEventListener('mousedown',startDrawing);
-			canvas.addEventListener('mousemove',draw);
-			canvas.addEventListener('mouseup',endDrawing)
-			return () =>{
-				canvas.removeEventListener('mousedown',startDrawing);
-				canvas.removeEventListener('mousemove',draw);
-				canvas.removeEventListener('mouseup',endDrawing);
-			   
-			}
-		}
-		else if(mode === 'pen'){   
-		
-			const startDrawing = (event)=>{
-					ctx.beginPath()
-					const x = event.offsetX;
-					const y = event.offsetY;
-					ctx.lineWidth = "1"
-					ctx.globalAlpha = "1"
-					ctx.moveTo(x,y);		
-					setIsDrawing(true);
-					setIsMouseDown(true)	
-	
-					
-			}
-		
-			const draw = (event)=>{
-				setCursorPosition({ x: event.clientX, y: event.clientY });
-				setCurrentCursor('pens');
-				
-				if(!isDrawing) return;
-				
-					const x = event.offsetX;
-					const y = event.offsetY
-					ctx.lineTo(x,y)
-					ctx.stroke()	
-			}
-	
-			const endDrawing = ()=>{
-				
-					ctx.closePath()
-					setIsDrawing(false)	
-			}
-		
-		  
-	
-			canvas.addEventListener('mousedown',startDrawing);
-			canvas.addEventListener('mousemove',draw);
-			canvas.addEventListener('mouseup',endDrawing)
-			return () =>{
-				canvas.removeEventListener('mousedown',startDrawing);
-				canvas.removeEventListener('mousemove',draw);
-				canvas.removeEventListener('mouseup',endDrawing);
-			   
-			}
-		}
-		else if(mode === 'circle'){   
-			const startDrawing = (event)=>{
-					ctx.beginPath()
-					setStartX( event.offsetX);
-					setStartY( event.offsetY);
-						
-					setIsDrawing(true);
-					setIsMouseDown(true)	
-			}
-		
-			const draw = (event)=>{
-				setCursorPosition({ x: event.clientX, y: event.clientY });
-				setCurrentCursor('circles');
-				if(!isDrawing) return;
-					
-					
-			}
-	
-			const endDrawing = (event)=>{
-				const x = event.offsetX;
-					const y = event.offsetY
-					
-					const startAngle =0;
-					const endAngle = 2*Math.PI;
-					ctx.arc(startX, startY,Math.sqrt((x-startX)*( x-startX) + (y - startY)*(y - startY)) , startAngle, endAngle);
-					ctx.stroke()
-					
-					setIsDrawing(false)	
-			}
-		
-		  
-	
-			canvas.addEventListener('mousedown',startDrawing);
-			canvas.addEventListener('mousemove',draw);
-			canvas.addEventListener('mouseup',endDrawing)
-			return () =>{
-				canvas.removeEventListener('mousedown',startDrawing);
-				canvas.removeEventListener('mousemove',draw);
-				canvas.removeEventListener('mouseup',endDrawing);
-			   
-			}
-		}
-
-		if(mode ==='bucket'){
-
-		
-			const startDrawing = (event)=>{
-				ctx.beginPath()	
-				setIsDrawing(true);
-				setIsMouseDown(true)	
-			}
-			const draw = (event)=>{
-				setCursorPosition({ x: event.clientX, y: event.clientY });
-				setCurrentCursor('buckets');
-				if(!isDrawing) return;
-					   
-			}
-	
-			const endDrawing = (event)=>{
-				ctx.fillRect(0, 0, canvas.width, canvas.height);
-					setIsDrawing(false)	
-			}
-		
-		  
-	
-			canvas.addEventListener('mousedown',startDrawing);
-			canvas.addEventListener('mousemove',draw);
-			canvas.addEventListener('mouseup',endDrawing)
-			return () =>{
-				canvas.removeEventListener('mousedown',startDrawing);
-				canvas.removeEventListener('mousemove',draw);
-				canvas.removeEventListener('mouseup',endDrawing);
-			   
-			}
-			
-		}
-
-
-		
 
 		socket.on("turn",(data)=>{
 			if(data.currPlayer===id){
-				console.log("my turn")
 				clearCanvas()
 				setturn(true);		
 				setWords(data.words)
@@ -320,11 +66,17 @@ import {socket} from "../App.js"
 		const startDrawing = (event)=>{
 			if(turn && chooseWord){
 				ctx.beginPath()
-				const x = event.offsetX;
-				const y = event.offsetY;
-				ctx.moveTo(x,y);
-				const data = {x:x,y:y}
-				socket.emit('sendstart',data)
+				if(mode === 'draw'){
+					const x = event.offsetX;
+					const y = event.offsetY;
+					ctx.moveTo(x,y);
+					const data = {x:x,y:y}
+					socket.emit('sendstart',data)
+				}else{
+					setStartX( event.offsetX);
+					setStartY( event.offsetY);
+				}
+				
 				setIsDrawing(true);
 				setIsMouseDown(true)
 			}
@@ -332,21 +84,61 @@ import {socket} from "../App.js"
 
 		const draw = (event)=>{
 			setCursorPosition({ x: event.clientX, y: event.clientY });
-			setCurrentCursor('draws');
-			if(!isDrawing || !turn) return;
-				const x = event.offsetX;
-				const y = event.offsetY
-				ctx.lineTo(x,y)
-				const data = {x:x,y:y}
-				ctx.stroke()
-				socket.emit('senddraw',data);
+			// setCurrentCursor('draws');
+			if(!isDrawing || !turn) return;	
+				if(mode === 'draw'){
+					const x = event.offsetX;
+					const y = event.offsetY
+					ctx.lineTo(x,y)
+					const data = {x:x,y:y,mode:'draw'}
+					ctx.stroke()
+					socket.emit('senddraw',data);
+				}
+				else if(mode === 'rect'){
+					setCurrentCursor('rects');
+				}
+				else if(mode === 'circle'){
+					setCurrentCursor('circles')
+				}
+				else if(mode === 'bucket'){
+					setCurrentCursor('buckets')
+				}
+				
 		}
 
-		const endDrawing = ()=>{
+		const endDrawing = (event)=>{
 			if(turn && chooseWord){
+				const x = event.offsetX;
+				const y = event.offsetY;
+				if(mode === 'rect'){
+					const data = {x1:startX, y1:startY, x2:x-startX, y2:y-startY, mode:'rect'}
+					ctx.strokeRect(startX,startY, x - startX, y - startY);
+					socket.emit('senddraw',data);
+				}
+				else if(mode === 'circle'){
+					drawCircle(x,y,startX,startY);
+					const data = {x1:x, y1:y, x2:startX, y2:startY,mode:'circle'}
+					socket.emit('senddraw',data);
+				}
+				else if(mode === 'bucket'){
+					fill();
+					const data = {mode:'bucket'}
+					socket.emit("senddraw",data)
+				}
 				ctx.closePath()
 				setIsDrawing(false)
 			}	
+		}
+
+		if(mode === 'clear'){
+			clearCanvas()
+		}
+
+		const drawCircle = (x,y,startX,startY)=>{
+			const startAngle =0;
+			const endAngle = 2*Math.PI;
+			ctx.arc(startX, startY,Math.sqrt((x-startX)*( x-startX) + (y - startY)*(y - startY)) , startAngle, endAngle)
+			ctx.stroke()
 		}
 
 		canvas.addEventListener('mousedown',startDrawing);
@@ -359,17 +151,27 @@ import {socket} from "../App.js"
 		})
 
 		socket.on('receivedraw',(data)=>{
-			ctx.lineTo(data.x,data.y)
-			ctx.stroke();
+			if(data.mode==='draw') {
+				ctx.lineTo(data.x,data.y)
+				ctx.stroke();
+			}
+			else if(data.mode === 'rect'){
+				ctx.strokeRect(data.x1,data.y1,data.x2,data.y2);
+			}
+			else if(data.mode === 'circle'){
+				drawCircle(data.x1,data.y1,data.x2,data.y2);
+			}
+			else if(data.mode === 'bucket'){
+				fill()
+			}
 		})
 
 		socket.on("endTurn",(data)=>{
-			if(data===id){
 				setIsDrawing(false);
 				setturn(false)
 				setChooseWord("")
-			}
-			clearCanvas()
+				setWords([])
+				clearCanvas()
 		})
 		
 
@@ -379,7 +181,7 @@ import {socket} from "../App.js"
 			canvas.removeEventListener('mouseup',endDrawing);
 			
 		}
-	},[isDrawing,turn,chooseWord])
+	},[isDrawing,turn,chooseWord,mode,id])
 
 	const handle = (word)=>{
 		setChooseWord(word)
@@ -457,7 +259,6 @@ import {socket} from "../App.js"
     <>
 
 		<div>
-
 		<div className='tool-1'>
 		<div style={containerStyle}>
     
