@@ -213,8 +213,6 @@ import {socket} from "../App.js"
 			canvas.removeEventListener('mouseup',endDrawing);
 			
 		}
-	
-	
 		// ,[isDrawing,turn,chooseWord]
 	})
 
