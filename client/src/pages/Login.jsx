@@ -5,8 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import '../Styles/LoginSignup.css';
 import Cookies from 'js-cookie'
 import user_icon from '../Assets/profile.png';
-import email_icon from '../Assets/password.png';
-import password_icon from '../Assets/email.png';
+import email_icon from '../Assets/email.png';
+import password_icon from '../Assets/password.png';
 
 
 
@@ -137,7 +137,7 @@ const Login = () => {
       </form>
       <ToastContainer />
     </div>
-    
+
     </div>
   );
 };
