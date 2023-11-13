@@ -17,7 +17,7 @@
   }
   
   .chat-box{
-    background-image: url('../Assets/chat.jpg');
+    /* background-image: url('../Assets/chat.jpg'); */
     background-size: cover;
     background-position: center;
     width: 100%;
@@ -37,7 +37,7 @@
   .input-box{
     display: flex;
     border: 2px solid black;
-    background-color: gray;
+    background-color: #1d1d1d;
     width: 300px;
     border-radius: 8px;
   }

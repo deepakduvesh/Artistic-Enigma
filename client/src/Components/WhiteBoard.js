@@ -467,7 +467,7 @@ import {socket} from "../App.js"
 
 		<div className="flex-container">
 			<div className="title">
-				<h1>Skribbl</h1>
+				<h1 className='h1  w3-opacity'>Skribbl</h1>
 			</div>
 			<Tools
 				setLineColor={setLineColor}
@@ -495,7 +495,7 @@ import {socket} from "../App.js"
 					</button>
 				   
 
-				<p>Tools</p>
+				<p className="p"><b>Tools</b></p>
 					
 			</div>
 					
@@ -509,7 +509,7 @@ import {socket} from "../App.js"
 					<button onClick={() => setMode('circle')}>
 					<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>
 					</button>
-					<p>Shapes</p>
+					<p className="p"><b>Shapes</b></p>
 			</div>
 			</div>
 
@@ -536,7 +536,7 @@ import {socket} from "../App.js"
     <canvas ref={canvasRef}
           width={900}
           height={560}
-          style={{ border: '1px solid black' }}
+          style={{ border: '1px solid black', cursor:'none'}}
 		  >
 		</canvas>
 		<div className='turn'>
