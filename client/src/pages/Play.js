@@ -39,11 +39,26 @@ import {socket} from "../App"
     {
       count===3?
       (
-        <div className="main-game">
-          <LeaderBoard username={username} id = {id}/>
-          <WhiteBoard id = {id} username = {username}/>
-          <Chat username={username} id = {id} />
-        </div>
+        <div className="wrapper">
+          <div className="header">
+             <h1>Header</h1>
+          </div>
+
+        <article className="main">
+           <WhiteBoard username={username} id={id}/>
+        </article>
+
+        <aside className="aside aside1">
+           <LeaderBoard username={username} id={id} />
+        </aside>
+        <aside className="aside aside2">
+           <Chat username={username} id={id} />
+        </aside>
+
+         <footer className="footer">
+             <h1>footer</h1>
+        </footer>
+     </div>
       ):
       (
         <Lobby count={count}/>
