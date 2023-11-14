@@ -20,42 +20,43 @@
 
   .flex-container{
     display: flex;
-    background-color: #8472c4;
+    background-color: #cae9ea;
+   
   
 }
 
 .flex-tools{
-  background-color: rgb(82, 14, 46);
-  margin-top: 5px;
+  background-color: rgb(255, 255, 255);
+  margin-top: 20px;
   margin-bottom: 5px;
-  margin-right: 50px;
-  margin-left: 50px;
+  margin-right: 1px;
+  margin-left: 5px;
 
   padding-top: 10px;
   padding-right: 3px;
   padding-bottom: 0px;
-  padding-left: 8px;
+  padding-left: 1px;
   font-size: 10px;
 }
 
 .flex-shapes{
-  background-color: rgb(82, 14, 46);
+  background-color: rgb(242, 242, 242);
   margin-top: 20px;
-  margin-bottom: 20px;
-  margin-right: 50px;
-  margin-left: 50px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  margin-left: 3px;
 
   padding-top: 10px;
   padding-right: 3px;
   padding-bottom: 0px;
-  padding-left: 8px;
+  padding-left: 1px;
   font-size: 10px;
 }
 
 
 
 .title{
-  background-color: rgb(172, 29, 55);
+  background-color: #1d1d1d;
  
 }
 
@@ -92,14 +93,20 @@
 
 .tool{
   display: flex;
-  background-color: #780f0f;
-  margin-top: 5px;
-    margin-bottom: 5px;
+  background-color: #f7f2f2c7;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  margin-left: 236px;
+  margin-right: 0px;
 }
 
 .size{
-  background-color: rgb(115, 172, 29);
-  margin: 6px;
+  background-color: #f7f2f2c7;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+
   padding-top: 0px;
   padding-right: 0px;
   padding-bottom: 0px;
@@ -108,7 +115,7 @@
 }
 
 .button {
-  background-color: #260f78;
+  background-color: rgb(185, 164, 88);
   border: none;
   width: 20px;
   height: 20px;  
@@ -178,4 +185,34 @@
 
 .p{
   text-align: center;
+}
+
+.h1{
+  /* color: #cae9ea; */
+  animation: flicker 1.5s infinite alternate;
+  color: #fff;
+ padding-top: 25px;
+ 
+}
+
+
+@keyframes flicker {
+    
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+
+      text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px #0fa,
+      0 0 80px #0fa,
+      0 0 90px #0fa,
+      0 0 100px #0fa,
+      0 0 150px #0fa;
+  
+  }
+  
+  20%, 24%, 55% {        
+      text-shadow: none;
+  }    
 }

@@ -21,7 +21,9 @@ import {socket} from "../App.js"
     <>
      {/* leaderboard  */}
      <div className="leaderboard">
-      <h1>Leaderboard</h1>
+      <div className='leaderboard-div'>
+      <h1 className='h2'>Leaderboard</h1>
+      </div>
       <table>
         <thead>
           <tr>
