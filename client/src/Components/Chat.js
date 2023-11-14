@@ -58,6 +58,7 @@ function Chat({username, id}) {
           opponentid: drawid,
           word: word, 
           time: seconds,
+          username:username
         }
         setGuessed(true);  
         setSeconds(0);

@@ -1,9 +1,9 @@
 import React,{useCallback, useEffect,useRef,useState} from 'react'
 import '../Styles/WhiteBoard.css';
-import Tools from "./WhiteBoardTools.js"
+import WhiteBoardTools from "./WhiteBoardTools.js"
 import {socket} from "../App.js"
 
- const WhiteBoard = ({id}) => {
+ const WhiteBoard = ({id,username}) => {
 
   	const canvasRef = useRef(null)
 	const wordRef = useRef("")
@@ -70,7 +70,7 @@ import {socket} from "../App.js"
 					const x = event.offsetX;
 					const y = event.offsetY;
 					ctx.moveTo(x,y);
-					const data = {x:x,y:y}
+					const data = {x:x,y:y,color:lineColor,width:width}
 					socket.emit('sendstart',data)
 				}else{
 					setStartX( event.offsetX);
@@ -90,7 +90,7 @@ import {socket} from "../App.js"
 					const x = event.offsetX;
 					const y = event.offsetY
 					ctx.lineTo(x,y)
-					const data = {x:x,y:y,mode:'draw'}
+					const data = {x:x,y:y,mode:'draw',color:lineColor,width:width}
 					ctx.stroke()
 					socket.emit('senddraw',data);
 				}
@@ -111,21 +111,21 @@ import {socket} from "../App.js"
 				const x = event.offsetX;
 				const y = event.offsetY;
 				if(mode === 'rect'){
-					const data = {x1:startX, y1:startY, x2:x-startX, y2:y-startY, mode:'rect'}
+					const data = {x1:startX, y1:startY, x2:x-startX, y2:y-startY, mode:'rect',color:lineColor,width:width}
 					ctx.strokeRect(startX,startY, x - startX, y - startY);
 					socket.emit('senddraw',data);
 				}
 				else if(mode === 'circle'){
 					drawCircle(x,y,startX,startY);
-					const data = {x1:x, y1:y, x2:startX, y2:startY,mode:'circle'}
+					const data = {x1:x, y1:y, x2:startX, y2:startY,mode:'circle',color:lineColor,width:width}
 					socket.emit('senddraw',data);
 				}
 				else if(mode === 'bucket'){
 					fill();
-					const data = {mode:'bucket'}
+					const data = {mode:'bucket',color:lineColor}
 					socket.emit("senddraw",data)
 				}
-				ctx.closePath()
+				// ctx.closePath()
 				setIsDrawing(false)
 			}	
 		}
@@ -151,6 +151,8 @@ import {socket} from "../App.js"
 		})
 
 		socket.on('receivedraw',(data)=>{
+			ctx.strokeStyle = data.color
+			ctx.lineWidth = data.width
 			if(data.mode==='draw') {
 				ctx.lineTo(data.x,data.y)
 				ctx.stroke();
@@ -260,7 +262,10 @@ import {socket} from "../App.js"
 
 		<div>
 		<div className='tool-1'>
-		<div style={containerStyle}>
+		
+		{
+			words && turn && chooseWord?(
+				<div style={containerStyle}>
     
 		<div style={cursorStyle}>{getCursorSVG()}</div>
 
@@ -269,7 +274,7 @@ import {socket} from "../App.js"
 			<div className="title">
 				<h1>Skribbl</h1>
 			</div>
-			<Tools
+			<WhiteBoardTools
 				setLineColor={setLineColor}
 				setWidth = {setWidth}
 				setLineOpacity={setLineOpacity} 
@@ -314,7 +319,8 @@ import {socket} from "../App.js"
 			</div>
 
 		</div>
-
+			):""
+		}
 		
 		{
 		words && turn && !chooseWord?

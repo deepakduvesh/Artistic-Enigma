@@ -55,13 +55,15 @@ function rotateTurns() {
     }
 
     io.emit("turn", data);
-    
-    setTimeout(() => {
+    setTimeout(() => { 
         // const scoreJson = JSON.stringify(score);
-        let currPlayerScore = score.get(currPlayer);
+        let player = score.get(currPlayer);
+        
+        let currPlayerScore = player[0];
         currPlayerScore = currPlayerScore + parseInt(tempscore/2);
         // console.log(tempscore);
-        score.set(currPlayer,currPlayerScore)
+        player[0] = currPlayerScore
+        score.set(currPlayer,player)
         
         io.emit("endTurn", currPlayer);
         io.emit("playerScore", JSON.stringify([...score]));
@@ -81,14 +83,14 @@ function rotateTurns() {
     })
   
     socket.on("join",(data)=>{
-        if( data !== "" && mp.get(data) !== "1"){
-            mp.set(data,"1")
-            score.set(data,0);
-            arr.push(data)
+        if( data.id !== "" && mp.get(data.id) !== "1"){
+            mp.set(data.id,"1")
+            score.set(data.id,[0,data.username]);
+            arr.push(data.id)
             const s = arr.size;
-            console.log("user id",data)
+            console.log("user id",data.id)
             console.log("map size",mp.size)
-            console.log("arr size",arr.length)
+            // console.log("arr size",arr.length)
             
         }
     })
@@ -111,9 +113,9 @@ function rotateTurns() {
     })
 
     socket.on("guessed",(data)=>{
-      let sc = score.get(data.myid);
+      let sc = score.get(data.myid)[0];
       let time = 100-data.time;
-      score.set(data.myid,sc+time);
+      score.set(data.myid,[sc+time,data.username]);
       tempscore = tempscore + time;
       console.log("tempscore", tempscore);
     })

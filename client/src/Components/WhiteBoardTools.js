@@ -2,7 +2,7 @@ import React from "react";
 import '../Styles/WhiteBoard.css';
 
 
-const Tools =({setLineColor,setWidth ,setLineOpacity}) =>
+const WhiteBoardTools =({setLineColor,setWidth ,setLineOpacity}) =>
 {
     const handleWidthChange = (e) => {
         setWidth(parseInt(e.target.value, 10));
@@ -94,4 +94,4 @@ const Tools =({setLineColor,setWidth ,setLineOpacity}) =>
 
 };
 
-export default Tools;
+export default WhiteBoardTools;

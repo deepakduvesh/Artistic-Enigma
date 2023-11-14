@@ -9,14 +9,15 @@ import {socket} from "../App"
  const Play = () => {
   const ldata = sessionStorage.getItem("loginData")
   const loginData = JSON.parse(ldata)
-  const [username,setusername] = useState("user")
+  const [username,setusername] = useState("")
   const [id,setid] = useState("");
   
   useEffect(() => {
     console.log(socket.id)
-    if(socket.id!==undefined){
+    if(socket.id !== undefined && username !== ""){
       setid(socket.id);
-      socket.emit("join", id);
+      const data = {id:id, username:username};
+      socket.emit("join", data);
     }
     
   });
@@ -39,8 +40,8 @@ import {socket} from "../App"
       count===3?
       (
         <div className="main-game">
-          <LeaderBoard username={username}/>
-          <WhiteBoard id = {id}/>
+          <LeaderBoard username={username} id = {id}/>
+          <WhiteBoard id = {id} username = {username}/>
           <Chat username={username} id = {id} />
         </div>
       ):

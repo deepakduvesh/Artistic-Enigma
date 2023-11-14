@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../Styles/LeaderBoard.css';
 import {socket} from "../App.js"
- const LeaderBoard = () => {
+ const LeaderBoard = ({username, id}) => {
   const player = null
   // const [map,setmap] = useState(Map)
   // useEffect(() => {
@@ -10,7 +10,7 @@ import {socket} from "../App.js"
     useEffect(()=>{
       socket.on("playerScore",(data)=>{
         const receivedMap = new Map(JSON.parse(data));
-        console.log('Received Map:', receivedMap);
+        // console.log('Received Map:', receivedMap);
         setmp(receivedMap);
       })
     })
@@ -31,17 +31,10 @@ import {socket} from "../App.js"
           </tr>
         </thead>
         <tbody>
-          {/* {players.map((player) => ( */}
-            {/* <tr key={player.id}> */}
-              {/* <td>{player.id}</td>
-              <td>{player.name}</td>
-              <td>{player.score}</td> */}
-            {/* </tr> */}
-          {/* ))} */}
           {
-            Array.from(mp.entries()).map(([key,score])=>(
+            Array.from(mp.entries()).map(([key,[score,username]])=>(
               <tr key={key}>
-                <td> {key} </td>
+                <td> {username} </td>
                 <td> {score} </td>
               </tr>
             ))
