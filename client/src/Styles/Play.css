@@ -1,5 +1,69 @@
-.main-game {
+.wrapper {
+    position: absolute;
+    top: 0;
     display: flex;
-    flex-direction: row;
-    margin-top: 62px;
+    flex-flow: row wrap;
+    text-align: center;
+    left: 0;
+    padding: 10px;
+    width: 97vw;
+}
+
+.wrapper>*{
+    padding: 10px;
+    margin: 10px;
+    flex: 1 100%;
+    border-radius: 10px;
+}
+
+.header{
+    background: tomato;
+    height: 120px;
+}
+
+.footer{
+    background: green;
+    height: 80px;
+}
+
+.main{
+   text-align: left;
+   background: cyan;
+   height: 550px;
+   width: 60vw;
+   font-size: 24px;
+}
+
+.aside1{
+    background: gold;
+    width: 20vw;
+}
+
+.aside2{
+    background: hotpink;
+    width: 20vw;
+}
+
+@media all and (min-width: 800px){
+    .main{
+        flex: 3;
+    }
+    .aside1{
+        order: 1;
+    }
+    .aside2{
+        order: 2;
+    }
+    .main{
+        order: 2;
+    }
+    .footer{
+        order: 4;
+    }
+}
+
+@media all and (min-width: 600px){
+    .aside{
+        flex: 1;
+    }
 }

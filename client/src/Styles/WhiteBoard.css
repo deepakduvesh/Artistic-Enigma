@@ -10,6 +10,11 @@
     border-radius: 8px;
   }
 
+  canvas {
+    width: 100%;
+    height: 58vh;
+  }
+
   .tool-1{
     position: fixed;
     top: 0;
