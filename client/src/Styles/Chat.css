@@ -32,6 +32,11 @@
   
   .message {
     background-color: #f0f0f0;
+    width: 92%;
+    height: 10%;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
   }
   
   .input-box{
@@ -43,14 +48,14 @@
   }
   
   input {
-    width: 200px;
+    width: 100%;
     padding: 8px;
     margin-right: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
   
-  button {
+  /* button {
     padding: 8px 14px;
       border: none;
       border-radius: 5px;
@@ -62,4 +67,4 @@
   }
   .send{
     height: 10px;
-  }
+  } */

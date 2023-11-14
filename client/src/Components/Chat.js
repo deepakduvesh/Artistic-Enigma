@@ -41,6 +41,12 @@ function Chat({username, id}) {
       }
     },[word,guessed])
 
+    const handleKeyPress = (event) => {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    };
+
     const sendMessage = async() => {
       if (newMessage.trim() !== '' && newMessage !== word) {
         const message = {
@@ -91,11 +97,12 @@ function Chat({username, id}) {
             type="text"
             value={newMessage}
             onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
             placeholder="Type a message"
           />
-          <div className="send">
+          {/* <div className="send">
             <button onClick={sendMessage}>Send</button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
