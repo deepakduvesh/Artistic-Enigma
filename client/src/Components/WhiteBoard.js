@@ -414,8 +414,8 @@ import {socket} from "../App.js"
 
 	</div>
     <canvas ref={canvasRef}
-          width={900}
-          height={560}
+        //   width={900}
+        //   height={550}
           style={{ border: '1px solid black' }}
 		  >
 		</canvas>
