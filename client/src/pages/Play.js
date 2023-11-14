@@ -6,7 +6,7 @@ import Chat from '../Components/Chat';
 import Lobby from '../Components/Lobby';
 import {socket} from "../App"
 
- const Play = () => {
+  const Play = () => {
   const ldata = sessionStorage.getItem("loginData")
   const loginData = JSON.parse(ldata)
   const [username,setusername] = useState("")
@@ -47,10 +47,8 @@ import {socket} from "../App"
       ):
       (
         <Lobby count={count}/>
-        
       )
     }
-    
     </>
   )
 }

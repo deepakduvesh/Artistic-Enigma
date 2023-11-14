@@ -95,6 +95,11 @@ function rotateTurns() {
         }
     })
 
+
+    socket.on('undoRedo',(data)=>{
+      io.emit('performUndoRedo',data);
+    })
+
     socket.on("count",(data)=>{
       if(data !== undefined && mp.get(data) !== undefined) {
         io.emit("playercount",arr.length);

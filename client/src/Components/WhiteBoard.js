@@ -28,7 +28,9 @@ import {socket} from "../App.js"
 	const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 	const [currentCursor, setCurrentCursor] = useState('default');
 
-	
+	const [history, setHistory] = useState([]);
+	const [currentState, setCurrentState] = useState(null);
+	const [historyIndex, setHistoryIndex] = useState(-1);
 
 	useEffect(()=>{
 
@@ -72,15 +74,27 @@ import {socket} from "../App.js"
 					ctx.moveTo(x,y);
 					const data = {x:x,y:y,color:lineColor,width:width}
 					socket.emit('sendstart',data)
+					startDrawHistory();
 				}else{
 					setStartX( event.offsetX);
 					setStartY( event.offsetY);
+					startDrawHistory();
 				}
 				
 				setIsDrawing(true);
 				setIsMouseDown(true)
 			}
 		}
+
+
+		const startDrawHistory = () =>{
+			const newHistory = history.slice(0, historyIndex + 1);
+			const newCurrentState = canvas.toDataURL();
+			setHistory([...newHistory, newCurrentState]);
+			setCurrentState(newCurrentState);
+			setHistoryIndex(newHistory.length);
+		}
+
 
 		const draw = (event)=>{
 			setCursorPosition({ x: event.clientX, y: event.clientY });
@@ -104,6 +118,13 @@ import {socket} from "../App.js"
 					setCurrentCursor('buckets')
 				}
 				
+				drawHistory();
+				
+		}
+
+		const drawHistory = () =>{
+			const newCurrentState = canvas.toDataURL();
+    		setCurrentState(newCurrentState);
 		}
 
 		const endDrawing = (event)=>{
@@ -126,9 +147,18 @@ import {socket} from "../App.js"
 					socket.emit("senddraw",data)
 				}
 				// ctx.closePath()
-				setIsDrawing(false)
+				drawHistory();
+				setIsDrawing(false);
 			}	
 		}
+
+
+		
+		
+		  
+		  socket.on('performUndoRedo',(data)=>{
+			redrawCanvas(data.state)
+		  })
 
 		if(mode === 'clear'){
 			clearCanvas()
@@ -170,10 +200,13 @@ import {socket} from "../App.js"
 
 		socket.on("endTurn",(data)=>{
 				setIsDrawing(false);
-				setturn(false)
-				setChooseWord("")
-				setWords([])
-				clearCanvas()
+				setturn(false);
+				setChooseWord("");
+				setWords([]);
+				clearCanvas();
+				setHistoryIndex(-1);
+				setHistory([]);
+				setCurrentState(null);
 		})
 		
 
@@ -183,7 +216,7 @@ import {socket} from "../App.js"
 			canvas.removeEventListener('mouseup',endDrawing);
 			
 		}
-	},[isDrawing,turn,chooseWord,mode,id])
+	},[isDrawing,turn,chooseWord,mode,id,history,historyIndex])
 
 	const handle = (word)=>{
 		setChooseWord(word)
@@ -194,6 +227,44 @@ import {socket} from "../App.js"
 		socket.emit("choosedWord",data)
 	}	
 
+	const undo = () => {
+		if (historyIndex > 0) {
+		  setHistoryIndex(historyIndex - 1);
+		  const previousState = history[historyIndex - 1];
+		  setCurrentState(previousState);
+		  redrawCanvas(previousState);
+		  const data = {
+			action:"undo",
+			state:previousState,
+		  }
+		  socket.emit('undoRedo',data);
+		}
+	  };
+	  
+	  const redo = () => {
+		if (historyIndex < history.length - 1) {
+		  setHistoryIndex(historyIndex + 1);
+		  const nextState = history[historyIndex + 1];
+		  setCurrentState(nextState);
+		  redrawCanvas(nextState);
+		  const data = {
+			action:"redo",
+			state:nextState,
+		  }
+		  socket.emit('undoRedo',data);
+		}
+	  };
+	  
+
+	  const redrawCanvas = (state) => {
+		const image = new Image();
+		image.src = state;
+		image.onload = () => {
+		  const ctx = canvasRef.current.getContext('2d');
+		  ctx.clearRect(0, 0, 900, 560);
+		  ctx.drawImage(image, 0, 0);
+		};
+	  };
 
 	const containerStyle = {
 		position: 'relative',
@@ -316,6 +387,9 @@ import {socket} from "../App.js"
 					</button>
 					<p>Shapes</p>
 			</div>
+			<button onClick={undo}>Undo</button>
+			<button onClick={redo}>Redo</button>
+
 			</div>
 
 		</div>
