@@ -20,11 +20,12 @@
 
 .message {
   background-color: #f0f0f0;
-  width: auto;
+  width: 97%;
   height: auto;
   margin: 4px;
   padding: 4px;
   border-radius: 5px;
+  word-wrap: break-word;
 }
 
 .message strong{
