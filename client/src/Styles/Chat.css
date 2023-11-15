@@ -20,8 +20,8 @@
 
 .message {
   background-color: #f0f0f0;
-  width: 95%;
-  height: 11%;
+  width: auto;
+  height: auto;
   margin: 4px;
   padding: 4px;
   border-radius: 5px;

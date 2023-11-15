@@ -343,13 +343,16 @@ import {socket} from "../App.js"
 
 		<div className="flex-container">
 			<div className="title">
-				<h1>Skribbl</h1>
+			<p> <h1>Artistic</h1> </p>
+             <p> <h1>Enigma</h1> </p>
 			</div>
+			<div className="tools">
 			<WhiteBoardTools
 				setLineColor={setLineColor}
 				setWidth = {setWidth}
 				setLineOpacity={setLineOpacity} 
 			/>
+			</div>
 
 			<div className="flex-tools">
 			<button onClick={() => setMode('pen')}>
@@ -414,8 +417,8 @@ import {socket} from "../App.js"
 
 	</div>
     <canvas ref={canvasRef}
-        //   width={900}
-        //   height={550}
+          width={800}
+          height={550}
           style={{ border: '1px solid black' }}
 		  >
 		</canvas>

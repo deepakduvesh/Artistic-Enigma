@@ -33,8 +33,8 @@ const WhiteBoardTools =({setLineColor,setWidth ,setLineOpacity}) =>
             <button className="button button12"onClick={(e) =>{setLineColor("#3e1545")}}></button>
             </div>
             </div>
-            <div className="button13">
-            <lebel></lebel>
+            <div className="setline">
+            
             
             <input
                 type="color"
@@ -44,12 +44,12 @@ const WhiteBoardTools =({setLineColor,setWidth ,setLineOpacity}) =>
             />
             </div>
             </div>
-            <p className="p"><b>Colours</b></p>
+            {/* <p className="p"><b>Colours</b></p> */}
             </div>
 
 
 
-            <div className="size">
+            <div className="size-2">
             
             <label htmlFor="width"></label>
             <select name="width" id="width" onChange={handleWidthChange}>
@@ -59,11 +59,11 @@ const WhiteBoardTools =({setLineColor,setWidth ,setLineOpacity}) =>
                 <option value="16">4</option>
                 <option value="25">5</option>
            </select>
-           <p className="p"><b>Size</b></p>
+           <p><b>Size</b></p>
            </div>
 
 
-           <div className="size">
+           <div className="size-2">
 
            <label htmlFor="width"></label>
             <select name="width" id="width" onChange={(e) => {
@@ -75,12 +75,12 @@ const WhiteBoardTools =({setLineColor,setWidth ,setLineOpacity}) =>
                 <option value="12">4</option>
                 <option value="6">5</option>
            </select>
-           <p className="p"><b>Brushes</b></p>
+           <p><b>Brushes</b></p>
             </div>
 
 
 
-            <div className="size">
+            <div className="size-2">
             <button onClick={(e) =>{setLineColor("white")}}>
             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><path d="M290.7 57.4L57.4 290.7c-25 25-25 65.5 0 90.5l80 80c12 12 28.3 18.7 45.3 18.7H288h9.4H512c17.7 0 32-14.3 32-32s-14.3-32-32-32H387.9L518.6 285.3c25-25 25-65.5 0-90.5L381.3 57.4c-25-25-65.5-25-90.5 0zM297.4 416H288l-105.4 0-80-80L227.3 211.3 364.7 348.7 297.4 416z"/></svg>
                 </button>
