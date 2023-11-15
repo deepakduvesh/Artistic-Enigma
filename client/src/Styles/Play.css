@@ -3,7 +3,7 @@
     top: 0;
     display: flex;
     flex-flow: row wrap;
-    text-align: center;
+    /* text-align: center; */
     left: 0;
     padding: 10px;
     width: 97vw;
@@ -17,31 +17,35 @@
 }
 
 .header{
-    background: tomato;
+    /* background: tomato; */
     height: 120px;
 }
 
 .footer{
-    background: green;
+    /* background: green; */
     height: 80px;
 }
 
 .main{
    text-align: left;
-   background: cyan;
+   /* background: cyan; */
    height: 550px;
    width: 60vw;
    font-size: 24px;
 }
 
 .aside1{
-    background: gold;
+    /* background: gold; */
+    height: 550px;
     width: 20vw;
+    border: 2px solid black;
 }
 
 .aside2{
-    background: hotpink;
+    /* background: hotpink; */
+    height: 530px;
     width: 20vw;
+    /* border: 2px solid black; */
 }
 
 @media all and (min-width: 800px){

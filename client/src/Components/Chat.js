@@ -87,8 +87,9 @@ function Chat({username, id}) {
         <div className="chat-box">
           {messages.map((message, index) => (
             <div key={index} className="message">
-              <p><strong>{message.sender}</strong> - {message.time}</p>
+              <p><strong className='sender-name' >{message.sender}</strong></p>
               <p>{message.text}</p>
+              <p> <h6> {message.time} </h6> </p>
             </div>
           ))}
         </div>
