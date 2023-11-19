@@ -10,10 +10,10 @@
     border-radius: 8px;
   }
 
-  /* canvas {
-    width: 100%;
-    height: 58vh;
-  } */
+  canvas {
+     background: #fff;
+     border-radius: 8px;
+  }
 
   .tool-1{
     position: fixed;

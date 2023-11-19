@@ -70,7 +70,7 @@ function rotateTurns() {
         console.log(score)
         tempscore = 0;
         rotateTurns(); 
-    }, 1000*20);
+    }, 1000*20*3*5);
      
   }
 

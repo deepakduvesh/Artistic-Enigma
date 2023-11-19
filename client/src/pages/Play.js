@@ -41,7 +41,7 @@ import {socket} from "../App"
       (
         <div className="wrapper">
           <div className="header">
-             <h1>Header</h1>
+             {/* <h1>Header</h1> */}
           </div>
 
         <article className="main">
@@ -56,7 +56,7 @@ import {socket} from "../App"
         </aside>
 
          <footer className="footer">
-             <h1>footer</h1>
+             {/* <h1>footer</h1> */}
         </footer>
      </div>
       ):
