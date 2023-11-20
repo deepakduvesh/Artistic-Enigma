@@ -103,6 +103,11 @@ html{
   color: #fff;
 }
 
+.play-buttons{
+  display: flex;
+  margin: 1rem;
+}
+
 .home .content .btn{
   margin-top: 1rem;
   display: inline-block;
@@ -112,6 +117,8 @@ html{
   background: #8472c4;
   cursor: pointer;
   text-decoration: none;
+  margin: 1rem;
+  border-radius: 8px
 }
 
 .home .content .btn:hover{

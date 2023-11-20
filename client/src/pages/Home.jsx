@@ -111,7 +111,10 @@ const Home = () => {
 
                   <p className="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque ducimus, rerum quas inventore sunt hic accusantium.</p>
                  {t?(
-                  <a className='btn'> <Link to="/Play">Play</Link> </a>
+                  <div className="play-buttons">
+                  <a className='btn'> <Link to="/Play">Public</Link> </a>
+                  <a className='btn'> <Link to="/Lobby">Private</Link> </a>
+                  </div>
                  ):("please do login to play")}
                  </div>
                  <div className="image">

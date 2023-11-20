@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
+
 .scene{
     position: relative;
     width: 100vw;
@@ -81,43 +84,75 @@
     height: 70%;
     width: 60%;
     position: absolute;
-    top: 6%;
+    top: 10%;
     left: 20%;
     /* border: 2px solid green; */
     text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
-.Lobby-box h1 {
-    border: 2px solid blue;
+.Lobby-box .welcome {
+    font-family: 'Nunito',sans-serif;
+    color: #8472c4;
+    border: 2px solid #8472c4;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 9px 9px 100px blue;
+    box-shadow: 9px 9px 100px #8472c4;
+    width: 56%;
+    height: 15%;
+    margin-left: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
 }
 
-.Lobby-box p {
-    border: 2px solid blue;
+.Lobby-box .Lobby-middle{
+    display: flex;
+}
+
+.Lobby-middle .player-container{
+    height: 55vh;
+    width: 20vw;
     background-color: #fff;
-    height: 5%;
-    width: 47%;
+    box-shadow: 9px 9px 80px #8472c4;
+    border: 2px solid #8472c4;
+    margin-left: -18rem;
+    margin-top: 6rem;
     border-radius: 8px;
-    position: absolute;
-    left: 26%;
-    top: 29%;
-    box-shadow: 9px 9px 100px blue;
 }
 
-.Lobby-box span {
-    border: 2px solid blue;
+.Lobby-middle .rules-container{
+    height: 55vh;
+    width: 20vw;
     background-color: #fff;
+    box-shadow: 9px 9px 80px #8472c4;
+    border: 2px solid #8472c4;
+    border-radius: 8px;
+    margin-top: 6rem;
+    margin-left: 29rem;
     position: absolute;
-    left: 28%;
-    border-radius: 7px;
-    height: 4vh;
-    width: 26vw;
-    /* margin: 2px; */
-    /* padding: 3px; */
+    right: -20%;
+}
+
+.Lobby-box .count {
+    position: absolute;
     bottom: -19%;
-    box-shadow: 9px 9px 100px blue;
+    left: 22%;
+    font-family: 'Nunito',sans-serif;
+    color: #8472c4;
+    border: 2px solid #8472c4;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 9px 9px 80px #8472c4;
+    width: 56%;
+    height: 11%;
+    /* margin-left: 20rem; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
 }
 
 /* .enter-game{
