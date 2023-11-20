@@ -83,7 +83,7 @@ const Home = () => {
                   <div className="navbar-left">
                      <div id='close' className='fas fa-times' ></div>
                      <a className="nav_items"><Link to="/Home" > Home </Link></a>
-                     <a className="nav_items"><Link to="/About" > About </Link></a>
+                     <a className="nav_items"><Link to="/Team" > Team </Link></a>
                      <a className="nav_items"><Link to="/Contact" > Contact </Link></a>
                      <a className="nav_items"><Link to="/Services" > Services </Link></a>
                   </div>

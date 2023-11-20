@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Login, Signup} from "./pages";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile"; 
-import  About from "./pages/About";
+import  Team from "./pages/Team";
 import  Contact from "./pages/Contact";
 import  Services from "./pages/Services";
 import Play from "./pages/Play";
@@ -20,7 +20,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
 
-        <Route path="/About" element={<About />} />
+        <Route path="/Team" element={<Team/>} />
         <Route path="/Services" element={<Services />} />
         <Route path="/Contact" element={<Contact />} />
 
