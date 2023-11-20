@@ -9,7 +9,8 @@
 
 .chat-box{
   border: 2px solid black;
-  background-image: url('../Assets/chat.jpg');
+  /* background-image: url('../Assets/chat.jpg'); */
+  background: #fff;
   background-size: cover;
   background-position: center; 
   border-radius: 8px;
@@ -19,7 +20,8 @@
 }
 
 .message {
-  background-color: #f0f0f0;
+  background-color: #4f4d46;
+  color: #fff;
   width: 97%;
   height: auto;
   margin: 4px;
@@ -30,10 +32,12 @@
 
 .message strong{
   text-align: left;
+  color: #000;
 }
 
 .message h6 {
   text-align: right;
+  color: #000;
 }
 
 .input-box{

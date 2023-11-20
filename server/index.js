@@ -128,7 +128,7 @@ function rotateTurns() {
         console.log(score)
         tempscore = 0;
         rotateTurns(); 
-    }, 1000*10);
+    }, 1000*10*3*5);
      
   }
 
