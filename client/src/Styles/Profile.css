@@ -1,4 +1,11 @@
 /* MyAccount Styles */
+.profile-container{
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(rgba(0,0,50,0.8),rgba(0,0,50,0.8)), url('../Assets/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
 .my-account-page {
   display: flex;
   justify-content: center;
@@ -8,6 +15,9 @@
   width: 275px;
   border-radius: 18px;
   box-shadow: 10px 10px 35px black;
+  position: absolute;
+  top: 30%;
+  left: 40%;
   }
   
   .user-profile {

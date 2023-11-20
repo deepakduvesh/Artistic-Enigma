@@ -111,7 +111,7 @@
   /* background-color: #780f0f; */
 }
 
-.title{
+ .flex-container .title{
   background-color: rgb(172, 29, 55);
   height: 20vh;
   width: 15vw;

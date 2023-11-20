@@ -83,7 +83,10 @@ import user_icon from '../Assets/profile.png'
 
   return (
     <>
-    {token?(<div className="my-account-page">
+    {token?(
+
+     <div className="profile-container"> 
+    <div className="my-account-page">
       {/* <h1>
         hello
       </h1> */}
@@ -93,7 +96,10 @@ import user_icon from '../Assets/profile.png'
         <button onClick={handleEditProfile}>Edit Profile</button>
         <button onClick={handleLogout}>Logout</button>
       </div>
-    </div>):(navigate("/"))}
+    </div>
+    </div>
+    ):(navigate("/"))}
+    
     </>
    
    

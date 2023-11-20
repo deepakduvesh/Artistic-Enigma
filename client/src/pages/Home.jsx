@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import gsap from 'gsap';
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../Styles/Home.css";
-import {toast } from "react-toastify";
+import {ToastContainer, toast } from "react-toastify";
 import Cookies from "js-cookie";
+import logo from '../Assets/logo1.png';
+import home from '../Assets/home.png';
 
 const Home = () => {
   const ldata = sessionStorage.getItem("loginData")
@@ -24,55 +27,98 @@ const Home = () => {
   }
 
   // const token = Cookies.get('token')
+
+
+  useEffect(() => {
+    
+    let navbar = document.querySelector('.home-header .navbar')
+    
+    document.querySelector('#menu').onclick = () =>{
+      navbar.classList.add('active');
+    }
+    
+    document.querySelector('#close').onclick = () =>{
+      navbar.classList.remove('active');
+    }
+    
+    
+    // mousemove home img
+    
+    document.addEventListener('mousemove', move);
+    function move(e){
+      this.querySelectorAll('.move').forEach(layer =>{
+        const speed = layer.getAttribute('data-speed')
+    
+        const x = (window.innerWidth - e.pageX*speed)/120
+        const y = (window.innerWidth - e.pageY*speed)/120
+    
+        layer.style.transform = `translateX(${x}px) translateY(${y}px)`
+    
+      })
+    }
+    
+    
+        gsap.to('.logo', 1, { opacity: 2, duration: 1, delay: 2, y: 10 });
+        gsap.to('.navbar a', 1,  { opacity: 2, duration: 1, delay: 2.1, y: 10, stagger: 0.2 });
+        gsap.to('.title', 1,  { opacity: 2, duration: 1, delay: 1.6, y: 30 });
+        gsap.to('.description', 1,  { opacity: 2, duration: 1, delay: 1.8, y: 30 });
+        gsap.to('.btn', 1,  { opacity: 2, duration: 1, delay: 2.1, y: 30 });
+        gsap.to('.image', 1,  { opacity: 2, duration: 1, delay: 2.6, y: 30 });
+    
+      }, []);
+
+
+
+
   return (
-    <>
+    <div className="home-container">
 
-<nav className="navbar">
-   
-      <div className="navbar-container">
-        <div className="logo">
-          <img src="logo.png" alt="Logo" />
-        </div>
-        <ul className="navbar-menu">
-          <li><a href="#home">Home</a></li>
-          <li><Link to="/About" > About </Link></li>
-          <li><Link to="/Contact" > Contact</Link></li>
-          <li><Link to="/Services" > Services</Link></li>
-        </ul>
-        {
-          t?
-          (<div className="auth-buttons">
-          <Link onClick={deleteCookie} to="/" > logout</Link>
-            
-            <Link to="/profile"> profile</Link>
-          </div>
-          ) 
-          :(<div className="auth-buttons">
-          <Link to="/signup" > sign up</Link>
-            
-            <Link to="/login"> sign in</Link>
-          </div>)
-        } 
-        
+<header className="home-header">
+                
+                <a className='logo'>
+                  <img src={logo} alt="logo"/>
+                </a>
+                
+                <nav className="navbar">
+                  <div className="navbar-left">
+                     <div id='close' className='fas fa-times' ></div>
+                     <a className="nav_items"><Link to="/Home" > Home </Link></a>
+                     <a className="nav_items"><Link to="/About" > About </Link></a>
+                     <a className="nav_items"><Link to="/Contact" > Contact </Link></a>
+                     <a className="nav_items"><Link to="/Services" > Services </Link></a>
+                  </div>
+                      { t?
+                      (<div className="navbar-right">
+                     <a className="nav_items"> <Link onClick={deleteCookie} to="/" > logout</Link> </a>
+                     <a className="nav_items"> <Link to="/profile"> profile</Link> </a>
+                      </div>
+                      ):
+                      ( 
+                       <div className="navbar-right">
+                       <a className="nav_items"><Link to="/signup" > sign up</Link></a>
+                       <a className="nav_items"><Link to="/login"> sign in</Link></a>
+                       </div>
+                      )}
+                </nav>
 
-        
+                <div id="menu" className="fas fa-bars"></div>
+        </header>
 
-      </div>
-    </nav>
-    <section className="intro">
-            <center><p>Welcome to Artistic Enigma <span>{"Champ"}</span></p></center>
-            <center><h1>Showcase your Intelligence</h1></center>
-            {
-              t?(<Link to="/Play">Play</Link>):("please do login for play")
-            }
-            
-            {/* <button onClick={Logout}>LOGOUT</button> */}
-           
-    </section>
 
-      
+        <section className="home">
+                 <div className="content">
+                  <h1 className="title">Artistic <span>Enigma</span> <span>draw</span> and <span>guess</span> </h1>
 
-    </>
+                  <p className="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque ducimus, rerum quas inventore sunt hic accusantium.</p>
+                 {t?(
+                  <a className='btn'> <Link to="/Play">Play</Link> </a>
+                 ):("please do login to play")}
+                 </div>
+                 <div className="image">
+                   <img src={home} alt="home" data-speed="-3" className='move' />
+                 </div>
+        </section>  
+    </div>
 
   );
 };
