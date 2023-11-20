@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../Styles/LeaderBoard.css';
 import {socket} from "../App.js"
- const LeaderBoard = ({username, id}) => {
+ const LeaderBoard = ({username, id,email}) => {
   const player = null
   // const [map,setmap] = useState(Map)
   // useEffect(() => {

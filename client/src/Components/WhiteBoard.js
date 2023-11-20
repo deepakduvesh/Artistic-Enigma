@@ -2,8 +2,8 @@ import React,{useCallback, useEffect,useRef,useState} from 'react'
 import '../Styles/WhiteBoard.css';
 import WhiteBoardTools from "./WhiteBoardTools.js"
 import {socket} from "../App.js"
-
- const WhiteBoard = ({id,username}) => {
+import Time from './Time.js';
+ const WhiteBoard = ({id,username,email}) => {
 
   	const canvasRef = useRef(null)
 	const wordRef = useRef("")
@@ -20,7 +20,7 @@ import {socket} from "../App.js"
 	const[lineOpacity, setLineOpacity] = useState(1);
 	const [width, setWidth] = useState(1)
 
-
+	const [seconds, setSeconds] = useState(0)
 	const [mode, setMode]= useState('draw');
 	const [startX , setStartX] = useState(null);
 	const [startY , setStartY] = useState(null);
@@ -31,6 +31,8 @@ import {socket} from "../App.js"
 	const [history, setHistory] = useState([]);
 	const [currentState, setCurrentState] = useState(null);
 	const [historyIndex, setHistoryIndex] = useState(-1);
+
+
 
 	useEffect(()=>{
 
@@ -52,7 +54,7 @@ import {socket} from "../App.js"
 		ctx.fillStyle = lineColor
 
 		socket.on("turn",(data)=>{
-			if(data.currPlayer===id){
+			if(data.currPlayer===email){
 				clearCanvas()
 				setturn(true);		
 				setWords(data.words)
@@ -64,6 +66,9 @@ import {socket} from "../App.js"
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 		}
 
+		const interval = setInterval(() => {
+			setSeconds((prevSeconds)=>prevSeconds+1)
+		},1000);
 
 		const startDrawing = (event)=>{
 			if(turn && chooseWord){
@@ -72,7 +77,7 @@ import {socket} from "../App.js"
 					const x = event.offsetX;
 					const y = event.offsetY;
 					ctx.moveTo(x,y);
-					const data = {x:x,y:y,color:lineColor,width:width}
+					const data = {x:x,y:y,color:lineColor,width:width,mode:'draw'}
 					socket.emit('sendstart',data)
 					startDrawHistory();
 				}else{
@@ -176,8 +181,11 @@ import {socket} from "../App.js"
 		canvas.addEventListener('mouseup',endDrawing)
 
 		socket.on('receivestart',(data)=>{
-			ctx.beginPath();
-			ctx.moveTo(data.x,data.y)
+			if(data.mode==='draw'){
+				ctx.beginPath();
+				ctx.moveTo(data.x,data.y)
+			}
+			
 		})
 
 		socket.on('receivedraw',(data)=>{
@@ -191,6 +199,7 @@ import {socket} from "../App.js"
 				ctx.strokeRect(data.x1,data.y1,data.x2,data.y2);
 			}
 			else if(data.mode === 'circle'){
+				ctx.beginPath()
 				drawCircle(data.x1,data.y1,data.x2,data.y2);
 			}
 			else if(data.mode === 'bucket'){
@@ -207,6 +216,10 @@ import {socket} from "../App.js"
 				setHistoryIndex(-1);
 				setHistory([]);
 				setCurrentState(null);
+				setStartX(null);
+				setStartY(null);
+				// clearInterval(interval);
+				setSeconds(0);
 		})
 		
 
@@ -216,13 +229,14 @@ import {socket} from "../App.js"
 			canvas.removeEventListener('mouseup',endDrawing);
 			
 		}
+		// 
 	},[isDrawing,turn,chooseWord,mode,id,history,historyIndex])
 
 	const handle = (word)=>{
 		setChooseWord(word)
 		const data = {
 			word: word,
-			id: id,
+			email: email,
 		}
 		socket.emit("choosedWord",data)
 	}	
@@ -398,7 +412,7 @@ import {socket} from "../App.js"
 		</div>
 			):""
 		}
-		
+
 		{
 		words && turn && !chooseWord?
 		(
@@ -413,7 +427,10 @@ import {socket} from "../App.js"
 		):""
 
 		}
-	
+		{
+			turn?(<Time id = {id}/>):""
+			// <Time/>
+		}
 
 	</div>
     <canvas ref={canvasRef}

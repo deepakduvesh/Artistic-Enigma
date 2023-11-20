@@ -3,7 +3,7 @@ import '../Styles/Chat.css';
 import {Link} from "react-router-dom";
 import {socket} from '../App.js';
 
-function Chat({username, id}) {
+function Chat({username, id,email}) {
 
   
     const [messages, setMessages] = useState([]);
@@ -22,7 +22,7 @@ function Chat({username, id}) {
       
       socket.on("choosenWord",(data)=>{
         setWord(data.word)
-        setDrawid(data.id)
+        setDrawid(data.email)
       })
       const interval = setInterval(()=>{
           setSeconds((prevSeconds)=>prevSeconds+1);
@@ -58,9 +58,9 @@ function Chat({username, id}) {
         setMessages([...messages, message]);
         setNewMessage('');
       }
-      else if(newMessage.trim() !=='' && newMessage === word && id !== drawid && !guessed){
+      else if(newMessage.trim() !=='' && newMessage === word && email !== drawid && !guessed){
         const data = {
-          myid: id,
+          email: email,
           opponentid: drawid,
           word: word, 
           time: seconds,
@@ -121,5 +121,7 @@ function Chat({username, id}) {
 
   )
 }
+
+
 
 export default Chat;

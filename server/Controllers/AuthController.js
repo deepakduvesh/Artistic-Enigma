@@ -2,7 +2,7 @@ import User  from "../Models/UserModel.js";
 import { createSecretToken }  from "../util/SecretToken.js";
 import bcrypt from "bcryptjs";
  
-export const Signup = async (req, res, next) => {
+export const Signup = async (req, res) => {
   try {   
     const { email, password, username, createdAt } = req.body;
     const image = req.file.originalname;
@@ -14,7 +14,7 @@ export const Signup = async (req, res, next) => {
     const user = await User.create({ email, password, username, image, createdAt });
 
     res.status(201).json({ message: "User signed in successfully", success: true, user });
-    next();
+    // next();
   } catch (error) {
     console.error(error); 
   }
