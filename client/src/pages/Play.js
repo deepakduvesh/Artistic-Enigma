@@ -51,7 +51,7 @@ import Time from '../Components/Time';
       {/* ( */}
         <div className="wrapper">
           <div className="header">
-             <h1>Header</h1>
+             
           </div>
 
       <article className="main">
@@ -66,7 +66,7 @@ import Time from '../Components/Time';
       </aside>
 
          <footer className="footer">
-             <h1>footer</h1>
+             
         </footer>
      </div>
       {/* ):

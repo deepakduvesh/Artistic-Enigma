@@ -14,13 +14,13 @@
   background-size: cover;
   background-position: center; 
   border-radius: 8px;
-  height: 550px;
+  height: 500px;
   width: 100%; 
   overflow: auto;
 }
 
 .message {
-  background-color: #4f4d46;
+  background-color: #8472c4;
   color: #fff;
   width: 97%;
   height: auto;
@@ -28,6 +28,7 @@
   padding: 4px;
   border-radius: 5px;
   word-wrap: break-word;
+  font-size: 16px;
 }
 
 .message strong{

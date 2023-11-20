@@ -435,7 +435,7 @@ import Time from './Time.js';
 	</div>
     <canvas ref={canvasRef}
           width={window.innerWidth*(0.54)}
-          height={550}
+          height={500}
           style={{ border: '1px solid black' }}
 		  >
 		</canvas>
