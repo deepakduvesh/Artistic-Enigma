@@ -84,20 +84,20 @@
     margin-left: 10%;
 } */
 
-.details h2{
+.col-md-1 .details h2{
     margin-top: 20%;
     display: inline-block;
     font-size: 250%;
     font-family: 'Brush Script MT', cursive;
 }
 
- .details p{
+.col-md-1 .details p{
     margin-top: 5%;
     font-size: 100%;
     color: black;
     font-family:  cursive;
-
 }
+
 .row a{
     margin-top: 5%;
     display: inline-block;

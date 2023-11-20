@@ -1,0 +1,155 @@
+@keyframes slideInFromLeft {
+    0% {
+      transform: translateX(+100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+.contact{
+    width: 100%;
+    height: 100vh;
+    background-color: #232323;
+    padding: 20px 0px;
+    box-sizing: border-box;
+
+}
+.contact >h1{
+    color: crimson !important;
+    font-size: 45px;
+    /* margin-top: 10px; */
+   
+}
+
+.contact >h1, 
+.contact >p{
+     width: 100%;
+     text-align: center;
+     color:#f0e3e3;
+}
+
+.inside_contact{
+    padding-top: 25px;
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.icon_divide{
+    display: flex;
+    margin: 0px 3px;
+    justify-content: center;
+    margin-left: -86px;
+}
+
+.icon_divide a{
+    padding: 10px 20px;
+    color:crimson;
+    font-size: 25px
+}
+h3{
+    color: crimson;
+    position:relative;
+    padding: 10px 0px;
+    font-size: 20px;
+    margin-left: 500px;
+}
+.info h3::after{
+    content: ' ';
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 90%;
+    height: 3px;
+    background-color: #fff;
+
+}
+
+
+.contact-message h3::after{
+    content: ' ';
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 0px;
+    background-color: #fff;
+
+}
+
+h4{
+    color: #fff;
+    font-size: 20px;
+    margin-right: 650px;
+}
+.details p{
+    color: #d6dbc9;
+    font-size: 3rem;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.contact-message h3{
+    margin-bottom: 18px;
+}
+
+.contact-message input
+{
+    padding: 10px;
+    margin: 0px 0px 10px 0px;
+    color : crimson;
+    transition: .5s;
+    animation: 1s ease-out 0s 1 slideInFromLeft;
+
+}
+
+
+.contact-message input[type="text"],
+.contact-message input[type="gmail"],
+.contact-message textarea
+{
+    width: 100%;
+    border:none;
+    background: #64697195;
+    transition: .5s;
+
+}
+.contact-message input:focus, 
+.contact-message textarea:focus
+{
+    outline: none;
+    border: crimson 3px solid;
+    transition: .5s;
+    border-radius: 10px;
+}
+
+.contact-message input::placeholder, 
+.contact-message textarea::placeholder
+{
+    color: none;
+    opacity: 1;
+}
+
+
+.contact-message input[type="submit"]
+{
+    border: none;
+    padding: 8px 18px;
+    margin: 8px 0px 10px 0px;
+    background: crimson;
+    font-weight: 600;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    animation: 1s ease-out 0s 1 slideInFromLeft;
+}
+
+.contact-message textarea{
+    height: 230px;
+    overflow: hidden;
+    padding: 10px;
+    animation: 1s ease-out 0s 1 slideInFromLeft;
+}
+
+
