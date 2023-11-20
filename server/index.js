@@ -6,7 +6,10 @@ import { config } from "dotenv";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser"
 import authRoute from "./Routes/AuthRoute.js"
-
+import { getRandomValues } from "crypto";
+import UserRoom from "./Models/UserRoom.js";
+import RoomModel from "./Models/RoomModel.js";
+import { create } from "domain";
 const app = express();
 config({
   path:"./data/config.env"
@@ -31,7 +34,62 @@ const io = new Server(server,{
       methods:["GET","POST"],
   }
 }) 
-     
+
+let room = null;
+const limit = 10;
+const randRoom = () =>{
+  room = Math.floor(Math.random() * 1000) + 1;
+  // return room;
+}
+
+const saveUserRoom = (email,room) =>{
+  const userRoom  = new UserRoom({
+    email:email,
+    room:room,
+  })
+
+  userRoom.save()
+          .then(savedUser => {
+            console.log("user saved in room:", savedUser);
+          })
+          .catch(error => {
+            console.error("Error saving room:", error);
+          });
+}
+
+const createRoom = (email,room) =>{
+  const newRoom = new RoomModel({
+    room:room,
+    email:[email],
+  })
+  newRoom.save()
+  .then(savedRoom => {
+    console.log("Room saved:", savedRoom);
+  })
+  .catch(error => {
+    console.error("Error saving room:", error);
+  });
+
+}
+
+const insertInRoom = (email,room) =>{
+  RoomModel.findOneAndUpdate(
+    { room: room },
+    { $push: { email: email } },
+    { new: true }
+  )
+    .then(updatedRoom => {
+      if (updatedRoom) {
+        console.log("Room updated:", updatedRoom);
+      } else {
+        console.log("Room not found");
+      }
+    })
+    .catch(error => {
+      console.error("Error updating room:", error);
+    });
+}
+
 const mp = new Map()
 const score = new Map()
 const arr = new Array()
@@ -70,7 +128,7 @@ function rotateTurns() {
         console.log(score)
         tempscore = 0;
         rotateTurns(); 
-    }, 1000*20*3*5);
+    }, 1000*10*3*5);
      
   }
 
@@ -82,33 +140,89 @@ function rotateTurns() {
       socket.broadcast.emit("receive_msg",data);
     })
   
-    socket.on("join",(data)=>{
-        if( data.id !== "" && mp.get(data.id) !== "1"){
-            mp.set(data.id,"1")
-            score.set(data.id,[0,data.username]);
-            arr.push(data.id)
+    // socket.on("join",(data)=>{
+    //     if( data.id !== "" && mp.get(data.id) !== "1"){
+    //         mp.set(data.id,"1")
+    //         score.set(data.id,[0,data.username]);
+    //         arr.push(data.id)
+    //         const s = arr.size;
+    //         console.log("user id",data.id)
+    //         console.log("map size",mp.size)
+    //         // console.log("arr size",arr.length)
+            
+    //     }
+    // })
+
+
+    socket.on("join",async (data) => {
+      const email = data.email
+          if( email !== "" && mp.get(email) !== "1"){
+            mp.set(email,"1")
+            score.set(email,[0,data.username]);
+            arr.push(email)
             const s = arr.size;
-            console.log("user id",data.id)
+            console.log("user id",email)
             console.log("map size",mp.size)
+            if(arr.length===2){
+              rotateTurns();
+            }
             // console.log("arr size",arr.length)
             
         }
+      const userRoom = await UserRoom.findOne({email:email})
+      if(!userRoom){
+        if(!room){
+          randRoom();
+          socket.join(room);
+          
+          createRoom(email,room);
+          saveUserRoom(email,room) 
+          
+        }
+        else if(room){
+          const Room = await RoomModel.findOne({room:room})
+          const userEmail = await RoomModel.findOne({ email: { $in: [email] } });
+          if(!userEmail && Room.email.length >= limit){
+            randRoom();
+            socket.join(room)
+            createRoom(email,room);
+            saveUserRoom(email,room)
+            
+          }
+          else if(!userEmail){
+            socket.join(room)
+            insertInRoom(email,room)
+            saveUserRoom(email,room)
+          }
+          
+        }
+      }
+      else{
+        const user = await UserRoom.findOne({email:email})
+        const room = user.room
+        socket.join(room)
+      }
+      const user = await UserRoom.findOne({email:email})
+      
+      // io.to(user.room).emit("startGame",data)
     })
-
 
     socket.on('undoRedo',(data)=>{
       io.emit('performUndoRedo',data);
     })
 
     socket.on("count",(data)=>{
-      if(data !== undefined && mp.get(data) !== undefined) {
-        io.emit("playercount",arr.length);
+      if(data !== '' && mp.get(data) !== undefined) {
+        socket.emit("playercount",arr.length);
       }
-      if(arr.length===k){
+      if(arr.length===2){
         currentTurn = -1;
-        io.emit("players",arr)
-        io.emit("playerScore",JSON.stringify([...score]))
+        // io.emit("players",arr)
+        
         rotateTurns();
+      }
+      if(arr.length>=2){
+        io.emit("playerScore",JSON.stringify([...score]))
       }
     })
 
@@ -118,9 +232,9 @@ function rotateTurns() {
     })
 
     socket.on("guessed",(data)=>{
-      let sc = score.get(data.myid)[0];
+      let sc = score.get(data.email)[0];
       let time = 100-data.time;
-      score.set(data.myid,[sc+time,data.username]);
+      score.set(data.email,[sc+time,data.username]);
       tempscore = tempscore + time;
       console.log("tempscore", tempscore);
     })
@@ -136,6 +250,7 @@ function rotateTurns() {
 
     socket.on("disconnect",()=>{
         console.log(`disconnected ${socket.id}`)
+        
         mp.delete(socket.id)
     })
 
