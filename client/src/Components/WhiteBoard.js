@@ -356,10 +356,10 @@ import Time from './Time.js';
 
 
 		<div className="flex-container">
-			<div className="title">
+			{/* <div className="title">
 			<p> <h1>Artistic</h1> </p>
              <p> <h1>Enigma</h1> </p>
-			</div>
+			</div> */}
 			<div className="tools">
 			<WhiteBoardTools
 				setLineColor={setLineColor}
@@ -388,7 +388,7 @@ import Time from './Time.js';
 					</button>
 				   
 
-				<p>Tools</p>
+				{/* <p>Tools</p> */}
 					
 			</div>
 					
@@ -402,10 +402,13 @@ import Time from './Time.js';
 					<button onClick={() => setMode('circle')}>
 					<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>
 					</button>
-					<p>Shapes</p>
+					{/* <p>Shapes</p> */}
 			</div>
-			<button onClick={undo}>Undo</button>
-			<button onClick={redo}>Redo</button>
+			
+			<div className="undo-redo-buttons">
+			<button className='tools-button' onClick={undo}>Undo</button>
+			<button className='tools-button' onClick={redo}>Redo</button>
+			</div>
 
 			</div>
 
