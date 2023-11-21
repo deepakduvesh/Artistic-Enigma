@@ -3,6 +3,7 @@ import '../Styles/WhiteBoard.css';
 import WhiteBoardTools from "./WhiteBoardTools.js"
 import {socket} from "../App.js"
 import Time from './Time.js';
+import html2canvas from "html2canvas";
  const WhiteBoard = ({id,username,email}) => {
 
   	const canvasRef = useRef(null)
@@ -342,6 +343,25 @@ import Time from './Time.js';
 	  };
 
 
+	  const takeScreenShot=()=>{
+
+		const element = document.getElementById("divToTakeScreenShotOf");
+		if (!element) return;
+	
+	html2canvas(element).then((canvas)=>{
+	   let image = canvas.toDataURL("image/jpeg");
+	   console.log("the image is ", image);
+			 const a = document.createElement("a");
+	   a.href = image;
+	   a.download = "Capture.jpeg";
+	   a.click();
+	
+	}).catch(err=>{
+	 console.error("did not take ss.");
+	})
+	}
+
+
   return (
     <>
 
@@ -436,7 +456,7 @@ import Time from './Time.js';
 		}
 
 	</div>
-    <canvas ref={canvasRef}
+    <canvas id="divToTakeScreenShotOf" ref={canvasRef}
           width={window.innerWidth*(0.54)}
           height={500}
           style={{ border: '1px solid black' }}
@@ -446,6 +466,10 @@ import Time from './Time.js';
 		{turn ? "Your Turn" : "Opponent's Turn"}
 		</div>
     </div>
+
+	<div className="download-button">
+		<button onClick={takeScreenShot} >Download</button>	
+		 </div>
 	
     </>
   )

@@ -33,6 +33,10 @@ import Time from '../Components/Time';
     } 
   }, []);
 
+ 
+
+
+
   // const [count, setcount] = useState(0);
   // useEffect(() => {
   //   socket.emit("count",email)
@@ -54,7 +58,7 @@ import Time from '../Components/Time';
              
           </div>
 
-      <article className="main">
+      <article  className="main">
          <WhiteBoard username={username} id={id} email = {email}/>
       </article>
 
@@ -64,6 +68,8 @@ import Time from '../Components/Time';
       <aside className="aside aside2">
          <Chat username={username} id={id} email = {email}/>
       </aside>
+
+     
 
          <footer className="footer">
              

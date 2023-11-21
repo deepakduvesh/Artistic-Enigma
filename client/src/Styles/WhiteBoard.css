@@ -242,6 +242,14 @@
   color: #8472c4;
 }
 
+.download-button {
+  position: absolute;
+  bottom: 8vh;
+  right: 13vw;
+}
+
+
+
 /* .p{
   text-align: center;
 } */
