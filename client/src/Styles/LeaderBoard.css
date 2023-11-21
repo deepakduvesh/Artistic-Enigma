@@ -1,6 +1,7 @@
 .leaderboard{
   background: #fff;
   height: 500px;
+  border-radius: 8px;
 }
 
 h1 {

@@ -58,6 +58,7 @@
     position: absolute;
     left: 2.2%;
     top: 81.5vh;
+    border-radius: 8px;
 }
 
 .flex-tools{
@@ -76,6 +77,8 @@
 
 .flex-tools p {
   text-align: center;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .flex-shapes{
@@ -93,6 +96,8 @@
 
 .flex-shapes p {
   text-align: center;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .flex-color{
