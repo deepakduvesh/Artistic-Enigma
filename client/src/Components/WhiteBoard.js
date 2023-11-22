@@ -13,8 +13,9 @@ import Time from './Time.js';
 	const [isMouseDown, setIsMouseDown] = useState(false)
 	const [chooseWord, setChooseWord] = useState("")
 	const [turn,setturn] = useState(false)
+	const [playerTurn, setPlayerTurn] = useState("")
 
-
+	
 	const [eraser ,setEraser] = useState("white");
 	const[lineColor, setLineColor] = useState("blue");
 	const[lineOpacity, setLineOpacity] = useState(1);
@@ -58,6 +59,7 @@ import Time from './Time.js';
 				clearCanvas()
 				setturn(true);		
 				setWords(data.words)
+				// setPlayerTurn(data.username)
 			}
 		})
 		
@@ -132,6 +134,7 @@ import Time from './Time.js';
     		setCurrentState(newCurrentState);
 		}
 
+
 		const endDrawing = (event)=>{
 			if(turn && chooseWord){
 				const x = event.offsetX;
@@ -148,7 +151,7 @@ import Time from './Time.js';
 				}
 				else if(mode === 'bucket'){
 					fill();
-					const data = {mode:'bucket',color:lineColor}
+					const data = {mode:'bucket'}
 					socket.emit("senddraw",data)
 				}
 				// ctx.closePath()
@@ -230,7 +233,7 @@ import Time from './Time.js';
 			
 		}
 		// 
-	},[isDrawing,turn,chooseWord,mode,id,history,historyIndex])
+	},[isDrawing,turn,chooseWord,mode,id,history,historyIndex,words])
 
 	const handle = (word)=>{
 		setChooseWord(word)

@@ -69,11 +69,11 @@ import Time from '../Components/Time';
              <h1>footer</h1>
         </footer>
      </div>
-      ):
-      (
-        <Lobby count={count}/>
-      )
-    } */}
+      {/* ): */}
+      {/* ( */}
+        {/* <Lobby count={count}/> */}
+      {/* ) */}
+    
     </>
   )
 }
