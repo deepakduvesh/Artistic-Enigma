@@ -1,6 +1,6 @@
 import React from 'react';
 import  '../Styles/Team.css';
-import shivam from '../Assets/home.png';
+import shivam from '../Assets/shivam.png';
 import gsap from 'gsap';
 import {useEffect } from 'react';
 

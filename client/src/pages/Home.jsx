@@ -27,7 +27,7 @@ const Home = () => {
   }
 
   // const token = Cookies.get('token')
-
+ 
 
   useEffect(() => {
     
@@ -111,7 +111,7 @@ const Home = () => {
 
                   <p className="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque ducimus, rerum quas inventore sunt hic accusantium.</p>
                  {t?(
-                  <a className='btn'> <Link to="/Play">Play</Link> </a>
+                   <a className='btn'> <Link to= "/Play" > Play</Link> </a>
                  ):("please do login to play")}
                  </div>
                  <div className="image">

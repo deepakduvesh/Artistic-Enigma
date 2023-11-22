@@ -3,6 +3,8 @@ import '../Styles/WhiteBoard.css';
 import WhiteBoardTools from "./WhiteBoardTools.js"
 import {socket} from "../App.js"
 import Time from './Time.js';
+import sound from '../Assets/play.wav';
+
  const WhiteBoard = ({id,username,email}) => {
 
   	const canvasRef = useRef(null)
@@ -32,7 +34,15 @@ import Time from './Time.js';
 	const [currentState, setCurrentState] = useState(null);
 	const [historyIndex, setHistoryIndex] = useState(-1);
 
+	const [value , setValue] = useState(0);
+	
+	function play(){
+		new Audio(sound).play()
+	  }
 
+	  useEffect(()=>{
+		play()
+	  },[value]);
 
 	useEffect(()=>{
 
