@@ -232,3 +232,25 @@ html{
 .image{
   opacity: 0;
 }
+
+.enter-code input {
+  height: 4rem;
+  width: 16rem;
+  margin-top: 2rem;
+  margin-left: 2rem;
+}
+
+.enter-code button {
+  height: 4rem;
+  width: 8rem;
+}
+
+.create-room label {
+  background-color: #fff;
+  margin-left: 2rem;
+}
+
+.create-room button {
+  height: 4rem;
+  width: 8rem;
+}
