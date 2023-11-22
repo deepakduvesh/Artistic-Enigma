@@ -33,6 +33,10 @@ import Time from '../Components/Time';
     } 
   }, []);
 
+ 
+
+
+
   // const [count, setcount] = useState(0);
   // useEffect(() => {
   //   socket.emit("count",email)
@@ -51,10 +55,10 @@ import Time from '../Components/Time';
       {/* ( */}
         <div className="wrapper">
           <div className="header">
-             <h1>Header</h1>
+             
           </div>
 
-      <article className="main">
+      <article  className="main">
          <WhiteBoard username={username} id={id} email = {email}/>
       </article>
 
@@ -65,14 +69,16 @@ import Time from '../Components/Time';
          <Chat username={username} id={id} email = {email}/>
       </aside>
 
+     
+
          <footer className="footer">
-             <h1>footer</h1>
+             
         </footer>
      </div>
-      {/* ):
-      (
-        <Lobby count={count}/>
-      ) */}
+      {/* ): */}
+      {/* ( */}
+        {/* <Lobby count={count}/> */}
+      {/* ) */}
     
     </>
   )

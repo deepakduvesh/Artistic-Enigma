@@ -111,8 +111,39 @@ const Home = () => {
 
                   <p className="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque ducimus, rerum quas inventore sunt hic accusantium.</p>
                  {t?(
+<<<<<<< HEAD
                    <a className='btn'> <Link to= "/Play" > Play</Link> </a>
+=======
+                  <div className="play-buttons">
+                  <a className='btn'> <Link to="/Play">Public</Link> </a>
+                  <a className='btn'> <Link to="/Lobby">Private</Link> </a>
+                  </div>
+>>>>>>> 41706980b9ae7e09a2aff12b90f86edfecd8f424
                  ):("please do login to play")}
+
+                  <div className="enter-code">
+                    <input type="text" placeholder="Enter code" />
+                    <button>enter</button>
+                  </div>
+                  
+                  <div className="create-room">
+                    <label for="numberSelector">Select a number:</label>
+                     <select id="numberSelector">
+                       <option value="1">1</option>
+                       <option value="2">2</option>
+                       <option value="3">3</option>
+                       <option value="4">4</option>
+                       <option value="5">5</option>
+                       <option value="6">6</option>
+                       <option value="7">7</option>
+                       <option value="8">8</option>
+                       <option value="9">9</option>
+                       <option value="10">10</option>
+                     </select>
+                     <button>create</button>
+                  </div>
+
+
                  </div>
                  <div className="image">
                    <img src={home} alt="home" data-speed="-3" className='move' />

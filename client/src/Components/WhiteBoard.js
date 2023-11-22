@@ -3,8 +3,6 @@ import '../Styles/WhiteBoard.css';
 import WhiteBoardTools from "./WhiteBoardTools.js"
 import {socket} from "../App.js"
 import Time from './Time.js';
-import sound from '../Assets/play.wav';
-
  const WhiteBoard = ({id,username,email}) => {
 
   	const canvasRef = useRef(null)
@@ -15,8 +13,9 @@ import sound from '../Assets/play.wav';
 	const [isMouseDown, setIsMouseDown] = useState(false)
 	const [chooseWord, setChooseWord] = useState("")
 	const [turn,setturn] = useState(false)
+	const [playerTurn, setPlayerTurn] = useState("")
 
-
+	
 	const [eraser ,setEraser] = useState("white");
 	const[lineColor, setLineColor] = useState("blue");
 	const[lineOpacity, setLineOpacity] = useState(1);
@@ -68,6 +67,7 @@ import sound from '../Assets/play.wav';
 				clearCanvas()
 				setturn(true);		
 				setWords(data.words)
+				// setPlayerTurn(data.username)
 			}
 		})
 		
@@ -142,6 +142,7 @@ import sound from '../Assets/play.wav';
     		setCurrentState(newCurrentState);
 		}
 
+
 		const endDrawing = (event)=>{
 			if(turn && chooseWord){
 				const x = event.offsetX;
@@ -158,7 +159,7 @@ import sound from '../Assets/play.wav';
 				}
 				else if(mode === 'bucket'){
 					fill();
-					const data = {mode:'bucket',color:lineColor}
+					const data = {mode:'bucket'}
 					socket.emit("senddraw",data)
 				}
 				// ctx.closePath()
@@ -240,7 +241,7 @@ import sound from '../Assets/play.wav';
 			
 		}
 		// 
-	},[isDrawing,turn,chooseWord,mode,id,history,historyIndex])
+	},[isDrawing,turn,chooseWord,mode,id,history,historyIndex,words])
 
 	const handle = (word)=>{
 		setChooseWord(word)
@@ -352,6 +353,25 @@ import sound from '../Assets/play.wav';
 	  };
 
 
+	  const takeScreenShot=()=>{
+
+		const element = document.getElementById("divToTakeScreenShotOf");
+		if (!element) return;
+	
+	html2canvas(element).then((canvas)=>{
+	   let image = canvas.toDataURL("image/jpeg");
+	   console.log("the image is ", image);
+			 const a = document.createElement("a");
+	   a.href = image;
+	   a.download = "Capture.jpeg";
+	   a.click();
+	
+	}).catch(err=>{
+	 console.error("did not take ss.");
+	})
+	}
+
+
   return (
     <>
 
@@ -366,10 +386,10 @@ import sound from '../Assets/play.wav';
 
 
 		<div className="flex-container">
-			<div className="title">
+			{/* <div className="title">
 			<p> <h1>Artistic</h1> </p>
              <p> <h1>Enigma</h1> </p>
-			</div>
+			</div> */}
 			<div className="tools">
 			<WhiteBoardTools
 				setLineColor={setLineColor}
@@ -414,8 +434,11 @@ import sound from '../Assets/play.wav';
 					</button>
 					<p>Shapes</p>
 			</div>
-			<button onClick={undo}>Undo</button>
-			<button onClick={redo}>Redo</button>
+			
+			<div className="undo-redo-buttons">
+			<button className='tools-button' onClick={undo}>Undo</button>
+			<button className='tools-button' onClick={redo}>Redo</button>
+			</div>
 
 			</div>
 
@@ -443,9 +466,9 @@ import sound from '../Assets/play.wav';
 		}
 
 	</div>
-    <canvas ref={canvasRef}
+    <canvas id="divToTakeScreenShotOf" ref={canvasRef}
           width={window.innerWidth*(0.54)}
-          height={550}
+          height={500}
           style={{ border: '1px solid black' }}
 		  >
 		</canvas>
@@ -453,6 +476,10 @@ import sound from '../Assets/play.wav';
 		{turn ? "Your Turn" : "Opponent's Turn"}
 		</div>
     </div>
+
+	<div className="download-button">
+		<button onClick={takeScreenShot} >Download</button>	
+		 </div>
 	
     </>
   )

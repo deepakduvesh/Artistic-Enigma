@@ -1,16 +1,19 @@
 .leaderboard{
   background: #fff;
-  height: 550px;
+  height: 500px;
+  border-radius: 8px;
 }
 
 h1 {
   text-align: center;
+  font-size: 28px;
   }
   
   table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 10px;
+  font-size: 16px;
   }
   
   th, td {
@@ -20,7 +23,7 @@ h1 {
   }
   
   th {
-  background-color: #4CAF50;
+  background-color: #8472c4;
   color: white;
   }
   

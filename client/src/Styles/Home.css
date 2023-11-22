@@ -103,6 +103,11 @@ html{
   color: #fff;
 }
 
+.play-buttons{
+  display: flex;
+  margin: 1rem;
+}
+
 .home .content .btn{
   margin-top: 1rem;
   display: inline-block;
@@ -112,6 +117,8 @@ html{
   background: #8472c4;
   cursor: pointer;
   text-decoration: none;
+  margin: 1rem;
+  border-radius: 8px
 }
 
 .home .content .btn:hover{
@@ -224,4 +231,26 @@ html{
 
 .image{
   opacity: 0;
+}
+
+.enter-code input {
+  height: 4rem;
+  width: 16rem;
+  margin-top: 2rem;
+  margin-left: 2rem;
+}
+
+.enter-code button {
+  height: 4rem;
+  width: 8rem;
+}
+
+.create-room label {
+  background-color: #fff;
+  margin-left: 2rem;
+}
+
+.create-room button {
+  height: 4rem;
+  width: 8rem;
 }

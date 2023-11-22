@@ -7,6 +7,7 @@ import  Team from "./pages/Team";
 import  Contact from "./pages/Contact";
 import  Services from "./pages/Services";
 import Play from "./pages/Play";
+import Lobby from "./Components/Lobby.js";
 import io from "socket.io-client";
 
 export const socket = io.connect("http://localhost:4000")
@@ -25,6 +26,7 @@ function App() {
         <Route path="/Contact" element={<Contact />} />
 
         <Route path="/Play" element={<Play />} />
+        <Route path="/Lobby" element={<Lobby />} />
       </Routes>
     </div>
   );

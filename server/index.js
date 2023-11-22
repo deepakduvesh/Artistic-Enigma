@@ -35,6 +35,7 @@ const io = new Server(server,{
   }
 }) 
 
+let round = 0;
 let room = null;
 const limit = 10;
 const randRoom = () =>{
@@ -42,82 +43,95 @@ const randRoom = () =>{
   // return room;
 }
 
-const saveUserRoom = (email,room) =>{
-  const userRoom  = new UserRoom({
-    email:email,
-    room:room,
-  })
+// const saveUserRoom = (email,room) =>{
+//   const userRoom  = new UserRoom({
+//     email:email,
+//     room:room,
+//   })
 
-  userRoom.save()
-          .then(savedUser => {
-            console.log("user saved in room:", savedUser);
-          })
-          .catch(error => {
-            console.error("Error saving room:", error);
-          });
-}
+//   userRoom.save()
+//           .then(savedUser => {
+//             console.log("user saved in room:", savedUser);
+//           })
+//           .catch(error => {
+//             console.error("Error saving room:", error);
+//           });
+// }
 
-const createRoom = (email,room) =>{
-  const newRoom = new RoomModel({
-    room:room,
-    email:[email],
-  })
-  newRoom.save()
-  .then(savedRoom => {
-    console.log("Room saved:", savedRoom);
-  })
-  .catch(error => {
-    console.error("Error saving room:", error);
-  });
+// const createRoom = (email,room) =>{
+//   const newRoom = new RoomModel({
+//     room:room,
+//     email:[email],
+//   })
+//   newRoom.save()
+//   .then(savedRoom => {
+//     console.log("Room saved:", savedRoom);
+//   })
+//   .catch(error => {
+//     console.error("Error saving room:", error);
+//   });
 
-}
+// }
 
-const insertInRoom = (email,room) =>{
-  RoomModel.findOneAndUpdate(
-    { room: room },
-    { $push: { email: email } },
-    { new: true }
-  )
-    .then(updatedRoom => {
-      if (updatedRoom) {
-        console.log("Room updated:", updatedRoom);
-      } else {
-        console.log("Room not found");
-      }
-    })
-    .catch(error => {
-      console.error("Error updating room:", error);
-    });
-}
+// const insertInRoom = (email,room) =>{
+//   RoomModel.findOneAndUpdate(
+//     { room: room },
+//     { $push: { email: email } },
+//     { new: true }
+//   )
+//     .then(updatedRoom => {
+//       if (updatedRoom) {
+//         console.log("Room updated:", updatedRoom);
+//       } else {
+//         console.log("Room not found");
+//       }
+//     })
+//     .catch(error => {
+//       console.error("Error updating room:", error);
+//     });
+// }
 
 const mp = new Map()
 const score = new Map()
 const arr = new Array()
 const words = [['a','b','c'],['d','e','f'],['g','h','i'],['k','l','m'],['n','o','p'],['q','r','s']]
 const k = 3 
+let time
 let tempscore = 0;
 mp.clear()
 let currentTurn = -1; 
 let turnInterval; 
  
-function rotateTurns() {
-    console.log("rotate function")
-    const currPlayer = arr[(currentTurn + 1) % arr.length];
-    currentTurn = (currentTurn + 1) % arr.length;
-    console.log("current player",currPlayer)
-    const randomIndex = Math.floor(Math.random() * words.length);
 
-    const data = {
-      currPlayer:currPlayer,
-      words:words[randomIndex],
-    }
 
-    io.emit("turn", data);
+ function rotateTurns() {
+  const currPlayer = arr[(currentTurn + 1) % arr.length];
+  currentTurn = (currentTurn + 1) % arr.length;
+  if(currentTurn===0){
+    round = round + 1;
+  }
+  if(round === 1){
+    time = 1000
+  }
+  else {
+    time = 1000*20
+  }
+  console.log("current player",currPlayer)
+  const randomIndex = Math.floor(Math.random() * words.length);
+
+  
+  const data = {
+    currPlayer:currPlayer,
+    words:words[randomIndex],
+  }
+
+  io.emit("turn", data);
+    console.log(data," turn sent")
     setTimeout(() => { 
         // const scoreJson = JSON.stringify(score);
         let player = score.get(currPlayer);
         
-        let currPlayerScore = player[0];
+        let currPlayerScore = player[0]; 
         currPlayerScore = currPlayerScore + parseInt(tempscore/2);
         // console.log(tempscore);
         player[0] = currPlayerScore
@@ -128,14 +142,22 @@ function rotateTurns() {
         console.log(score)
         tempscore = 0;
         rotateTurns(); 
-    }, 1000*10*3*5);
-     
-  }
+    }, time);
+  
+  
+  } 
 
 
   io.on("connection",(socket)=>{
   console.log(`user connected : ${socket.id}`)
   
+
+  socket.on('voiceData', (audioData) => {
+    // Broadcast the audio data to all other clients
+    socket.broadcast.emit('voiceData', audioData);
+  })
+ 
+    
     socket.on("send_msg",(data)=>{
       socket.broadcast.emit("receive_msg",data);
     })
@@ -164,45 +186,46 @@ function rotateTurns() {
             console.log("user id",email)
             console.log("map size",mp.size)
             if(arr.length===2){
+             
               rotateTurns();
             }
-            // console.log("arr size",arr.length)
+            io.emit("playerScore",JSON.stringify([...score]))
             
         }
-      const userRoom = await UserRoom.findOne({email:email})
-      if(!userRoom){
-        if(!room){
-          randRoom();
-          socket.join(room);
+      // const userRoom = await UserRoom.findOne({email:email})
+      // if(!userRoom){
+      //   if(!room){
+      //     randRoom();
+      //     socket.join(room);
           
-          createRoom(email,room);
-          saveUserRoom(email,room) 
+      //     createRoom(email,room);
+      //     saveUserRoom(email,room) 
           
-        }
-        else if(room){
-          const Room = await RoomModel.findOne({room:room})
-          const userEmail = await RoomModel.findOne({ email: { $in: [email] } });
-          if(!userEmail && Room.email.length >= limit){
-            randRoom();
-            socket.join(room)
-            createRoom(email,room);
-            saveUserRoom(email,room)
+      //   }
+      //   else if(room){
+      //     const Room = await RoomModel.findOne({room:room})
+      //     const userEmail = await RoomModel.findOne({ email: { $in: [email] } });
+      //     if(!userEmail && Room.email.length >= limit){
+      //       randRoom();
+      //       socket.join(room)
+      //       createRoom(email,room);
+      //       saveUserRoom(email,room)
             
-          }
-          else if(!userEmail){
-            socket.join(room)
-            insertInRoom(email,room)
-            saveUserRoom(email,room)
-          }
+      //     }
+      //     else if(!userEmail){
+      //       socket.join(room)
+      //       insertInRoom(email,room)
+      //       saveUserRoom(email,room)
+      //     }
           
-        }
-      }
-      else{
-        const user = await UserRoom.findOne({email:email})
-        const room = user.room
-        socket.join(room)
-      }
-      const user = await UserRoom.findOne({email:email})
+      //   }
+      // }
+      // else{
+      //   const user = await UserRoom.findOne({email:email})
+      //   const room = user.room
+      //   socket.join(room)
+      // }
+      // const user = await UserRoom.findOne({email:email})
       
       // io.to(user.room).emit("startGame",data)
     })
