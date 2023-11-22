@@ -3,6 +3,9 @@ import '../Styles/WhiteBoard.css';
 import WhiteBoardTools from "./WhiteBoardTools.js"
 import {socket} from "../App.js"
 import Time from './Time.js';
+import html2canvas from "html2canvas";
+import sound from '../Assets/play.wav';
+
  const WhiteBoard = ({id,username,email}) => {
 
   	const canvasRef = useRef(null)
