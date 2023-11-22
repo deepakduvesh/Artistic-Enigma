@@ -51,19 +51,23 @@
 
 .flex-container{
   display: flex;
-  /* background-color: #8472c4;    */
-  border: 2px solid black;
-  height: 20vh;
-  width: 97vw;
+    background-color: #fff;
+    border: 2px solid black;
+    height: 17vh;
+    width: 74vw;
+    position: absolute;
+    left: 2.2%;
+    top: 81.5vh;
+    border-radius: 8px;
 }
 
 .flex-tools{
-  background-color: rgb(82, 14, 46);
-  font-size: 10px;
-  height: 13vh;
-  width: 15vw;
-  margin-top: 23px;
-  border: 2px solid black;
+  /* background-color: rgb(82, 14, 46); */
+    font-size: 10px;
+    height: 16.5vh;
+    width: 15vw;
+    margin-top: 0px;
+    /* border: 2px solid black; */
 }
 
 .flex-tools button{
@@ -73,14 +77,16 @@
 
 .flex-tools p {
   text-align: center;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .flex-shapes{
-  background-color: rgb(82, 14, 46);
-  height: 13vh;
-  width: 12vw;
-  margin-top: 23px;
-  border: 2px solid black;
+  /* background-color: rgb(82, 14, 46); */
+  height: 16.5vh;
+  width: auto;
+  margin-top: 0px;
+  /* border: 2px solid black; */
 }
 
 .flex-shapes button{
@@ -90,32 +96,27 @@
 
 .flex-shapes p {
   text-align: center;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .flex-color{
-  background-color: rgb(82, 14, 46);
+  /* background-color: rgb(82, 14, 46); */
   font-size: 10px;
   align-items: center;
-  margin-top: 13px;
+  margin-top: 0px;
   width: 40vw;
-  border: 2px solid black;
+  /* border: 2px solid black; */
 }
 
 
 .setline input {
-  width: 15vw;
+  width: 16vw;
 }
 
 .tool{
   display: flex;
   /* background-color: #780f0f; */
-}
-
- .flex-container .title{
-  background-color: rgb(172, 29, 55);
-  height: 20vh;
-  width: 15vw;
-  border: 2px solid black;
 }
 
 .title p h1{
@@ -187,16 +188,18 @@
   flex-direction: column;
 }
 .size{
-  background-color: rgb(115, 172, 29);
+  background-color: #8472c4;
   margin: 2vh;
   height: 12vh;
+  border-radius: 8px;
 }
 
 .size-2{
-  background-color: rgb(115, 172, 29);
+  background-color: #8472c4;
   margin: 2vh;
   height: 9vh;
   width: 5vw;
+  border-radius: 8px;
 }
 
 .size-2 #width{
@@ -218,6 +221,31 @@
 .size-2 p {
   margin-top: 5px;
   margin-left: 14px;
+}
+
+.undo-redo-buttons {
+  display: flex;
+  flex-direction: column;
+  /* border: 2px solid black; */
+  height: 16.5vh;
+  width: 7vw;
+}
+
+.tools-button{
+  height: 5vh;
+  width: 5vw;
+  margin-top: 1vh;
+  margin-left: 1vh;
+}
+
+.turn{
+  color: #8472c4;
+}
+
+.download-button {
+  position: absolute;
+  bottom: 8vh;
+  right: 13vw;
 }
 
 

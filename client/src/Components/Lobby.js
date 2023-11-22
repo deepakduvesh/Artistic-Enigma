@@ -38,9 +38,18 @@ import '../Styles/Lobby.css';
 
        <div className="Lobby-container">
         <div className="Lobby-box">
-            <h1>Welcome to the Game Lobby</h1>
+            <div className="welcome">
+           <center> <h1>Welcome to the Game Lobby</h1> </center>
+            </div>
+            
+
+            <div className="Lobby-middle">
+                <div className="player-container">players</div>
+                <div className="rules-container">rules</div>
+            </div>
+
             <div className="count">
-                <p><strong>Tottal number of player joined are: </strong></p>
+                {/* <p><strong>Tottal number of player joined are: </strong></p> */}
                 <span> <strong> total player in lobby { count } out of 3 </strong> </span>
             </div>
 

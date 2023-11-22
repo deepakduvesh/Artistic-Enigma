@@ -138,7 +138,7 @@ const Signup = () => {
             // type="cPassword"
             name="cPassword"
             value={cPassword}
-            placeholder="confirmPassword"
+            placeholder="Confirm Password"
             onChange={handleOnChange}
           />
         </div>

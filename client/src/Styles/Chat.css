@@ -14,13 +14,13 @@
   background-size: cover;
   background-position: center; 
   border-radius: 8px;
-  height: 550px;
+  height: 500px;
   width: 100%; 
   overflow: auto;
 }
 
 .message {
-  background-color: #4f4d46;
+  background-color: #8472c4;
   color: #fff;
   width: 97%;
   height: auto;
@@ -28,6 +28,7 @@
   padding: 4px;
   border-radius: 5px;
   word-wrap: break-word;
+  font-size: 16px;
 }
 
 .message strong{
@@ -49,7 +50,7 @@
   margin-top: -3vh;
 }
 
-input {
+.input-box input {
   width: 100vw;
   padding: 8px;
   margin-right: 0px;
@@ -61,7 +62,7 @@ button {
   padding: 8px 14px;
     border: none;
     border-radius: 5px;
-    background-color: #3498db;
+    background-color: #8472c4;
     color: white;
     cursor: pointer;
     margin-bottom: 12px;
