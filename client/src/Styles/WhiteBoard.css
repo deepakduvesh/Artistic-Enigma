@@ -244,16 +244,9 @@
 
 .download-button {
   position: absolute;
-  bottom: 8vh;
+  bottom: 6vh;
   right: 13vw;
 }
-
-
-
-/* .p{
-  text-align: center;
-} */
-
 
 .turn{
   color: #fff;

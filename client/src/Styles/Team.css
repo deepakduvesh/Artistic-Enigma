@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
 .wrapper{
     background-color: rgb(5 3 3 / 75%);
     position: relative;
@@ -7,23 +9,20 @@
 .wrapper .title3{
     text-align: center;
     /* background-color: red; */
-    
 }
 
 .title3 h4{
-    /* background-color: white; */
+    font-family: 'Nunito',sans-serif;
     display: inline-block;
     padding: 0px;
-    color: rgb(235, 243, 235);
+    color: #8472c4;
     font-size: 50px;
     font-weight: 500;
     word-spacing: 5px;
-    border: 1px solid rgb(26, 20, 20);
     border-radius: 15px;
-    /* text-transform: uppercase; */
-    /* backdrop-filter: blur(15px); */
-    box-shadow: 0 10px 10px rgba(0 ,0 , 0,0.1);
-    /* word-wrap: break-word; */
+    margin-left: 7rem;
+    margin-right: 8rem;
+    border-bottom: 5px solid #8472c4;
 }
 
 .wrapper .card_Container{

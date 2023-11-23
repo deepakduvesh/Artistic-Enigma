@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
 @keyframes slideInFromLeft {
     0% {
       transform: translateX(+100%);
@@ -6,19 +8,23 @@
       transform: translateX(0);
     }
   }
+
 .contact{
+    font-family: 'Nunito',sans-serif;
+    background: linear-gradient(rgba(0,0,50,0.8),rgba(0,0,50,0.8)), url('../Assets/background.jpg') no-repeat center center fixed;
+  background-size: cover;
     width: 100%;
     height: 100vh;
-    background-color: #232323;
+    /* background-color: #232323; */
     padding: 20px 0px;
     box-sizing: border-box;
 
 }
 .contact >h1{
-    color: crimson !important;
+    color: #8472c4 !important;
     font-size: 45px;
     /* margin-top: 10px; */
-   
+     font-size: 8rem !important;  
 }
 
 .contact >h1, 
@@ -26,6 +32,8 @@
      width: 100%;
      text-align: center;
      color:#f0e3e3;
+     font-size: 4rem;
+     margin-top: -2rem;
 }
 
 .inside_contact{
@@ -45,16 +53,19 @@
 
 .icon_divide a{
     padding: 10px 20px;
-    color:crimson;
+    color: #8472c4;
     font-size: 25px
 }
-h3{
-    color: crimson;
+.info h3{
+    color: #8472c4;
     position:relative;
     padding: 10px 0px;
-    font-size: 20px;
+    font-size: 25px;
     margin-left: 500px;
 }
+
+
+
 .info h3::after{
     content: ' ';
     position: absolute;
@@ -62,10 +73,15 @@ h3{
     left: 0px;
     width: 90%;
     height: 3px;
-    background-color: #fff;
-
 }
 
+.contact-message h3{
+    color: #8472c4;
+    position:relative;
+    padding: 10px 0px;
+    font-size: 25px;
+    margin-left: 500px;
+}
 
 .contact-message h3::after{
     content: ' ';
@@ -98,7 +114,7 @@ h4{
 {
     padding: 10px;
     margin: 0px 0px 10px 0px;
-    color : crimson;
+    color : #8472c4;
     transition: .5s;
     animation: 1s ease-out 0s 1 slideInFromLeft;
 
@@ -119,7 +135,7 @@ h4{
 .contact-message textarea:focus
 {
     outline: none;
-    border: crimson 3px solid;
+    border: #8472c4 3px solid;
     transition: .5s;
     border-radius: 10px;
 }
@@ -137,12 +153,13 @@ h4{
     border: none;
     padding: 8px 18px;
     margin: 8px 0px 10px 0px;
-    background: crimson;
+    background: #8472c4;
     font-weight: 600;
     font-size: 18px;
     color: white;
     cursor: pointer;
     animation: 1s ease-out 0s 1 slideInFromLeft;
+    border-radius: 8px;
 }
 
 .contact-message textarea{

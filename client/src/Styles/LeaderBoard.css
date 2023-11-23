@@ -1,7 +1,8 @@
 .leaderboard{
-  background: #fff;
   height: 500px;
-  border-radius: 8px;
+    border-radius: 8px;
+    border: 2px solid #8472c4;
+    color: #8472c4;
 }
 
 h1 {

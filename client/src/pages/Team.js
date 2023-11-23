@@ -19,7 +19,7 @@ const Team = () => {
     <> 
         <div className='wrapper'>
             <div className='title3'>
-                <h4>OUR TEAM SECTION</h4>
+            <h4> OUR TEAM SECTION </h4>
 
             </div>
             <div className="card_Container">
@@ -59,7 +59,7 @@ const Team = () => {
 
                     <div className="content3">
                         <div className="contentBx">
-                            <h3>Shivam Kumar<br></br><span>Web Analyst</span></h3>
+                            <h3>Prabhat Tripathi<br></br><span>Web Developer</span></h3>
                         </div>
                         <ul className='sci'>
                             <li className='lil'>
@@ -90,7 +90,7 @@ const Team = () => {
 
                     <div className="content3">
                         <div className="contentBx">
-                            <h3>Shivam Kumar<br></br><span>Web Analyst</span></h3>
+                            <h3>Deepka Duvesh<br></br><span>Web Developer</span></h3>
                         </div>
                         <ul className='sci'>
                             <li className='lil'>
@@ -110,8 +110,6 @@ const Team = () => {
                             </li>
                         </ul>
                     </div>
-
-                    
                 </div>
             </div>
 

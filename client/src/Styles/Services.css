@@ -7,13 +7,20 @@
     text-decoration: none;
 } */
 
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
+body{
+    background: linear-gradient(rgba(0,0,50,0.8),rgba(0,0,50,0.8)), url('../Assets/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
 .services-container{
+    font-family: 'Nunito',sans-serif;
     width: 100%;
     height: 100vh;
     margin-top: -50%;
     position: relative;
     overflow: hidden;
-    /* background-color: #cae9ea; */
 }
 
 .services-container::after{
@@ -21,7 +28,7 @@
     display: block;
     width: 20%;
     height: 100%;
-    background: #c03232;
+    background: #8472c4;
     position: absolute;
     top:0%;
     right: 0%;
@@ -67,12 +74,14 @@
     height: 100vh;
     display: grid;
     grid-template-columns: 50% 50%;
+    color: #fff;
 }
 
 .col-md-1 .details{
     width: 68%;
     margin-left: -60%;
     margin-top: 0%;
+    color: #fff;
 }
 
 /* span{
@@ -87,15 +96,17 @@
 .col-md-1 .details h2{
     margin-top: 20%;
     display: inline-block;
-    font-size: 250%;
-    font-family: 'Brush Script MT', cursive;
+    font-size: 4.5rem;
+    /* font-family: 'Brush Script MT', cursive; */
+    color: #8472c4;
 }
 
 .col-md-1 .details p{
     margin-top: 5%;
-    font-size: 100%;
+    font-size: 1.5rem;
     color: black;
-    font-family:  cursive;
+    /* font-family:  cursive; */
+    color: #fff;
 }
 
 .row a{
