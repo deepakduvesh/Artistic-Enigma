@@ -242,11 +242,19 @@
   color: #8472c4;
 }
 
-.download-button {
-  position: absolute;
-  bottom: 7vh;
-  right: 17vw;
+
+.extra-buttons{
+    display: flex;
+    position: absolute;
+    right: 10rem;
 }
+
+/* .download-button {
+  position: absolute;
+  bottom: 4vh;
+  right: 17vw;
+} */
+
 
 .turn{
   color: #fff;

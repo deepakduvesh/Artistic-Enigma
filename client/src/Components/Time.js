@@ -17,7 +17,7 @@ export default function Time({id}) {
         })
     },[])
   return (
-    <div>
+    <div className='timer' >
       <button>{`time ${seconds}`}</button>
     </div>
   )
