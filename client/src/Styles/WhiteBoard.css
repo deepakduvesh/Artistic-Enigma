@@ -54,7 +54,7 @@
     background-color: #fff;
     border: 2px solid black;
     height: 17vh;
-    width: 74vw;
+    width: 73vw;
     position: absolute;
     left: 2.2%;
     top: 81.5vh;
@@ -233,9 +233,9 @@
 
 .tools-button{
   height: 5vh;
-  width: 5vw;
+  width: 4vw;
   margin-top: 1vh;
-  margin-left: 1vh;
+  margin-left: 2vh;
 }
 
 .turn{
@@ -244,8 +244,8 @@
 
 .download-button {
   position: absolute;
-  bottom: 6vh;
-  right: 13vw;
+  bottom: 7vh;
+  right: 17vw;
 }
 
 .turn{
