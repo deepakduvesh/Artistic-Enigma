@@ -6,12 +6,15 @@ import {socket} from "../App.js"
   // const [map,setmap] = useState(Map)
   // useEffect(() => {
     // let mp =  new Map()
-    const [mp,setmp] = useState(new Map());
+    const [players,setPlayers] = useState([])
     useEffect(()=>{
       socket.on("playerScore",(data)=>{
-        const receivedMap = new Map(JSON.parse(data));
+        // const receivedMap = new Map(JSON.parse(data));
+        console.log(data);
+        // const receivedMap = new Map(data);
         // console.log('Received Map:', receivedMap);
-        setmp(receivedMap);
+        // setmp(receivedMap);
+        setPlayers(data);
       })
     })
     
@@ -32,10 +35,16 @@ import {socket} from "../App.js"
         </thead>
         <tbody>
           {
-            Array.from(mp.entries()).map(([key,[score,username]])=>(
-              <tr key={key}>
-                <td> {username} </td>
-                <td> {score} </td>
+            // Array.from(mp.entries()).map(([key,[score,username]])=>(
+            //   <tr key={key}>
+            //     <td> {username} </td>
+            //     <td> {score} </td>
+            //   </tr>
+            // ))
+            players.map((player, index) => (
+              <tr key={index}>
+                <td>{player.username}</td>
+                <td>{player.score}</td>
               </tr>
             ))
           }
