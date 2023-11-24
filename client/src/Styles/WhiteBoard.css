@@ -54,7 +54,7 @@
     background-color: #fff;
     border: 2px solid black;
     height: 17vh;
-    width: 74vw;
+    width: 73vw;
     position: absolute;
     left: 2.2%;
     top: 81.5vh;
@@ -233,25 +233,26 @@
 
 .tools-button{
   height: 5vh;
-  width: 5vw;
+  width: 4vw;
   margin-top: 1vh;
-  margin-left: 1vh;
+  margin-left: 2vh;
 }
 
 .turn{
   color: #8472c4;
 }
 
-.download-button {
-  position: absolute;
-  bottom: 8vh;
-  right: 13vw;
+
+.extra-buttons{
+    display: flex;
+    position: absolute;
+    right: 10rem;
 }
 
-
-
-/* .p{
-  text-align: center;
+/* .download-button {
+  position: absolute;
+  bottom: 4vh;
+  right: 17vw;
 } */
 
 

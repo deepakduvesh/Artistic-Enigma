@@ -92,7 +92,7 @@ const score = new Map()
 const roomMap = {}
 const playerRoom = {}
 const arr = new Array()
-const words = [['a','b','c'],['d','e','f'],['g','h','i'],['k','l','m'],['n','o','p'],['q','r','s']]
+const words = [['chair','fall','cat'],['traffic','light','flashlight'],['ghost','hen','iceland'],['kid','lamp','mount'],['nose','owl','potato'],['queen','russia','south']]
 const k = 3 
 let time
 let tempscore = 0;

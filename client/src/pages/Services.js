@@ -32,6 +32,7 @@ const Services = () => {
   
   return (
     <> 
+    <div className="complete-services">
     <section className='services-container' >
     <div className="menu">
         {/* <nav>
@@ -78,6 +79,7 @@ const Services = () => {
 
     </div>
     </section>
+    </div>
     </>
   );
 }

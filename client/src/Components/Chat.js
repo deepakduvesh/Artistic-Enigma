@@ -70,6 +70,14 @@ function Chat({username, id,email}) {
         setGuessed(true);  
         setSeconds(0);
         socket.emit("guessed",data);
+        const message = {
+          // sender: username,
+          time: new Date().toLocaleString(),
+          text: `${username} has guessed`,
+        };
+        await socket.emit("send_msg",message);
+        setMessages([...messages, message]);
+        setNewMessage('');
       }
     };
 
@@ -108,7 +116,7 @@ function Chat({username, id,email}) {
         </div>
       </div>
     </div>
-    <div>
+    {/* <div>
       {
         guessed?(
           <p>
@@ -117,7 +125,7 @@ function Chat({username, id,email}) {
         ):
         ""
       }
-    </div>
+    </div> */}
     </>
 
   )

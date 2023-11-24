@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import logo from '../Assets/logo1.png';
 import home from '../Assets/home.png';
 import { socket } from "../App";
+import {MenuIcon, CloseIcon} from '../Components/MySvgIcon.js';
 
 const Home = () => {
   const [email,setEmail] = useState("");
@@ -40,7 +41,7 @@ const Home = () => {
   }
 
   // const token = Cookies.get('token')
-
+ 
 
   useEffect(() => {
     
@@ -115,7 +116,9 @@ const Home = () => {
                 
                 <nav className="navbar">
                   <div className="navbar-left">
-                     <div id='close' className='fas fa-times' ></div>
+                     <div id='close' className='fas fa-times' >
+                       <CloseIcon/>
+                     </div>
                      <a className="nav_items"><Link to="/Home" > Home </Link></a>
                      <a className="nav_items"><Link to="/Team" > Team </Link></a>
                      <a className="nav_items"><Link to="/Contact" > Contact </Link></a>
@@ -135,7 +138,9 @@ const Home = () => {
                       )}
                 </nav>
 
-                <div id="menu" className="fas fa-bars"></div>
+                <div id="menu" className="fas fa-bars">
+                    <MenuIcon/>
+                </div>
         </header>
 
 
