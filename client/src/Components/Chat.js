@@ -12,17 +12,25 @@ function Chat({username, id,email}) {
     const [drawid, setDrawid] = useState('')
     const [guessed, setGuessed] = useState(false)
     const [seconds, setSeconds] = useState(0);
-
+    const [roomNo, setRoomNo] = useState(0);
     const handleInputChange = (event) => {
       setNewMessage(event.target.value);
     };
     
+
+    useEffect(()=>{
+      socket.on("turn",(data)=>{
+        setRoomNo(data.roomNo);
+      })
+    })
+
 
     useEffect(() => {
       
       socket.on("choosenWord",(data)=>{
         setWord(data.word)
         setDrawid(data.email)
+
       })
       const interval = setInterval(()=>{
           setSeconds((prevSeconds)=>prevSeconds+1);
@@ -54,6 +62,7 @@ function Chat({username, id,email}) {
           sender: username,
           time: new Date().toLocaleString(),
           text: newMessage,
+          roomNo:roomNo,
         };
         await socket.emit("send_msg",message);
         setMessages([...messages, message]);
@@ -65,7 +74,8 @@ function Chat({username, id,email}) {
           opponentid: drawid,
           word: word, 
           time: seconds,
-          username:username
+          username:username,
+          roomNo:roomNo,
         }
         setGuessed(true);  
         setSeconds(0);
