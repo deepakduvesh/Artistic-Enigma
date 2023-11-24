@@ -10,6 +10,7 @@ import { getRandomValues } from "crypto";
 import UserRoom from "./Models/UserRoom.js";
 import RoomModel from "./Models/RoomModel.js";
 import { create } from "domain";
+import { socket } from "../client/src/App.js";
 const app = express();
 config({
   path:"./data/config.env"
@@ -35,7 +36,6 @@ const io = new Server(server,{
   }
 }) 
 
-let round = 0;
 const limit = 10;
 
 
@@ -95,10 +95,8 @@ const playersEmail = []
 const arr = new Array()
 const words = [['chair','fall','cat'],['traffic','light','flashlight'],['ghost','hen','iceland'],['kid','lamp','mount'],['nose','owl','potato'],['queen','russia','south']]
 const k = 3 
-let time
 let tempscore = 0;
-let currentTurn = -1; 
-let turnInterval; 
+
  
 
 
@@ -148,18 +146,23 @@ let turnInterval;
 
 
 const privateRotateTurn = (players,currTurn,room,roomSize) =>{
-  const currPlayer = players[(currTurn + 1) % roomSize];
+  const currPlayer = roomMap[room].players[(currTurn + 1) % roomSize];
   currTurn = (currTurn + 1) % roomSize;
-  // if(currTurn===0){
-  //   round = round + 1;
-  // }
-  // if(round === 1){
-  //   time = 1000
-  // }
-  // else {
-  //   time = 1000*20
-  // }
-  console.log("current player",currPlayer.email)
+  let time;
+  
+  if(currTurn===0){
+    roomMap[room].round = roomMap[room].round+1;
+  }
+  if(roomMap[room].round === 1){
+    time = 1000
+  }
+  else {
+    time = 1000*20
+  }
+  if(roomMap[room].round === 3){
+    io.to(room).emit("exit",roomMap[room].players)
+  }
+  console.log("currturn", currTurn, "round ", roomMap.round, " time ", time);
   const randomIndex = Math.floor(Math.random() * words.length);
 
   
@@ -180,16 +183,16 @@ const privateRotateTurn = (players,currTurn,room,roomSize) =>{
         
         
         let currPlayerScore = currPlayer.score
-        currPlayerScore = currPlayerScore + parseInt(tempscore/2);
+        currPlayerScore = currPlayerScore + parseInt(roomMap[room].tempscore/(roomSize-1));
         // const index = players.findIndex(item => item.email === email)
-        players[currTurn].score =  currPlayerScore;
-        
+        // players[currTurn].score =  currPlayerScore;
+        roomMap[room].players[currTurn].score = currPlayerScore
         io.to(room).emit("endTurn", currPlayer.email);
-        io.to(room).emit("playerScore", players);
-        console.log(players)
-        tempscore = 0;
+        io.to(room).emit("playerScore", roomMap[room].players);
+        console.log(roomMap[room].players)
+        roomMap[room].tempscore = 0;
         privateRotateTurn(players,currTurn,room,roomSize);
-    }, 1000*10);
+    }, time);
 }
 
 
@@ -215,6 +218,7 @@ const privateRotateTurn = (players,currTurn,room,roomSize) =>{
         roomSize:data.roomSize,
         currentTurn:-1,
         round:0,
+        tempscore:0,
       } 
       players[data.email] = {
         roomNo:room,
@@ -234,7 +238,7 @@ const privateRotateTurn = (players,currTurn,room,roomSize) =>{
       if(roomSize < roomMap[roomNo].roomSize && roomMap[roomNo].players.findIndex(item => item.email === email)===-1){
         players[data.email] = {
           roomNo:roomNo,
-          score:0,
+          score:1,
           roomSize:roomMap[roomNo].roomSize,
           username:data.username
         }
@@ -355,11 +359,13 @@ const privateRotateTurn = (players,currTurn,room,roomSize) =>{
     })
 
     socket.on("guessed",(data)=>{
-      let sc = score.get(data.email)[0];
+      const roomNo = data.roomNo
+      const email = data.email
+      const index = roomMap[roomNo].players.findIndex(item => item.email === email)
+      let sc = roomMap[roomNo].players[index].score
       let time = 100-data.time;
-      score.set(data.email,[sc+time,data.username]);
-      tempscore = tempscore + time;
-      console.log("tempscore", tempscore);
+      roomMap[roomNo].players[index].score = sc+time;
+      roomMap[roomNo].tempscore = roomMap[roomNo].tempscore + time;
     })
     
     socket.on("choosedWord",(data)=>{

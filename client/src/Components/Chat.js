@@ -84,6 +84,7 @@ function Chat({username, id,email}) {
           // sender: username,
           time: new Date().toLocaleString(),
           text: `${username} has guessed`,
+          roomNo: roomNo
         };
         await socket.emit("send_msg",message);
         setMessages([...messages, message]);

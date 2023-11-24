@@ -36,26 +36,9 @@ import Time from '../Components/Time';
     })
   });
 
- 
-
-
-
-  // const [count, setcount] = useState(0);
-  // useEffect(() => {
-  //   socket.emit("count",email)
-  //   socket.on("playercount", (data) => {
-  //     setcount(data);
-  //   });
-  // });
 
   return (
     <>
-    {/* { */}
-      {/* // startGame?( */}
-       
-      {/* // ):"" */}
-      {/* count>=2? */}
-      {/* ( */}
         <div className="wrapper">
           <div className="header">
              
@@ -78,11 +61,6 @@ import Time from '../Components/Time';
              
         </footer>
      </div>
-      {/* ): */}
-      {/* ( */}
-        {/* <Lobby count={count}/> */}
-      {/* ) */}
-    
     </>
   )
 }
