@@ -6,6 +6,7 @@ import Chat from '../Components/Chat';
 import Lobby from './Lobby';
 import {socket} from "../App"
 import Time from '../Components/Time';
+import Winner from '../Components/Winner.js'
 
   const Play = () => {
   const ldata = sessionStorage.getItem("loginData")
@@ -16,6 +17,9 @@ import Time from '../Components/Time';
   const [startGame, setStartGame] = useState(false);
   const [roomNo, setRoomNo] = useState(0);
   const [score, setScore] = useState(null)
+  const [exit, setExit] = useState(false)
+  const [players, setPlayers] = useState([])
+
   // useEffect(() => {
     // console.log(socket.id) 
     // if(socket.id !== undefined && username !== ""){
@@ -36,9 +40,17 @@ import Time from '../Components/Time';
     })
   });
 
+    useEffect (()=>{
+        socket.on( "exit", (data) => {
+              setPlayers(data);
+              setExit(true);
+        })
+    });
 
   return (
     <>
+    {
+      !exit?(
         <div className="wrapper">
           <div className="header">
              
@@ -61,6 +73,11 @@ import Time from '../Components/Time';
              
         </footer>
      </div>
+      ):(
+        <Winner players = {players}/>
+      )
+    }
+        
     </>
   )
 }

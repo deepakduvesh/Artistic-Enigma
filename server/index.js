@@ -10,7 +10,7 @@ import { getRandomValues } from "crypto";
 import UserRoom from "./Models/UserRoom.js";
 import RoomModel from "./Models/RoomModel.js";
 import { create } from "domain";
-import { socket } from "../client/src/App.js";
+// import { socket } from "../client/src/App.js";
 const app = express();
 config({
   path:"./data/config.env"
