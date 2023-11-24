@@ -8,7 +8,6 @@ import sound from '../Assets/play.wav';
 import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIcon, LineIcon, DeleteIcon, BucketIcon, DrawIcon, PenIcon} from "../Components/MySvgIcon.js";
 
  const WhiteBoard = ({id,username,email}) => {
-
   	const canvasRef = useRef(null)
 	const wordRef = useRef("")
 	const startTime = Date.now()
@@ -17,7 +16,9 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 	const [isMouseDown, setIsMouseDown] = useState(false)
 	const [chooseWord, setChooseWord] = useState("")
 	const [turn,setturn] = useState(false)
-	const [playerTurn, setPlayerTurn] = useState("")
+	const [playerTurn, setPlayerTurn] = useState("");
+
+	const [winWidth, setWinWidth] = useState(window.innerWidth);
 
 	
 	const [eraser ,setEraser] = useState("white");
@@ -472,9 +473,11 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 		}
 	</div>
     <canvas id="divToTakeScreenShotOf" ref={canvasRef}
-          width={window.innerWidth*(0.54)}
+        //  width={(winWidth > 800) ? window.innerWidth*(0.54) :window.innerWidth*(0.80) } 
+		width={window.innerWidth*(0.54)}
           height={500}
-          style={{ border: '1px solid black' }}
+        //   style={{ border: '1px solid black' }}
+		//   style={{ width: '100%' }}
 		  >
 		</canvas>
 		<div className='turn'>
