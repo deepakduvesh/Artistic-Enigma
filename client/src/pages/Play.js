@@ -3,7 +3,7 @@ import '../Styles/Play.css';
 import LeaderBoard from '../Components/LeaderBoard';
 import WhiteBoard from '../Components/WhiteBoard';
 import Chat from '../Components/Chat';
-import Lobby from '../Components/Lobby';
+import Lobby from './Lobby';
 import {socket} from "../App"
 import Time from '../Components/Time';
 

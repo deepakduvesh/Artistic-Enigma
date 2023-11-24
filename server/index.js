@@ -36,12 +36,8 @@ const io = new Server(server,{
 }) 
 
 let round = 0;
-let room = null;
 const limit = 10;
-const randRoom = () =>{
-  room = Math.floor(Math.random() * 1000) + 1;
-  // return room;
-}
+
 
 // const saveUserRoom = (email,room) =>{
 //   const userRoom  = new UserRoom({
@@ -93,6 +89,8 @@ const randRoom = () =>{
 
 const mp = new Map()
 const score = new Map()
+const roomMap = {}
+const playerRoom = {}
 const arr = new Array()
 const words = [['a','b','c'],['d','e','f'],['g','h','i'],['k','l','m'],['n','o','p'],['q','r','s']]
 const k = 3 
@@ -150,14 +148,46 @@ let turnInterval;
 
   io.on("connection",(socket)=>{
   console.log(`user connected : ${socket.id}`)
-  
-
-  socket.on('voiceData', (audioData) => {
-    // Broadcast the audio data to all other clients
-    socket.broadcast.emit('voiceData', audioData);
+   
+  socket.on("joinRoom",async (data)=>{
+    const roomNo = data.roomNo;
+    if(roomNo === 0){
+      let room = Math.floor(Math.random() * 1000) + 1;
+      socket.join(room)
+      console.log(`${socket.id} room is ${room}`)
+      roomMap[room] = {
+        roomNo:room,
+        players:[data.email],
+        roomSize:data.roomSize,
+      } 
+      playerRoom[data.email] = {
+        roomNo:room,
+      }
+      console.log("room : ",room)
+      io.to(room).emit("roomNo",room);
+    }
+    else{
+      let roomSize = roomMap[roomNo].players.length;
+    socket.join(roomNo);
+    if(roomSize < roomMap[roomNo].roomSize && roomMap[roomNo].players.indexOf(data.email)===-1){
+      console.log(`${socket.id} room is ${roomNo}`)
+      roomMap[roomNo].players.push(data.email);
+      console.log(roomMap)
+      io.to(roomNo).emit("roomNo",roomNo);
+    }
+    }
+     
   })
- 
-    
+
+  socket.on("playersNo", (data)=>{
+    io.to(data).emit("roomPlayers",roomMap[data].players)
+    if(roomMap[data].players.length === roomMap[data].roomSize){
+      io.to(data).emit("canStart",true);
+    }
+  })
+
+   
+
     socket.on("send_msg",(data)=>{
       socket.broadcast.emit("receive_msg",data);
     })

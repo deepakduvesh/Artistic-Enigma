@@ -7,14 +7,27 @@ import {ToastContainer, toast } from "react-toastify";
 import Cookies from "js-cookie";
 import logo from '../Assets/logo1.png';
 import home from '../Assets/home.png';
+import { socket } from "../App";
 
 const Home = () => {
+  const [email,setEmail] = useState("");
+  const [username,setUsername] = useState("")
+  const [roomSize,setRoomSize] = useState(null)
+  const [roomNo, setRoomNo] = useState(null)
   const ldata = sessionStorage.getItem("loginData")
   const loginData = JSON.parse(ldata)
   const t = sessionStorage.getItem('token')
   console.log("token : ",t);
   // console.log(ldata)'
   console.log(loginData)
+
+  useEffect(()=>{
+    if(loginData){
+      setEmail(loginData.email);
+      setUsername(loginData.username)
+    }
+  })
+
   const navigate = useNavigate();
   const deleteCookie = ()=>{
     // if(token) Cookies.remove('token')
@@ -67,8 +80,29 @@ const Home = () => {
     
       }, []);
 
+      const createData = {
+        email: email,
+        username: username,
+        roomSize: roomSize,
+        roomNo: 0,
+      }
+
+      const joinData = {
+        email: email,
+        username: username,
+        roomNo: roomNo,
+      }
 
 
+      const create = () =>{
+        socket.emit("joinRoom",createData);
+        navigate("/Lobby")
+      }
+
+      const join = () =>{
+        socket.emit("joinRoom",joinData);
+        navigate("/Lobby")
+      }
 
   return (
     <div className="home-container">
@@ -118,14 +152,13 @@ const Home = () => {
                  ):("please do login to play")}
 
                   <div className="enter-code">
-                    <input type="text" placeholder="Enter code" />
-                    <button>enter</button>
+                    <input type="text" placeholder="Enter code" onChange={(e) => setRoomNo(parseInt(e.target.value))}/>
+                    <button onClick={join}>enter</button>
                   </div>
                   
                   <div className="create-room">
                     <label for="numberSelector">Select a number:</label>
-                     <select id="numberSelector">
-                       <option value="1">1</option>
+                     <select id="numberSelector"  onChange={(e) => setRoomSize(parseInt(e.target.value))}>
                        <option value="2">2</option>
                        <option value="3">3</option>
                        <option value="4">4</option>
@@ -136,7 +169,7 @@ const Home = () => {
                        <option value="9">9</option>
                        <option value="10">10</option>
                      </select>
-                     <button>create</button>
+                     <button onClick={create}>create</button>
                   </div>
 
 

@@ -7,7 +7,7 @@ import  Team from "./pages/Team";
 import  Contact from "./pages/Contact";
 import  Services from "./pages/Services";
 import Play from "./pages/Play";
-import Lobby from "./Components/Lobby.js";
+import Lobby from "./pages/Lobby.js";
 import io from "socket.io-client";
 
 export const socket = io.connect("http://localhost:4000")

@@ -1,8 +1,54 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import rocket from '../Assets/rocket.png';
 import '../Styles/Lobby.css';
-
+import { socket } from '../App';
+import { useNavigate } from 'react-router-dom';
  const Lobby = ( {count} ) => {
+    const navigate = useNavigate();
+    const [roomNo, setRoomNo] = useState(null);
+    const [email,setEmail] = useState("");
+    const [username,setUsername] = useState("")
+    const [totalPlayers, setTotalPlayers] = useState(0);
+    const [canStart,setCanStart] = useState(false);
+    // useEffect(()=>{
+        
+    // },[])
+    const ldata = sessionStorage.getItem("loginData")
+  const loginData = JSON.parse(ldata)
+    useEffect(()=>{
+        if(loginData){
+            setEmail(loginData.email);
+            setUsername(loginData.username)
+          }
+        socket.on("roomNo",(data)=>{
+            setRoomNo(data)
+        })
+       
+        socket.on("canStart",(data)=>{
+            console.log("yes start")
+            setCanStart(data);
+        })
+        
+        if(canStart){ 
+            navigate("/Play")
+        }
+        if(roomNo && username && email){
+            const joinData = {
+                email: email,
+                username: username,
+                roomNo: roomNo,
+              }
+            socket.emit("joinRoom",joinData)
+            socket.emit("playersNo",roomNo)
+            socket.on("roomPlayers",(data)=>{
+                console.log(data)
+                setTotalPlayers(data.length);
+            })
+        }
+    
+    })
+    
+   
     useEffect(()=>{
         function stars(){
             let count = 50;
@@ -50,7 +96,7 @@ import '../Styles/Lobby.css';
 
             <div className="count">
                 {/* <p><strong>Tottal number of player joined are: </strong></p> */}
-                <span> <strong> total player in lobby { count } out of 3 </strong> </span>
+                <span> <strong> total player in lobby { totalPlayers } out of 3 {roomNo}</strong> </span>
             </div>
 
             {/* <div className="enter-game">
