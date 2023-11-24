@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
+.winners-page {
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(rgba(0,0,50,0.8),rgba(0,0,50,0.8)), url('../Assets/doodle.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  .winner-middle{
+    display: flex;
+  }
+  
+ .winners-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: #8472c4;
+    width: 66vh;
+    margin-left: 32vw;
+    margin-top: 3%;
+    font-size: 16px;
+  }
+
+  .winner-heading{
+    font-family: 'Nunito',sans-serif;
+    color: #8472c4;
+    display: inline-block;
+    margin-left: 35%;
+    margin-top: 8%;
+    font-size: 30px;
+  }
+
+  .winner-rank{
+    width: 4vw;
+  }
+  
+  .winners-page th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .winners-page th {
+    background-color: #8472c4;
+  }
+  
