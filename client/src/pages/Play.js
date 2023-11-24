@@ -14,15 +14,15 @@ import Time from '../Components/Time';
   const [email, setEmail] = useState("")
   const [id,setid] = useState("");
   const [startGame, setStartGame] = useState(false);
-  const [room, setRoom] = useState(null);
+  const [roomNo, setRoomNo] = useState(0);
   const [score, setScore] = useState(null)
   // useEffect(() => {
-    console.log(socket.id) 
-    if(socket.id !== undefined && username !== ""){
-      // setid(socket.id);
-      const data = {id:id, username:username, email:email};
-      socket.emit("join", data);
-    }
+    // console.log(socket.id) 
+    // if(socket.id !== undefined && username !== ""){
+    //   // setid(socket.id);
+    //   const data = {id:id, username:username, email:email};
+    //   socket.emit("join", data);
+    // }
     
   // });
   
@@ -31,7 +31,10 @@ import Time from '../Components/Time';
       setusername(loginData.username);
       setEmail(loginData.email);
     } 
-  }, []);
+    socket.on("roomNo",(data)=>{
+      setRoomNo(data)
+    })
+  });
 
  
 

@@ -17,7 +17,7 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 	const [isMouseDown, setIsMouseDown] = useState(false)
 	const [chooseWord, setChooseWord] = useState("")
 	const [turn,setturn] = useState(false)
-	const [playerTurn, setPlayerTurn] = useState("")
+	const [roomNo,setRoomNo] = useState(0)
 
 	
 	const [eraser ,setEraser] = useState("white");
@@ -71,6 +71,7 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 				clearCanvas()
 				setturn(true);		
 				setWords(data.words)
+				setRoomNo(data.roomNo);
 				// setPlayerTurn(data.username)
 			}
 		})
@@ -91,7 +92,7 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 					const x = event.offsetX;
 					const y = event.offsetY;
 					ctx.moveTo(x,y);
-					const data = {x:x,y:y,color:lineColor,width:width,mode:'draw'}
+					const data = {x:x,y:y,color:lineColor,width:width,mode:'draw',roomNo:roomNo}
 					socket.emit('sendstart',data)
 					startDrawHistory();
 				}else{
@@ -123,7 +124,7 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 					const x = event.offsetX;
 					const y = event.offsetY
 					ctx.lineTo(x,y)
-					const data = {x:x,y:y,mode:'draw',color:lineColor,width:width}
+					const data = {x:x,y:y,mode:'draw',color:lineColor,width:width,roomNo:roomNo}
 					ctx.stroke()
 					socket.emit('senddraw',data);
 				}
@@ -155,18 +156,18 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 				const x = event.offsetX;
 				const y = event.offsetY;
 				if(mode === 'rect'){
-					const data = {x1:startX, y1:startY, x2:x-startX, y2:y-startY, mode:'rect',color:lineColor,width:width}
+					const data = {x1:startX, y1:startY, x2:x-startX, y2:y-startY, mode:'rect',color:lineColor,width:width,roomNo:roomNo}
 					ctx.strokeRect(startX,startY, x - startX, y - startY);
 					socket.emit('senddraw',data);
 				}
 				else if(mode === 'circle'){
 					drawCircle(x,y,startX,startY);
-					const data = {x1:x, y1:y, x2:startX, y2:startY,mode:'circle',color:lineColor,width:width}
+					const data = {x1:x, y1:y, x2:startX, y2:startY,mode:'circle',color:lineColor,width:width,roomNo:roomNo}
 					socket.emit('senddraw',data);
 				}
 				else if(mode === 'bucket'){
 					fill();
-					const data = {mode:'bucket'}
+					const data = {mode:'bucket',roomNo:roomNo}
 					socket.emit("senddraw",data)
 				}
 				// ctx.closePath()
@@ -255,6 +256,7 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 		const data = {
 			word: word,
 			email: email,
+			roomNo:roomNo,
 		}
 		socket.emit("choosedWord",data)
 	}	
@@ -268,6 +270,7 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 		  const data = {
 			action:"undo",
 			state:previousState,
+			roomNo:roomNo
 		  }
 		  socket.emit('undoRedo',data);
 		}
@@ -282,6 +285,7 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 		  const data = {
 			action:"redo",
 			state:nextState,
+			roomNo:roomNo
 		  }
 		  socket.emit('undoRedo',data);
 		}

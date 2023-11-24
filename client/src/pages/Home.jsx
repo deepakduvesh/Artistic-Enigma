@@ -13,7 +13,7 @@ import {MenuIcon, CloseIcon} from '../Components/MySvgIcon.js';
 const Home = () => {
   const [email,setEmail] = useState("");
   const [username,setUsername] = useState("")
-  const [roomSize,setRoomSize] = useState(null)
+  const [roomSize,setRoomSize] = useState(0)
   const [roomNo, setRoomNo] = useState(null)
   const ldata = sessionStorage.getItem("loginData")
   const loginData = JSON.parse(ldata)
@@ -164,6 +164,7 @@ const Home = () => {
                   <div className="create-room">
                     <label for="numberSelector">Select a number:</label>
                      <select id="numberSelector"  onChange={(e) => setRoomSize(parseInt(e.target.value))}>
+                       <option value="1">1</option>
                        <option value="2">2</option>
                        <option value="3">3</option>
                        <option value="4">4</option>
