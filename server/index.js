@@ -259,7 +259,7 @@ const privateRotateTurn = (players,currTurn,room,roomSize) =>{
    
 
     socket.on("send_msg",(data)=>{
-      io.to(data.roomNo).emit("receive_msg",data);
+      socket.to(data.roomNo).emit("receive_msg",data);
     })
   
     // socket.on("join",(data)=>{
