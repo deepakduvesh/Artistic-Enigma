@@ -91,6 +91,7 @@ const mp = new Map()
 const score = new Map()
 const roomMap = {}
 const players = {}
+let publicRoom = null;
 const playersEmail = []
 const arr = new Array()
 const words = [['chair','fall','cat'],['traffic','light','flashlight'],['ghost','hen','iceland'],['kid','lamp','mount'],['nose','owl','potato'],['queen','russia','south']]
@@ -145,7 +146,8 @@ let tempscore = 0;
 
 
 
-const privateRotateTurn = (players,currTurn,room,roomSize) =>{
+const privateRotateTurn = (players,currTurn,room) =>{
+  let roomSize = roomMap[room].players.length
   const currPlayer = roomMap[room].players[(currTurn + 1) % roomSize];
   currTurn = (currTurn + 1) % roomSize;
   let time;
@@ -203,8 +205,13 @@ const privateRotateTurn = (players,currTurn,room,roomSize) =>{
     const roomNo = data.roomNo;
     const email = data.email
     const username = data.username
-    if(roomNo === 0){
+    const type = data.type;
+    if(roomNo === 0 || (type === "public") && (publicRoom===null)){
+      
       let room = Math.floor(Math.random() * 1000) + 1;
+      if(type === "public"){
+        publicRoom = room;
+      }
       socket.join(room)
       roomMap[room] = {
         roomNo:room,
@@ -232,8 +239,18 @@ const privateRotateTurn = (players,currTurn,room,roomSize) =>{
     }
 
     else{
+      if(type==="public" && publicRoom){
+        socket.join(publicRoom);
+        if(roomMap[publicRoom].players.findIndex(item=>item.email===email)===-1){
+          roomMap[publicRoom].players.push({email:email,score:0,username:username});
+        }
+        if(roomMap[publicRoom].players.length===2){
+          privateRotateTurn(roomMap[publicRoom].players,-1,publicRoom)
+        }
+        io.to(publicRoom).emit("playerScore",roomMap[publicRoom].players)
+      }
+      else{
       let roomSize = roomMap[roomNo].players.length;
-      console.log(roomMap)
       socket.join(roomNo);
       if(roomSize < roomMap[roomNo].roomSize && roomMap[roomNo].players.findIndex(item => item.email === email)===-1){
         players[data.email] = {
@@ -247,6 +264,8 @@ const privateRotateTurn = (players,currTurn,room,roomSize) =>{
         io.to(roomNo).emit("roomNo",roomNo);
       }
       playersEmail.push(data.email)
+      }
+      
     }
      
   })
@@ -256,7 +275,7 @@ const privateRotateTurn = (players,currTurn,room,roomSize) =>{
     if(roomMap[data].players.length === roomMap[data].roomSize){
       io.to(data).emit("canStart",true);
       io.to(data).emit("playerScore",roomMap[data].players)
-      privateRotateTurn(roomMap[data].players,-1,data,roomMap[data].roomSize)
+      privateRotateTurn(roomMap[data].players,-1,data)
     }
   })
 
