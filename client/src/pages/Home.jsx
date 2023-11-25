@@ -95,6 +95,12 @@ const Home = () => {
         roomNo: roomNo,
       }
 
+      const publicData = {
+        email: email,
+        username: username,
+        roomNo: roomNo,
+        type: "public"
+      }
 
       const create = () =>{
         socket.emit("joinRoom",createData);
@@ -104,6 +110,11 @@ const Home = () => {
       const join = () =>{
         socket.emit("joinRoom",joinData);
         navigate("/Lobby")
+      }
+
+      const publicJoin = () =>{
+        socket.emit("joinRoom",publicData);
+        navigate("/PublicPlay")
       }
 
   return (
@@ -153,7 +164,8 @@ const Home = () => {
                  
                  {t?(
                   <div className="play-buttons">
-                  <a className='btn'> <Link to="/Play">Public</Link> </a>
+                  {/* <a className='btn'> <button onClick={publicJoin}>public</button> </a> */}
+                   <button className='btn' onClick={publicJoin}>public</button> 
                   <a className='btn' onClick={() => setIsPrivateClicked(true)} > Private </a>
                   </div>
                  ):("please do login to play")}
