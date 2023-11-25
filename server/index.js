@@ -235,7 +235,11 @@ const privateRotateTurn = (players,currTurn,room) =>{
       }
       playersEmail.push(data.email);
       console.log("room : ",roomMap)
-      io.to(room).emit("roomNo",room);
+      const value = {
+        roomNo: room,
+        roomSize: data.roomSize 
+      }
+      io.to(room).emit("roomNo",value);
     }
 
     else{
@@ -261,7 +265,11 @@ const privateRotateTurn = (players,currTurn,room) =>{
         }
         roomMap[roomNo].players.push({email:email,score:0,username:username});
         console.log(roomMap)
-        io.to(roomNo).emit("roomNo",roomNo);
+        const value = {
+          roomNo: roomNo,
+          roomSize: roomMap[roomNo].roomSize, 
+        }
+        io.to(roomNo).emit("roomNo",value);
       }
       playersEmail.push(data.email)
       }

@@ -155,8 +155,10 @@ const Signup = () => {
 
       </div>
        
-      <div className="forgot-password">Lost Password? <span>click here!</span></div>
-
+      {/* <div className="forgot-password">Lost Password? <span>click here!</span></div> */}
+      <div className="forgot-password">
+        Already registered? <Link to={"/Login"}>Login</Link>
+      </div>
       <div className="submit-container">
         <button className="submit" type='submit' >SignUp </button>
           {/* <button className="submit gray" ><Link to ="/login">login </Link>  </button> */}
