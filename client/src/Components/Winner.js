@@ -1,13 +1,6 @@
 import React from 'react';
 import '../Styles/Winner.css';
 
-// const winnersData = [
-//   { name: 'Player 1', score: 100 },
-//   { name: 'Player 2', score: 90 },
-//   { name: 'Player 3', score: 80 },
-//   // Add more winners as needed
-// ];
-
 const WinnersPage = ({players}) => (
   <div className="winners-page">
     <div className="winner-heading">
@@ -15,9 +8,6 @@ const WinnersPage = ({players}) => (
     </div>
 
     <div className="winner-middle">
-    {/* <div className="left-img">
-        <img src={leftImg} alt="" />
-     </div> */}
     <div className="winner-table">
     <table>
       <thead>
@@ -38,11 +28,7 @@ const WinnersPage = ({players}) => (
       </tbody>
     </table>
     </div>
-    {/* <div className="right-img">
-        <img src={rightImg} alt="" />
-     </div> */}
      </div>
-     
   </div>
 );
 

@@ -81,7 +81,6 @@ function Chat({username, id,email}) {
         setSeconds(0);
         socket.emit("guessed",data);
         const message = {
-          // sender: username,
           time: new Date().toLocaleString(),
           text: `${username} has guessed`,
           roomNo: roomNo
@@ -100,9 +99,7 @@ function Chat({username, id,email}) {
 
   return (
     <>
-    {/* chat-box */}
     <div className="right">
-      {/* <h1>Group Chat</h1> */}
       <div className="chat-container">
         <div className="chat-box">
           {messages.map((message, index) => (
@@ -121,27 +118,11 @@ function Chat({username, id,email}) {
             onKeyPress={handleKeyPress}
             placeholder="Type a message"
           />
-          {/* <div className="send">
-            <button onClick={sendMessage}>Send</button>
-          </div> */}
         </div>
       </div>
     </div>
-    {/* <div>
-      {
-        guessed?(
-          <p>
-            you guessed
-          </p>
-        ):
-        ""
-      }
-    </div> */}
     </>
-
   )
 }
-
-
 
 export default Chat;

@@ -44,7 +44,6 @@ const WhiteBoardTools =({setLineColor,setWidth ,setLineOpacity}) =>
             />
             </div>
             </div>
-            {/* <p className="p"><b>Colours</b></p> */}
             </div>
 
 
@@ -86,10 +85,7 @@ const WhiteBoardTools =({setLineColor,setWidth ,setLineOpacity}) =>
                 </button>
                 <p><b>Eraser</b></p>
             </div>
-
-            
         </div>
-
     )
 
 };

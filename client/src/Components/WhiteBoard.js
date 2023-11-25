@@ -73,7 +73,6 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 				setturn(true);		
 				setWords(data.words)
 				setRoomNo(data.roomNo);
-				// setPlayerTurn(data.username)
 			}
 		})
 		
@@ -119,7 +118,6 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 
 		const draw = (event)=>{
 			setCursorPosition({ x: event.clientX, y: event.clientY });
-			// setCurrentCursor('draws');
 			if(!isDrawing || !turn) return;	
 				if(mode === 'draw'){
 					const x = event.offsetX;
@@ -171,7 +169,6 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 					const data = {mode:'bucket',roomNo:roomNo}
 					socket.emit("senddraw",data)
 				}
-				// ctx.closePath()
 				drawHistory();
 				setIsDrawing(false);
 			}	
@@ -238,7 +235,6 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 				setCurrentState(null);
 				setStartX(null);
 				setStartY(null);
-				// clearInterval(interval);
 				setSeconds(0);
 		})
 		
@@ -249,7 +245,6 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 			canvas.removeEventListener('mouseup',endDrawing);
 			
 		}
-		// 
 	},[isDrawing,turn,chooseWord,mode,id,history,historyIndex,words])
 
 	const handle = (word)=>{
@@ -399,10 +394,6 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 
 
 		<div className="flex-container">
-			{/* <div className="title">
-			<p> <h1>Artistic</h1> </p>
-             <p> <h1>Enigma</h1> </p>
-			</div> */}
 			<div className="tools">
 			<WhiteBoardTools
 				setLineColor={setLineColor}
@@ -473,15 +464,11 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 		}	
 		{
 			turn?(  <Time id = {id}/> ):""
-			// <Time/>
 		}
 	</div>
     <canvas id="divToTakeScreenShotOf" ref={canvasRef}
-        //  width={(winWidth > 800) ? window.innerWidth*(0.54) :window.innerWidth*(0.80) } 
 		width={window.innerWidth*(0.54)}
           height={500}
-        //   style={{ border: '1px solid black' }}
-		//   style={{ width: '100%' }}
 		  >
 		</canvas>
 		<div className='turn'>
