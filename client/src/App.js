@@ -9,7 +9,7 @@ import  Services from "./pages/Services";
 import Play from "./pages/Play";
 import Lobby from "./pages/Lobby.js";
 import io from "socket.io-client";
-import PublicPlay from "./pages/PublicPlay.js";
+import PublicPlay from './pages/PublicPlay.js';
 export const socket = io.connect("http://localhost:4000")
 
 function App() {
