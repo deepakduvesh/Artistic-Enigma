@@ -1,5 +1,4 @@
-
-
+/* styles: chat.css */
 
 .chat-container{
   display: flex;
@@ -9,8 +8,6 @@
 
 .chat-box{
   border: 2px solid black;
-  /* background-image: url('../Assets/chat.jpg'); */
-  /* background: #fff; */
   background-size: cover;
   background-position: center; 
   border-radius: 8px;

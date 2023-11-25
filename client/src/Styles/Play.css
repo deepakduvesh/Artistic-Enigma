@@ -6,7 +6,6 @@
     top: 0;
     display: flex;
     flex-flow: row wrap;
-    /* text-align: center; */
     left: 0;
     padding: 10px;
     width: 100%;
@@ -22,36 +21,28 @@
 }
 
 .header{
-    /* background: tomato; */
     height: 40px;
 }
 
 .footer{
-    /* background: green; */
     height: 80px;
 }
 
 .main{
    text-align: left;
-   /* background: cyan; */
    height: 550px;
    width: 60vw;
    font-size: 24px;
-   /* background-color: #fff; */
 }
 
 .aside1{
-    /* background: #fff; */
     height: 550px;
     width: 20vw;
-    /* border: 2px solid black; */
 }
 
 .aside2{
-    /* background: hotpink; */
     height: 530px;
     width: 20vw;
-    /* border: 2px solid black; */
 }
 
 @media all and (min-width: 800px){

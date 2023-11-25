@@ -71,8 +71,6 @@
   .Lobby-container{
     height: 100%;
     width: 100%;
-    /* border: 2px solid red; */
-    /* background: url('./Assets/wallpaper.jpg') no-repeat center center fixed; */
     background-size: cover;
     position: absolute;
     top: 0;
@@ -85,7 +83,6 @@
     position: absolute;
     top: 10%;
     left: 20%;
-    /* border: 2px solid green; */
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -97,7 +94,6 @@
     border: 2px solid #fff;
     background-color: #fff;
     border-radius: 8px;
-    /* box-shadow: 9px 9px 100px blue; */
     width: 56%;
     height: 15%;
     margin-left: 20rem;
@@ -119,7 +115,6 @@
     height: 55vh;
     width: 20vw;
     background-color: #8472c4;
-    /* box-shadow: 9px 9px 80px #fff; */
     border: 2px solid #fff;
     margin-left: -18rem;
     margin-top: 6rem;
@@ -162,30 +157,10 @@
     border: 2px solid #fff;
     background-color: #8472c4;
     border-radius: 8px;
-    /* box-shadow: 9px 9px 80px blue; */
     width: 56%;
     height: 11%;
-    /* margin-left: 20rem; */
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 25px;
 }
-
-/* .enter-game{
-    border: 2px solid red;
-    background-color: #fff;
-    margin-top: 116px;
-    width: 30%;
-    margin-left: 175px;
-    border-radius: 8px;
-} */
-
-/* .enter-game button {
-    margin: 9px;
-    padding: 10px;
-    border-radius: 8px;
-    height: 5vh;
-    width: 5vw;
-} */
-

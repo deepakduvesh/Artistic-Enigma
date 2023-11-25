@@ -38,16 +38,7 @@
       padding: 10px;
     }
     
-    /* .button13{
-  
-      padding: 1px 1px;
-      margin: 1px 1px;
-      background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
-      
-    } */
-    
 /* Canvas.css here is nothing but the styling of tools in whiteboard */
-
 
 .flex-container{
   display: flex;
@@ -62,12 +53,10 @@
 }
 
 .flex-tools{
-  /* background-color: rgb(82, 14, 46); */
     font-size: 10px;
     height: 16.5vh;
     width: 15vw;
     margin-top: 0px;
-    /* border: 2px solid black; */
 }
 
 .flex-tools button{
@@ -82,11 +71,9 @@
 }
 
 .flex-shapes{
-  /* background-color: rgb(82, 14, 46); */
   height: 16.5vh;
   width: auto;
   margin-top: 0px;
-  /* border: 2px solid black; */
 }
 
 .flex-shapes button{
@@ -101,12 +88,10 @@
 }
 
 .flex-color{
-  /* background-color: rgb(82, 14, 46); */
   font-size: 10px;
   align-items: center;
   margin-top: 0px;
   width: 40vw;
-  /* border: 2px solid black; */
 }
 
 
@@ -116,7 +101,6 @@
 
 .tool{
   display: flex;
-  /* background-color: #780f0f; */
 }
 
 .title p h1{
@@ -226,7 +210,6 @@
 .undo-redo-buttons {
   display: flex;
   flex-direction: column;
-  /* border: 2px solid black; */
   height: 16.5vh;
   width: 7vw;
 }
@@ -249,13 +232,6 @@
   right: 10rem;
   top: 2rem;
 }
-
-/* .download-button {
-  position: absolute;
-  bottom: 4vh;
-  right: 17vw;
-} */
-
 
 .turn{
   color: #fff;
