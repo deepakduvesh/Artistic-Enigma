@@ -247,7 +247,14 @@ html{
 
 .create-room label {
   background-color: #fff;
-  margin-left: 2rem;
+    margin-left: 2rem;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.create-room select{
+  padding-top: 9px;
+    padding-bottom: 9px;
 }
 
 .create-room button {

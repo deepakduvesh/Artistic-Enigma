@@ -15,6 +15,7 @@ const Home = () => {
   const [username,setUsername] = useState("")
   const [roomSize,setRoomSize] = useState(0)
   const [roomNo, setRoomNo] = useState(null)
+  const [isPrivateClicked, setIsPrivateClicked] = useState(false);
   const ldata = sessionStorage.getItem("loginData")
   const loginData = JSON.parse(ldata)
   const t = sessionStorage.getItem('token')
@@ -149,13 +150,16 @@ const Home = () => {
                   <h1 className="title">Artistic <span>Enigma</span> <span>draw</span> and <span>guess</span> </h1>
 
                   <p className="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque ducimus, rerum quas inventore sunt hic accusantium.</p>
+                 
                  {t?(
                   <div className="play-buttons">
                   <a className='btn'> <Link to="/Play">Public</Link> </a>
-                  <a className='btn'> <Link to="/Lobby">Private</Link> </a>
+                  <a className='btn' onClick={() => setIsPrivateClicked(true)} > Private </a>
                   </div>
                  ):("please do login to play")}
 
+                {isPrivateClicked && (
+                  <>
                   <div className="enter-code">
                     <input type="text" placeholder="Enter code" onChange={(e) => setRoomNo(parseInt(e.target.value))}/>
                     <button onClick={join}>enter</button>
@@ -164,7 +168,7 @@ const Home = () => {
                   <div className="create-room">
                     <label for="numberSelector">Select a number:</label>
                      <select id="numberSelector"  onChange={(e) => setRoomSize(parseInt(e.target.value))}>
-                       <option value="1">1</option>
+                       <option value="">default</option>
                        <option value="2">2</option>
                        <option value="3">3</option>
                        <option value="4">4</option>
@@ -177,7 +181,8 @@ const Home = () => {
                      </select>
                      <button onClick={create}>create</button>
                   </div>
-
+                  </>
+                )}  
 
                  </div>
                  <div className="image">
