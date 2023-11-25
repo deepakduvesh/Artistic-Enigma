@@ -4,7 +4,6 @@ import multer from 'multer';
 import express from "express"
 
 const router = express.Router();
-//router.post('/',userVerification)
 
 
 const storage = multer.diskStorage({

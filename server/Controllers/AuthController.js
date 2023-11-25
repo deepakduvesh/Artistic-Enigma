@@ -10,11 +10,9 @@ export const Signup = async (req, res) => {
     if (existingUser) {
       return res.json({ message: "User already exists" });
     } 
-    // const hashPassword = await bcrypt.hash(password,10)
     const user = await User.create({ email, password, username, image, createdAt });
 
     res.status(201).json({ message: "User signed in successfully", success: true, user });
-    // next();
   } catch (error) {
     console.error(error); 
   }
@@ -29,12 +27,10 @@ export const Login = async (req, res) => {
       return res.json({message:'Incorrect  email' }) 
     }
     const auth = await bcrypt.compare(password,user.password)
-    // console.log(auth)
     if (!auth) {
       return res.json({message:'Incorrect password or email' }) 
     }
      const token = createSecretToken(user._id);
-    //  console.log(user)
      res.status(201).json({ message: "User logged in successfully", success: true, token:token ,email_id:user.email,username:user.username});
      
   } catch (error) {
@@ -52,12 +48,7 @@ export const profile = async(req,res,next)=>{
       console.log(params)
       console.log(thisuser)
       if(thisuser){
-          // console.log(params)
-          const pic = thisuser.image;
-            //console.log("user",thisuser.email)
-          //   const p = path.join(__dirname, '../uploads', `${pic}`);
-          // const p = `${pic}` 
-          // console.log("path",pic)       
+          const pic = thisuser.image;      
           return res.json({pic,status:true});
       }
       else{
