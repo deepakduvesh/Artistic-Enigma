@@ -32,6 +32,7 @@ const Lobby = () => {
   const [totalPlayers, setTotalPlayers] = useState(0);
   const [canStart, setCanStart] = useState(false);
   const [playerNames, setPlayerNames] = useState([]);
+  const [roomSize, setRoomSize] = useState(null);
 
   useEffect(() => {
     const ldata = sessionStorage.getItem('loginData');
@@ -45,7 +46,8 @@ const Lobby = () => {
 
   useEffect(() => {
     socket.on('roomNo', (data) => {
-      setRoomNo(data);
+      setRoomNo(data.roomNo);
+      setRoomSize(data.roomSize);
     });
 
     socket.on('canStart', (data) => {
@@ -142,7 +144,7 @@ const Lobby = () => {
             {/* <p><strong>Tottal number of player joined are: </strong></p> */}
             <span>
               {' '}
-              <strong> total player in lobby {totalPlayers} out of 3 {roomNo}</strong>{' '}
+              <strong> Room code: {roomNo} / players: {totalPlayers} out of {roomSize} </strong>{' '}
             </span>
           </div>
         </div>
