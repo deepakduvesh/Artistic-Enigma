@@ -44,13 +44,10 @@ run `npm start` and backend will start
  - Feature of pen of different colors and different brush types
 - Features like, erase, Bucket fillm color picker
 - Feature to save current drawing and share in on socials.
-- Ability for one user to be room admin and, ability to kick users from room.
-- Ability to chat restrict a user without kicking them.
-- Ability to see other users mouse pointer with their name or without their name(configurable).
 
 ### Advanced
 - Features to do undo and redo recent operations
-- Ability to draw different shapes such as circle , rectangle,line etc.
+- Ability to draw different shapes such as circle , rectangle,line .
 
 
 ### Images
