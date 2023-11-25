@@ -31,7 +31,7 @@ const WinnersPage = ({players}) => (
         {players.map((winner, index) => (
           <tr key={index}>
             <td className='winner-rank' >{index + 1}</td>
-            <td>{winner.name}</td>
+            <td className='winner-name' >{winner.username}</td>
             <td>{winner.score}</td>
           </tr>
         ))}
