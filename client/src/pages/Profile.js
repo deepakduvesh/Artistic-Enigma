@@ -12,13 +12,10 @@ import user_icon from '../Assets/profile.png'
   const ldata = sessionStorage.getItem("loginData")
   const loginData = JSON.parse(ldata)
   const navigate = useNavigate();
-  // const token = Cookies.get('token') 
   const token  = sessionStorage.getItem('token')
-    // useEffect(()=>{
       if(!token){
         navigate("/") 
       }
-    // },[])
   const [profileImage, setProfileImage] = useState("");
     const [data, setData] = useState([]);
     const [param1, setParam1] = useState("");
@@ -47,23 +44,14 @@ import user_icon from '../Assets/profile.png'
           }
       };
 
-      fetchProfile(); // Call the function to initiate the request
+      fetchProfile();
 
       }else{
         navigate("/")
       }
 
-        // console.log(loginData.email);
-        
-        // Use a function to fetch the profile data and handle the response
         
     }, [param1]);
-
-
-
-  // const user = {
-  //   name: loginData.username, 
-  // };
 
   const handleEditProfile = () => {
     
@@ -72,7 +60,6 @@ import user_icon from '../Assets/profile.png'
 
   const handleLogout = () => {
       if(token){
-        // Cookies.remove('token')
         sessionStorage.removeItem('token')
         sessionStorage.removeItem('loginData')
       }
@@ -87,9 +74,6 @@ import user_icon from '../Assets/profile.png'
 
      <div className="profile-container"> 
     <div className="my-account-page">
-      {/* <h1>
-        hello
-      </h1> */}
       <div className="user-profile">
         <img src={profileImage} alt="User" />
         <h2>{loginData.username}</h2>

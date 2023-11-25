@@ -141,7 +141,6 @@ const Lobby = () => {
           </div>
 
           <div className="count">
-            {/* <p><strong>Tottal number of player joined are: </strong></p> */}
             <span>
               {' '}
               <strong> Room code: {roomNo} / players: {totalPlayers} out of {roomSize} </strong>{' '}

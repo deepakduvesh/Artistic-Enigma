@@ -20,7 +20,6 @@ const Home = () => {
   const loginData = JSON.parse(ldata)
   const t = sessionStorage.getItem('token')
   console.log("token : ",t);
-  // console.log(ldata)'
   console.log(loginData)
 
   useEffect(()=>{
@@ -32,16 +31,12 @@ const Home = () => {
 
   const navigate = useNavigate();
   const deleteCookie = ()=>{
-    // if(token) Cookies.remove('token')
-    // navigate("/")
     if(t){
       sessionStorage.removeItem('token')
       sessionStorage.removeItem('loginData')
     } 
     navigate("/")
   }
-
-  // const token = Cookies.get('token')
  
 
   useEffect(() => {
@@ -55,9 +50,6 @@ const Home = () => {
     document.querySelector('#close').onclick = () =>{
       navbar.classList.remove('active');
     }
-    
-    
-    // mousemove home img
     
     document.addEventListener('mousemove', move);
     function move(e){
@@ -164,7 +156,6 @@ const Home = () => {
                  
                  {t?(
                   <div className="play-buttons">
-                  {/* <a className='btn'> <button onClick={publicJoin}>public</button> </a> */}
                    <button className='btn' onClick={publicJoin}>public</button> 
                   <a className='btn' onClick={() => setIsPrivateClicked(true)} > Private </a>
                   </div>

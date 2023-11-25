@@ -60,13 +60,8 @@ const Login = () => {
           email:email_id,
         }
         sessionStorage.setItem("loginData",JSON.stringify(loginData))
-        // Cookies.set('token',token,{expires: 10/(24*60)})
         sessionStorage.setItem('token',token);
-
-        // setTimeout(() => {
           navigate("/");
-        // }, 1000);
-        // console.log(data);
       } else {
         handleError(message);
       }
@@ -94,6 +89,7 @@ const Login = () => {
       <div className="inputs">
         <div className="input">
         <img src={email_icon} alt=""/>
+
           {/* <label htmlFor="email">Email</label> */}
           <input
             type="email"
@@ -107,7 +103,6 @@ const Login = () => {
 
         <div className="input">
         <img src={password_icon} alt="" />
-          {/* <label htmlFor="password">Password</label> */}
           <input
             type="password"
             name="password"
@@ -118,22 +113,15 @@ const Login = () => {
         </div>
         </div>
 
-        {/* <button type="submit">Submit</button> */}
 
         <div className="forgot-password">
         Don't have an account? <Link to={"/signup"}>Signup</Link>
-          {/* Lost Password? <span>click here!</span> */}
           </div>
 
         <div className="submit-container">
-        {/* <Link to ="/Signup"><button className="submit gray" >SignUp</button></Link> */}
           <button className="submit" type='submit'>Login</button>
       </div>
 
-
-        {/* <span>
-          Already have an account? <Link to={"/signup"}>Signup</Link>
-        </span> */}
       </form>
       <ToastContainer />
     </div>

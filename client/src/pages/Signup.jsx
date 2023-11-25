@@ -57,7 +57,7 @@ const Signup = () => {
         }
     const formData = new FormData();
     formData.append('photo', photo);
-      formData.append('username', username); // Add other form fields to FormData
+      formData.append('username', username);
       formData.append('email', email);
       formData.append('password', password);
         const { data } = await axios.post("http://localhost:4000/signup",formData);
@@ -123,7 +123,6 @@ const Signup = () => {
         <div className="input">
           <img src={password_icon} alt="" />
          <input
-            // type="password"
             name="password"
             value={password}
             placeholder="Password"
@@ -135,7 +134,6 @@ const Signup = () => {
         <div className="input">
           <img src={password_icon} alt="" />
          <input
-            // type="cPassword"
             name="cPassword"
             value={cPassword}
             placeholder="Confirm Password"
@@ -155,13 +153,11 @@ const Signup = () => {
 
       </div>
        
-      {/* <div className="forgot-password">Lost Password? <span>click here!</span></div> */}
       <div className="forgot-password">
         Already registered? <Link to={"/Login"}>Login</Link>
       </div>
       <div className="submit-container">
         <button className="submit" type='submit' >SignUp </button>
-          {/* <button className="submit gray" ><Link to ="/login">login </Link>  </button> */}
       </div>
       </form>
       <ToastContainer />

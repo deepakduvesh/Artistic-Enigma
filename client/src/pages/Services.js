@@ -35,14 +35,6 @@ const Services = () => {
     <div className="complete-services">
     <section className='services-container' >
     <div className="menu">
-        {/* <nav>
-            <ul>
-                <li><a href='#'>Home</a></li>
-                <li><a href='#'>About</a></li>
-                <li><a href='#'>Contact</a></li>
-                <li><a href='#'>Service</a></li>
-            </ul>
-        </nav> */}
       
     </div>
     <div className='row'>
@@ -65,9 +57,6 @@ const Services = () => {
                 <p>
                 Players earn points for guessing the word correctly,<br></br> and the player drawing also earns points based on how quickly <br></br>their word is guessed.
                 </p>
-                {/* <a href='#'>
-                    Click to eat
-                </a> */}
    
 
             </div>

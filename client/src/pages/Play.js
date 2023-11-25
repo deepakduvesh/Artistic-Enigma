@@ -20,15 +20,6 @@ import Winner from '../Components/Winner.js'
   const [exit, setExit] = useState(false)
   const [players, setPlayers] = useState([])
 
-  // useEffect(() => {
-    // console.log(socket.id) 
-    // if(socket.id !== undefined && username !== ""){
-    //   // setid(socket.id);
-    //   const data = {id:id, username:username, email:email};
-    //   socket.emit("join", data);
-    // }
-    
-  // });
   
   useEffect(() => {
     if (loginData){
