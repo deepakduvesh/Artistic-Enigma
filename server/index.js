@@ -49,27 +49,41 @@ const words = [['chair','fall','cat'],['traffic','light','flashlight'],['ghost',
 const k = 3 
 let tempscore = 0;
 
+const privateRotateTurn = (room) =>{
+  const roomState = roomMap[room];
+  let roomSize = roomMap[room].players.length;
+  let currTurn = roomMap[room].currentTurn;
+  if (currTurn === -1) {
+    currTurn = 0;
+  } else {
+    currTurn = (currTurn + 1) % roomSize;
+  }
+  console.log("room suze: ",roomSize , "curr turn : ",currTurn, "players : " ,roomMap[room].players);
+  let currPlayer = roomMap[room].players[currTurn];
 
-
-const privateRotateTurn = (players,currTurn,room) =>{
-  let roomSize = roomMap[room].players.length
-  const currPlayer = roomMap[room].players[(currTurn + 1) % roomSize];
-  currTurn = (currTurn + 1) % roomSize;
   let time;
   
   if(currTurn===0){
     roomMap[room].round = roomMap[room].round+1;
   }
-  if(roomMap[room].round === 1){
-    time = 1000
+ 
+  roomMap[room].currPlayer = currPlayer.email;
+  roomMap[room].currentTurn = currTurn;
+  if(roomMap[room].round===1 && currTurn===0){
+    time = 100;
   }
-  else {
-    time = 1000*20
+  else{
+    time = 1000*20;
   }
+  
+
   if(roomMap[room].round === 3){
     io.to(room).emit("exit",roomMap[room].players)
+    delete roomMap[room];
+    publicRoom=null;
+    return;
   }
-  console.log("currturn", currTurn, "round ", roomMap.round, " time ", time);
+  console.log("currturn", currTurn, "round ", roomMap[room].round, " time ", time);
   const randomIndex = Math.floor(Math.random() * words.length);
 
   
@@ -78,27 +92,22 @@ const privateRotateTurn = (players,currTurn,room) =>{
     words:words[randomIndex],
     roomNo:room,
     roomSize:roomSize,
-    username:currPlayer.username,
-
+    username:currPlayer.username, 
+    round:roomMap[room].round,
+ 
   }
 
-
+  let currPlayerScore = currPlayer.score
+  currPlayerScore = currPlayerScore + parseInt(roomMap[room].tempscore/(roomSize-1));
+  roomMap[room].players[currTurn].score = currPlayerScore
   io.to(room).emit("turn", data);
-    console.log(data," turn sent")
+  io.to(room).emit("playerScore", roomMap[room].players);
+  roomMap[room].tempscore = 0;
     setTimeout(() => { 
-        
-        
-        let currPlayerScore = currPlayer.score
-        currPlayerScore = currPlayerScore + parseInt(roomMap[room].tempscore/(roomSize-1));
-        roomMap[room].players[currTurn].score = currPlayerScore
-        io.to(room).emit("endTurn", currPlayer.email);
-        io.to(room).emit("playerScore", roomMap[room].players);
-        console.log(roomMap[room].players)
-        roomMap[room].tempscore = 0;
-        privateRotateTurn(players,currTurn,room,roomSize);
+      io.to(room).emit("endTurn", currPlayer.email);
+      roomMap[room].privateRotateTurn();
     }, time);
 }
-
 
   io.on("connection",(socket)=>{
   console.log(`user connected : ${socket.id}`)
@@ -128,30 +137,24 @@ const privateRotateTurn = (players,currTurn,room) =>{
         currentTurn:-1,
         round:0,
         tempscore:0,
+        currPlayer:null,
       } 
-      players[data.email] = {
-        roomNo:room,
-        score:0,
-        roomSize:data.roomSize,
-        username:data.username
-      }
-      playersEmail.push(data.email);
-      console.log("room : ",roomMap)
+      roomMap[room].privateRotateTurn = () => privateRotateTurn(room);
       const value = {
         roomNo: room,
         roomSize: data.roomSize 
-      }
+      } 
       io.to(room).emit("roomNo",value);
     }
 
-    else{
+    else{ 
       if(type==="public" && publicRoom){
-        socket.join(publicRoom);
+        socket.join(publicRoom); 
         if(roomMap[publicRoom].players.findIndex(item=>item.email===email)===-1){
           roomMap[publicRoom].players.push({email:email,score:0,username:username});
         }
         if(roomMap[publicRoom].players.length===2){
-          privateRotateTurn(roomMap[publicRoom].players,-1,publicRoom)
+          roomMap[publicRoom].privateRotateTurn(); 
         }
         io.to(publicRoom).emit("playerScore",roomMap[publicRoom].players)
       }
@@ -184,18 +187,20 @@ const privateRotateTurn = (players,currTurn,room) =>{
     io.to(data).emit("roomPlayers",roomMap[data].players)
     if(roomMap[data].players.length === roomMap[data].roomSize){
       io.to(data).emit("canStart",true);
-      io.to(data).emit("playerScore",roomMap[data].players)
-      privateRotateTurn(roomMap[data].players,-1,data)
+
+      setTimeout(()=>{
+        io.to(data).emit("playerScore",roomMap[data].players)
+      
+      },1*1000)
+        roomMap[data].privateRotateTurn();
+ 
+      
+      
     }
   })
-
-   
-
     socket.on("send_msg",(data)=>{
       socket.to(data.roomNo).emit("receive_msg",data);
     })
-  
-
     socket.on('undoRedo',(data)=>{
       io.to(data.roomNo).emit('performUndoRedo',data);
     })
@@ -207,25 +212,23 @@ const privateRotateTurn = (players,currTurn,room) =>{
 
     socket.on("guessed",(data)=>{
       const roomNo = data.roomNo
-      const email = data.email
+      if(roomNo!==undefined && roomNo!==0){
+        const email = data.email
       const index = roomMap[roomNo].players.findIndex(item => item.email === email)
       let sc = roomMap[roomNo].players[index].score
       let time = 100-data.time;
       roomMap[roomNo].players[index].score = sc+time;
       roomMap[roomNo].tempscore = roomMap[roomNo].tempscore + time;
+      }
     })
     
     socket.on("choosedWord",(data)=>{
       io.to(data.roomNo).emit("choosenWord",data);
-    })
-
+    }) 
     socket.on("senddraw",(data)=>{
-        console.log("move")
         io.to(data.roomNo).emit("receivedraw",data)
     })
-
     socket.on("disconnect",()=>{
         console.log(`disconnected ${socket.id}`)
-    })
-
-}) 
+    })                                                                                                              
+})       
