@@ -3,11 +3,11 @@ import '../Styles/WhiteBoard.css';
 import WhiteBoardTools from "./WhiteBoardTools.js"
 import {socket} from "../App.js"
 import Time from './Time.js';
+import UnderscoreDisplay from './UnderscoreDisplay.js';
 import html2canvas from "html2canvas";
-import sound from '../Assets/play.wav';
 import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIcon, LineIcon, DeleteIcon, BucketIcon, DrawIcon, PenIcon} from "../Components/MySvgIcon.js";
 
- const WhiteBoard = ({id,username,email}) => {
+ const WhiteBoard = ({id,username,email,guessed,setGuessed}) => {
   	const canvasRef = useRef(null)
 	const wordRef = useRef("")
 	const startTime = Date.now()
@@ -17,6 +17,7 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 	const [chooseWord, setChooseWord] = useState("")
 	const [turn,setturn] = useState(false)
 	const [roomNo,setRoomNo] = useState(0);
+	const [choosenWord, setChoosenWord] = useState("")
 
 	const [winWidth, setWinWidth] = useState(window.innerWidth);
 
@@ -30,24 +31,14 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 	const [mode, setMode]= useState('draw');
 	const [startX , setStartX] = useState(null);
 	const [startY , setStartY] = useState(null);
-
+	const [noturn , setNoturn] = useState(false);
 	const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 	const [currentCursor, setCurrentCursor] = useState('default');
 
 	const [history, setHistory] = useState([]);
 	const [currentState, setCurrentState] = useState(null);
 	const [historyIndex, setHistoryIndex] = useState(-1);
-
 	const [value , setValue] = useState(0);
-	
-	function play(){
-		new Audio(sound).play()
-	  }
-
-	  useEffect(()=>{
-		play()
-	  },[value]);
-
 	useEffect(()=>{
 
 		const canvas = canvasRef.current
@@ -69,11 +60,17 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 
 		socket.on("turn",(data)=>{
 			if(data.currPlayer===email){
+				console.log("my turn",data)
 				clearCanvas()
 				setturn(true);		
 				setWords(data.words)
 				setRoomNo(data.roomNo);
 			}
+			else{
+				setNoturn(true);
+				console.log("not my turn");
+			}
+			
 		})
 		
 		
@@ -227,7 +224,9 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 		socket.on("endTurn",(data)=>{
 				setIsDrawing(false);
 				setturn(false);
+				setNoturn(false);
 				setChooseWord("");
+				setChoosenWord("");
 				setWords([]);
 				clearCanvas();
 				setHistoryIndex(-1);
@@ -236,8 +235,13 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 				setStartX(null);
 				setStartY(null);
 				setSeconds(0);
+				setGuessed(false);
 		})
 		
+		socket.on("choosenWord",(data)=>{
+			setChoosenWord(data.word);
+			console.log("choose word",choosenWord);
+		})
 
 		return () =>{
 			canvas.removeEventListener('mousedown',startDrawing);
@@ -449,7 +453,7 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 			):""
 		}
 		{
-		words && turn && !chooseWord?
+		words && turn && !chooseWord ?
 		(
 		<ul className='word'>
         	{words.map((word, index) => (
@@ -459,11 +463,14 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
           	</li></div>
         	))}
       	</ul>
-		):""
+		):
+		(choosenWord && !turn)&&<UnderscoreDisplay choosenWord={choosenWord} guessed={guessed}/>
+
+
 		
 		}	
 		{
-			turn?(  <Time id = {id}/> ):""
+			  (turn||noturn)&&<Time id = {id}/>
 		}
 	</div>
     <canvas id="divToTakeScreenShotOf" ref={canvasRef}
