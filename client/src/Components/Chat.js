@@ -3,14 +3,13 @@ import '../Styles/Chat.css';
 import {Link} from "react-router-dom";
 import {socket} from '../App.js';
 import Peer from 'simple-peer';
-function Chat({username, id,email}) {
+function Chat({username, id, email, guessed, setGuessed}) {
 
   
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [word, setWord] = useState('');
     const [drawid, setDrawid] = useState('')
-    const [guessed, setGuessed] = useState(false)
     const [seconds, setSeconds] = useState(0);
     const [roomNo, setRoomNo] = useState(0);
     const handleInputChange = (event) => {
@@ -75,7 +74,7 @@ function Chat({username, id,email}) {
           word: word, 
           time: seconds,
           username:username,
-          roomNo:roomNo,
+          roomNo:roomNo, 
         }
         setGuessed(true);  
         setSeconds(0);

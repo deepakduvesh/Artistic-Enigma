@@ -17,6 +17,7 @@ import Winner from '../Components/Winner.js'
   const [startGame, setStartGame] = useState(false);
   const [roomNo, setRoomNo] = useState(0);
   const [score, setScore] = useState(null)
+  const [guessed, setGuessed] = useState(false)
   const [exit, setExit] = useState(false)
   const [players, setPlayers] = useState([])
 
@@ -48,14 +49,14 @@ import Winner from '../Components/Winner.js'
           </div>
 
       <article  className="main">
-         <WhiteBoard username={username} id={id} email = {email}/>
+         <WhiteBoard username={username} id={id} email = {email} guessed={guessed} setGuessed={setGuessed}/>
       </article>
 
       <aside className="aside aside1">
          <LeaderBoard username={username} id={id} email = {email}/>
       </aside>
       <aside className="aside aside2">
-         <Chat username={username} id={id} email = {email}/>
+         <Chat username={username} id={id} email = {email} guessed={guessed} setGuessed={setGuessed}/>
       </aside>
 
      
