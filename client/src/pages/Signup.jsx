@@ -60,7 +60,7 @@ const Signup = () => {
       formData.append('username', username);
       formData.append('email', email);
       formData.append('password', password);
-        const { data } = await axios.post("http://localhost:4000/signup",formData);
+        const { data } = await axios.post("https://artistic-enigma-1.onrender.com/signup",formData);
 
         const { success, message } = data;
         if (success) {

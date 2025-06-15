@@ -26,14 +26,14 @@ import user_icon from '../Assets/profile.png'
         setParam1(loginData.email)
         const fetchProfile = async () => {
           try {
-              const response = await axios.get('http://localhost:4000/profile', {
+              const response = await axios.get('https://artistic-enigma-1.onrender.com/profile', {
                   params: {
                       param1:param1
                   },
               });
 
               if (response.data.status === true) {
-                  const serverUrl = `http://localhost:4000/uploads/${response.data.pic}`; 
+                  const serverUrl = `https://artistic-enigma-1.onrender.com/uploads/${response.data.pic}`; 
               
               setProfileImage(serverUrl);
               } else {
