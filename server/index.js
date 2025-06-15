@@ -33,6 +33,7 @@ const io = new Server(server,{
   cors:{
       origin:"https://artistic-enigma-hzf4.vercel.app/",
       methods:["GET","POST"],
+      credentials:true
   }
 }) 
 

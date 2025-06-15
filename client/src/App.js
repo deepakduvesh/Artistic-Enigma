@@ -10,7 +10,11 @@ import Play from "./pages/Play";
 import Lobby from "./pages/Lobby.js";
 import io from "socket.io-client";
 import PublicPlay from './pages/PublicPlay.js';
-export const socket = io.connect("https://artistic-enigma-1.onrender.com/")
+// export const socket = io.connect("https://artistic-enigma-1.onrender.com/")
+export const socket = io("https://artistic-enigma-1.onrender.com", {
+  transports: ["websocket"],         // ⬅️ Force WebSocket only (Render blocks polling)
+  withCredentials: true              // ⬅️ Allow cross-origin credentials (not strictly required but safe)
+});
 
 function App() {
   return (
