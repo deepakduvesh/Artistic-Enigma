@@ -5,9 +5,10 @@ import {socket} from "../App.js"
 import Time from './Time.js';
 import UnderscoreDisplay from './UnderscoreDisplay.js';
 import html2canvas from "html2canvas";
+
 import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIcon, LineIcon, DeleteIcon, BucketIcon, DrawIcon, PenIcon} from "../Components/MySvgIcon.js";
 
- const WhiteBoard = ({id,username,email,guessed,setGuessed}) => {
+const WhiteBoard = ({ id = id, guessed = false, setGuessed = () => {} }) => {
   	const canvasRef = useRef(null)
 	const wordRef = useRef("")
 	const startTime = Date.now()
@@ -20,7 +21,11 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 	const [choosenWord, setChoosenWord] = useState("")
 
 	const [winWidth, setWinWidth] = useState(window.innerWidth);
+	const ldata = sessionStorage.getItem("loginData");
+	const loginData = ldata ? JSON.parse(ldata) : {};
 
+	const [username, setusername] = useState(loginData.username || "");
+	const [email, setEmail] = useState(loginData.email || "");
 	
 	const [eraser ,setEraser] = useState("white");
 	const[lineColor, setLineColor] = useState("blue");
@@ -40,7 +45,7 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 	const [historyIndex, setHistoryIndex] = useState(-1);
 	const [value , setValue] = useState(0);
 	useEffect(()=>{
-
+		
 		const canvas = canvasRef.current
 		const ctx = canvas.getContext('2d')
 		wordRef.current = chooseWord;
@@ -59,15 +64,23 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 		ctx.fillStyle = lineColor
 
 		socket.on("turn",(data)=>{
+			setusername(loginData.username);
+			setEmail(loginData.email);
+			console.log("TURN EVENT RECEIVED", data); 
+			console.log("Current Player Email:", email); 
 			if(data.currPlayer===email){
 				console.log("my turn",data)
 				clearCanvas()
-				setturn(true);		
+				setturn(true);
+				setNoturn(false); 
 				setWords(data.words)
 				setRoomNo(data.roomNo);
-			}
-			else{
+				setChooseWord(""); 
+			}else{
+				setturn(false); 
 				setNoturn(true);
+				setChooseWord("");
+				setWords([]);
 				console.log("not my turn");
 			}
 			
@@ -399,11 +412,7 @@ import {UndoIcon, RedoIcon, DownloadIcon, ViewIcon, HideIcon, CircleIcon, RectIc
 
 		<div className="flex-container">
 			<div className="tools">
-			<WhiteBoardTools
-				setLineColor={setLineColor}
-				setWidth = {setWidth}
-				setLineOpacity={setLineOpacity} 
-			/>
+			
 			</div>
 
 			<div className="flex-tools">

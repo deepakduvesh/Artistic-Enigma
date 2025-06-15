@@ -3,7 +3,7 @@ import '../Styles/Chat.css';
 import {Link} from "react-router-dom";
 import {socket} from '../App.js';
 import Peer from 'simple-peer';
-function Chat({username, id, email, guessed, setGuessed}) {
+function Chat({username, id, email, guessed = false, setGuessed = () => {} }) {
 
   
     const [messages, setMessages] = useState([]);

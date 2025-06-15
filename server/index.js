@@ -53,12 +53,13 @@ const privateRotateTurn = (room) =>{
   const roomState = roomMap[room];
   let roomSize = roomMap[room].players.length;
   let currTurn = roomMap[room].currentTurn;
+  
   if (currTurn === -1) {
-    currTurn = 0;
+    currTurn = 0; 
   } else {
     currTurn = (currTurn + 1) % roomSize;
   }
-  console.log("room suze: ",roomSize , "curr turn : ",currTurn, "players : " ,roomMap[room].players);
+  console.log("room size: ",roomSize , "curr turn : ",currTurn, "players : " ,roomMap[room].players);
   let currPlayer = roomMap[room].players[currTurn];
 
   let time;
@@ -69,12 +70,8 @@ const privateRotateTurn = (room) =>{
  
   roomMap[room].currPlayer = currPlayer.email;
   roomMap[room].currentTurn = currTurn;
-  if(roomMap[room].round===1 && currTurn===0){
-    time = 100;
-  }
-  else{
-    time = 1000*20;
-  }
+  
+  time = 1000*20;
   
 
   if(roomMap[room].round === 3){
@@ -83,7 +80,7 @@ const privateRotateTurn = (room) =>{
     publicRoom=null;
     return;
   }
-  console.log("currturn", currTurn, "round ", roomMap[room].round, " time ", time);
+
   const randomIndex = Math.floor(Math.random() * words.length);
 
   
@@ -100,6 +97,7 @@ const privateRotateTurn = (room) =>{
   let currPlayerScore = currPlayer.score
   currPlayerScore = currPlayerScore + parseInt(roomMap[room].tempscore/(roomSize-1));
   roomMap[room].players[currTurn].score = currPlayerScore
+  console.log(data)
   io.to(room).emit("turn", data);
   io.to(room).emit("playerScore", roomMap[room].players);
   roomMap[room].tempscore = 0;
@@ -190,12 +188,8 @@ const privateRotateTurn = (room) =>{
 
       setTimeout(()=>{
         io.to(data).emit("playerScore",roomMap[data].players)
-      
-      },1*1000)
-        roomMap[data].privateRotateTurn();
- 
-      
-      
+        roomMap[data].privateRotateTurn(); 
+      }, 1000);
     }
   })
     socket.on("send_msg",(data)=>{
@@ -231,4 +225,4 @@ const privateRotateTurn = (room) =>{
     socket.on("disconnect",()=>{
         console.log(`disconnected ${socket.id}`)
     })                                                                                                              
-})       
+})
