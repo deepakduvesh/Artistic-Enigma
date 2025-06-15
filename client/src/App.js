@@ -10,7 +10,7 @@ import Play from "./pages/Play";
 import Lobby from "./pages/Lobby.js";
 import io from "socket.io-client";
 import PublicPlay from './pages/PublicPlay.js';
-export const socket = io.connect("http://localhost:4000")
+export const socket = io.connect("https://artistic-enigma-1.onrender.com/")
 
 function App() {
   return (
