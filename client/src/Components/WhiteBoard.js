@@ -132,9 +132,9 @@ const WhiteBoard = ({ id = id, guessed = false, setGuessed = () => {} }) => {
 				if(mode === 'draw'){
 					const x = event.offsetX;
 					const y = event.offsetY
-					ctx.lineTo(x,y)
+					// ctx.lineTo(x,y)
 					const data = {x:x,y:y,mode:'draw',color:lineColor,width:width,roomNo:roomNo}
-					ctx.stroke()
+					// ctx.stroke()
 					socket.emit('senddraw',data);
 				}
 				else if(mode === 'rect'){
