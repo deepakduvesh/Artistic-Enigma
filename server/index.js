@@ -31,7 +31,7 @@ app.get("/",(req,res)=>{
 export const server = http.createServer(app)             
 const io = new Server(server,{   
   cors:{
-      origin:"http://localhost:3000",
+      origin:"https://artistic-enigma-hzf4-7dgfdtmnh-deepaks-projects-e67b2598.vercel.app/",
       methods:["GET","POST"],
   }
 }) 
