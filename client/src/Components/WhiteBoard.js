@@ -102,7 +102,7 @@ const WhiteBoard = ({ id = id, guessed = false, setGuessed = () => {} }) => {
 					const x = event.offsetX;
 					const y = event.offsetY;
 					ctx.moveTo(x,y);
-					const data = {x:x,y:y,color:lineColor,width:width,mode:'draw',roomNo:roomNo}
+					const data = {x:x,y:y,color:lineColor,width:width,mode:'draw',roomNo:roomNo,email:email}
 					socket.emit('sendstart',data)
 					startDrawHistory();
 				}else{
@@ -132,9 +132,9 @@ const WhiteBoard = ({ id = id, guessed = false, setGuessed = () => {} }) => {
 				if(mode === 'draw'){
 					const x = event.offsetX;
 					const y = event.offsetY
-					// ctx.lineTo(x,y)
-					const data = {x:x,y:y,mode:'draw',color:lineColor,width:width,roomNo:roomNo}
-					// ctx.stroke()
+					ctx.lineTo(x,y)
+					const data = {x:x,y:y,mode:'draw',color:lineColor,width:width,roomNo:roomNo,email:email}
+					ctx.stroke()
 					socket.emit('senddraw',data);
 				}
 				else if(mode === 'rect'){
@@ -165,18 +165,18 @@ const WhiteBoard = ({ id = id, guessed = false, setGuessed = () => {} }) => {
 				const x = event.offsetX;
 				const y = event.offsetY;
 				if(mode === 'rect'){
-					const data = {x1:startX, y1:startY, x2:x-startX, y2:y-startY, mode:'rect',color:lineColor,width:width,roomNo:roomNo}
+					const data = {x1:startX, y1:startY, x2:x-startX, y2:y-startY, mode:'rect',color:lineColor,width:width,roomNo:roomNo,email:email}
 					ctx.strokeRect(startX,startY, x - startX, y - startY);
 					socket.emit('senddraw',data);
 				}
 				else if(mode === 'circle'){
 					drawCircle(x,y,startX,startY);
-					const data = {x1:x, y1:y, x2:startX, y2:startY,mode:'circle',color:lineColor,width:width,roomNo:roomNo}
+					const data = {x1:x, y1:y, x2:startX, y2:startY,mode:'circle',color:lineColor,width:width,roomNo:roomNo,email:email}
 					socket.emit('senddraw',data);
 				}
 				else if(mode === 'bucket'){
 					fill();
-					const data = {mode:'bucket',roomNo:roomNo}
+					const data = {mode:'bucket',roomNo:roomNo,email:email}
 					socket.emit("senddraw",data)
 				}
 				drawHistory();
@@ -208,6 +208,7 @@ const WhiteBoard = ({ id = id, guessed = false, setGuessed = () => {} }) => {
 		canvas.addEventListener('mouseup',endDrawing)
 
 		socket.on('receivestart',(data)=>{
+			if(data.email===email) return ;
 			if(data.mode==='draw'){
 				ctx.beginPath();
 				ctx.moveTo(data.x,data.y)
@@ -216,6 +217,7 @@ const WhiteBoard = ({ id = id, guessed = false, setGuessed = () => {} }) => {
 		})
 
 		socket.on('receivedraw',(data)=>{
+			if(data.email===email) return;
 			ctx.strokeStyle = data.color
 			ctx.lineWidth = data.width
 			if(data.mode==='draw') {
